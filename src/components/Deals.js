@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {Text, View, Image, Button} from 'react-native';
+import Spinner from './common/Spinner';
 
 class Deals extends Component{
     constructor() {
         super();
         this.state = {
           data: [],
+          loading: true
         };
     }
     componentWillMount() {
@@ -17,6 +19,7 @@ class Deals extends Component{
         .then(data => {
             this.setState({
               data: data.items,
+              loading: false
             });
         })
         .catch((err) => {
@@ -47,7 +50,7 @@ class Deals extends Component{
   render() {
     return (
       <View>
-          {this.showListofDeals()}
+          {this.state.loading ? <Spinner /> : this.showListofDeals()}
       </View>
     );
   }
