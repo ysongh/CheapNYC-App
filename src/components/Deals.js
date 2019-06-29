@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, Image} from 'react-native';
+import {Text, View, Image, Button} from 'react-native';
 
 class Deals extends Component{
     constructor() {
@@ -25,13 +25,19 @@ class Deals extends Component{
     }
 
     showListofDeals(){
+        const {deals__name, deals__rightSide, deals__container, deals__price} = styles;
         const deals = [];
         this.state.data.forEach(deal => {
             deals.push(
-                <View key={deal._id}>
-                    <Text>{deal.name}</Text>
-                    <Text>${deal.price}</Text>
-                    <Image source={{uri: deal.image}} style={{width: 193, height: 110}}/>
+                <View key={deal._id} style={deals__container}>
+                    <View>
+                        <Image source={{uri: deal.image}} style={{width: 100, height: 100}}/>
+                    </View>
+                    <View style={deals__rightSide}>
+                        <Text style={deals__name}>{deal.name}</Text>
+                        <Text style={deals__price}>${deal.price}</Text>
+                        <Button title="See More"/>
+                    </View>
                 </View>
                 
             )
@@ -45,6 +51,23 @@ class Deals extends Component{
       </View>
     );
   }
+}
+
+const styles = {
+    deals__container:{
+        backgroundColor: "#daf2f2",
+        flexDirection: "row",
+        marginBottom: 10
+    },
+    deals__rightSide:{
+        paddingLeft: 10,
+    },
+    deals__name:{
+        fontSize: 20
+    },
+    deals__price:{
+        fontSize: 20
+    }
 }
 
 export default Deals;

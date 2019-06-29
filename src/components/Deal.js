@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, Image} from 'react-native';
 
-export default class Deal extends Component{
+class Deal extends Component{
     constructor() {
         super();
         this.state = {
@@ -35,3 +35,5 @@ export default class Deal extends Component{
     );
   }
 }
+
+export default Deal;
