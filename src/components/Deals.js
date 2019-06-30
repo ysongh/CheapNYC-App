@@ -60,6 +60,7 @@ const styles = {
     deals__container:{
         backgroundColor: "#daf2f2",
         flexDirection: "row",
+        marginTop: 5,
         marginBottom: 10
     },
     deals__rightSide:{
