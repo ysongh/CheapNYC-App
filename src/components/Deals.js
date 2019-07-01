@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, Image, Button} from 'react-native';
+import {Text, View, Image, Button, ScrollView} from 'react-native';
 import Spinner from './common/Spinner';
 
 class Deals extends Component{
@@ -49,9 +49,9 @@ class Deals extends Component{
     }
   render() {
     return (
-      <View>
+      <ScrollView>
           {this.state.loading ? <Spinner /> : this.showListofDeals()}
-      </View>
+      </ScrollView>
     );
   }
 }
