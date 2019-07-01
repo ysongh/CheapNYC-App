@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, Image, Button, ScrollView} from 'react-native';
+import {Text, View, Image, ScrollView, TouchableOpacity} from 'react-native';
 import Spinner from './common/Spinner';
 
 class Deals extends Component{
@@ -28,7 +28,7 @@ class Deals extends Component{
     }
 
     showListofDeals(){
-        const {deals__name, deals__rightSide, deals__container, deals__price} = styles;
+        const {deals__name, deals__rightSide, deals__container, deals__price, deals__button} = styles;
         const deals = [];
         this.state.data.forEach(deal => {
             deals.push(
@@ -39,7 +39,9 @@ class Deals extends Component{
                     <View style={deals__rightSide}>
                         <Text style={deals__name}>{deal.name}</Text>
                         <Text style={deals__price}>${deal.price}</Text>
-                        <Button title="See More"/>
+                        <TouchableOpacity style={deals__button}>
+                            <Text style={deals__name}>See More</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 
@@ -68,6 +70,13 @@ const styles = {
     },
     deals__name:{
         fontSize: 20
+    },
+    deals__button:{
+        alignSelf: 'flex-start',
+        backgroundColor: "#f0b6b7",
+        borderRadius: 5,
+        padding: 6,
+        marginTop: 10
     },
     deals__price:{
         fontSize: 20
