@@ -24,8 +24,10 @@ class Deal extends Component{
         });
       }
   render() {
+    const {deal} = styles;
+
     return (
-      <View>
+      <View style={deal}>
         <Text>{this.state.data.name}</Text>
         <Image source={{uri: this.state.data.image}} style={{width: 193, height: 110}}/>
         <Text>{this.state.data.date}</Text>
@@ -33,6 +35,12 @@ class Deal extends Component{
         <Text>{this.state.data.description}</Text>
       </View>
     );
+  }
+}
+
+const styles = {
+  deal: {
+    padding: 5
   }
 }
 

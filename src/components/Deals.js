@@ -63,7 +63,8 @@ const styles = {
         backgroundColor: "#daf2f2",
         flexDirection: "row",
         marginTop: 5,
-        marginBottom: 10
+        marginBottom: 10,
+        padding: 2
     },
     deals__rightSide:{
         paddingLeft: 10,

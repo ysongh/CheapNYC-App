@@ -12,7 +12,7 @@ const Spinner = () => {
 
 const styles = {
     spinner__area:{
-        justifyContent: 'center',
+        marginTop: 150,
         alignItems: 'center',
         height: '100%'
     },
