@@ -24,17 +24,19 @@ class Deal extends Component{
         });
       }
   render() {
-    const {deal} = styles;
+    const {deal, deal__title, deal__image, deal__name} = styles;
 
-    console.log("f");
+    console.log(this.state.data);
 
     return (
       <View style={deal}>
-        <Text>{this.state.data.name}</Text>
-        <Image source={{uri: this.state.data.image}} style={{width: 193, height: 110}}/>
-        <Text>{this.state.data.date}</Text>
-        <Text>{this.state.data.location}</Text>
-        <Text>{this.state.data.description}</Text>
+        <Text style={deal__title}>{this.state.data.name}</Text>
+        <Image source={{uri: this.state.data.image}} style={deal__image}/>
+        <Text style={deal__name}>Company Name: {this.state.data.company}</Text>
+        <Text style={deal__name}>Location: {this.state.data.location}</Text>
+        <Text style={deal__name}>Catergory: {this.state.data.category}</Text>
+        <Text style={deal__name}>Price: ${this.state.data.price !== 0 ? this.state.data.price : "Free"}</Text>
+        <Text style={deal__name}>Description: {this.state.data.description}</Text>
       </View>
     );
   }
@@ -43,6 +45,22 @@ class Deal extends Component{
 const styles = {
   deal: {
     padding: 5
+  },
+  deal__title: {
+    fontSize: 20,
+    textAlign: "center",
+    color: "red",
+    marginTop: 5,
+    marginBottom: 10
+  },
+  deal__image:{
+    width: "100%",
+    height: 200,
+    marginBottom: 10
+  },
+  deal__name: {
+    fontSize: 14,
+    marginBottom: 4
   }
 }
 
