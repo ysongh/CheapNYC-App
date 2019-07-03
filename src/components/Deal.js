@@ -9,7 +9,7 @@ class Deal extends Component{
         };
     }
     componentDidMount() {
-        let url = `https://cnycserver.herokuapp.com/items/5d06d0c8f8af1d0004212e24`;
+        let url = "https://cnycserver.herokuapp.com/items/" + this.props.dealID;
         fetch(url)
         .then(res => {
             return res.json();
@@ -25,6 +25,8 @@ class Deal extends Component{
       }
   render() {
     const {deal} = styles;
+
+    console.log("f");
 
     return (
       <View style={deal}>

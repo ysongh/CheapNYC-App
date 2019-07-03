@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, Image, ScrollView, TouchableOpacity, Linking} from 'react-native';
+import { Actions } from 'react-native-router-flux';
+
 import Spinner from './common/Spinner';
 
 class Deals extends Component{
@@ -39,7 +41,7 @@ class Deals extends Component{
                     <View style={deals__rightSide}>
                         <Text style={deals__name}>{deal.name}</Text>
                         <Text style={deals__price}>${deal.price === 0 ? "Free" : deal.price}</Text>
-                        <TouchableOpacity style={deals__button} onPress={() => Linking.openURL("https://www.realcheapny.com/deal/" + deal._id)}>
+                        <TouchableOpacity style={deals__button} onPress={() => Actions.deal({dealID: deal._id})}>
                             <Text style={deals__name}>See More</Text>
                         </TouchableOpacity>
                     </View>
