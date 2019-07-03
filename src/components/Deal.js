@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Text, View, Image} from 'react-native';
 
+import Bold from './common/Bold';
+
 class Deal extends Component{
     constructor() {
         super();
@@ -26,17 +28,15 @@ class Deal extends Component{
   render() {
     const {deal, deal__title, deal__image, deal__name} = styles;
 
-    console.log(this.state.data);
-
     return (
       <View style={deal}>
         <Text style={deal__title}>{this.state.data.name}</Text>
         <Image source={{uri: this.state.data.image}} style={deal__image}/>
-        <Text style={deal__name}>Company Name: {this.state.data.company}</Text>
-        <Text style={deal__name}>Location: {this.state.data.location}</Text>
-        <Text style={deal__name}>Catergory: {this.state.data.category}</Text>
-        <Text style={deal__name}>Price: ${this.state.data.price !== 0 ? this.state.data.price : "Free"}</Text>
-        <Text style={deal__name}>Description: {this.state.data.description}</Text>
+        <Text style={deal__name}><Bold>Company Name:</Bold> {this.state.data.company}</Text>
+        <Text style={deal__name}><Bold>Location:</Bold> {this.state.data.location}</Text>
+        <Text style={deal__name}><Bold>Catergory:</Bold> {this.state.data.category}</Text>
+        <Text style={deal__name}><Bold>Price:</Bold> ${this.state.data.price !== 0 ? this.state.data.price : "Free"}</Text>
+        <Text style={deal__name}><Bold>Description:</Bold> {this.state.data.description}</Text>
       </View>
     );
   }
