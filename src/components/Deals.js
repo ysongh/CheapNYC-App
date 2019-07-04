@@ -9,7 +9,9 @@ class Deals extends Component{
         super();
         this.state = {
           data: [],
-          loading: true
+          loading: true,
+          totalDeals: 0,
+          currentPage: 2
         };
     }
     componentWillMount() {
@@ -21,7 +23,26 @@ class Deals extends Component{
         .then(data => {
             this.setState({
               data: data.items,
-              loading: false
+              loading: false,
+              totalDeals: Math.floor(data.totalDeals / 12) + 1
+            });
+        })
+        .catch((err) => {
+            console.log('There was a problem with your fetch request' + err.message);
+        });
+    }
+
+    loadPage(){
+        console.log(this.state.totalDeals)
+        let url = "https://cnycserver.herokuapp.com/items?page=" + this.state.currentPage;
+        fetch(url)
+        .then(res => {
+            return res.json();
+        })
+        .then((data) => {
+            this.setState({
+              data: this.state.data.concat(data.items),
+              currentPage: this.state.currentPage += 1
             });
         })
         .catch((err) => {
@@ -52,9 +73,16 @@ class Deals extends Component{
         return deals;
     }
   render() {
+    const loadButton = (
+        <TouchableOpacity style={styles.deals__loadMoreButton} onPress={() => this.loadPage()}>
+            <Text style={styles.deals__name}>Show More</Text>
+        </TouchableOpacity>
+    );
+
     return (
       <ScrollView>
           {this.state.loading ? <Spinner /> : this.showListofDeals()}
+          {this.state.currentPage > this.state.totalDeals ? null : loadButton}    
       </ScrollView>
     );
   }
@@ -83,6 +111,13 @@ const styles = {
     },
     deals__price:{
         fontSize: 20
+    },
+    deals__loadMoreButton:{
+        alignSelf: 'center',
+        backgroundColor: "#82cfe8",
+        borderRadius: 5,
+        padding: 6,
+        marginBottom: 40
     }
 }
 
