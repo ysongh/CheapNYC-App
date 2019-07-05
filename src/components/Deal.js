@@ -2,12 +2,14 @@ import React, {Component} from 'react';
 import {Text, View, Image} from 'react-native';
 
 import Bold from './common/Bold';
+import Spinner from './common/Spinner';
 
 class Deal extends Component{
     constructor() {
         super();
         this.state = {
           data: "",
+          loading: true,
         };
     }
     componentDidMount() {
@@ -19,6 +21,7 @@ class Deal extends Component{
         .then((data) => {
             this.setState({
               data: data.item,
+              loading: false
             });
         })
         .catch((err) => {
@@ -28,7 +31,7 @@ class Deal extends Component{
   render() {
     const {deal, deal__title, deal__image, deal__name} = styles;
 
-    return (
+    const dealContent = (
       <View style={deal}>
         <Text style={deal__title}>{this.state.data.name}</Text>
         <Image source={{uri: this.state.data.image}} style={deal__image}/>
@@ -37,6 +40,11 @@ class Deal extends Component{
         <Text style={deal__name}><Bold>Catergory:</Bold> {this.state.data.category}</Text>
         <Text style={deal__name}><Bold>Price:</Bold> ${this.state.data.price !== 0 ? this.state.data.price : "Free"}</Text>
         <Text style={deal__name}><Bold>Description:</Bold> {this.state.data.description}</Text>
+      </View>
+    );
+    return (
+      <View>
+        {this.state.loading ? <Spinner /> : dealContent}
       </View>
     );
   }
