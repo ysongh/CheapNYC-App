@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, Image} from 'react-native';
+import {Text, View, Image, ScrollView} from 'react-native';
 
 import Bold from './common/Bold';
 import Spinner from './common/Spinner';
@@ -16,18 +16,37 @@ class Deal extends Component{
         let url = "https://cnycserver.herokuapp.com/items/" + this.props.dealID;
         fetch(url)
         .then(res => {
-            return res.json();
+          return res.json();
         })
         .then((data) => {
-            this.setState({
-              data: data.item,
-              loading: false
-            });
+          console.log(data)
+          this.setState({
+            data: data.item,
+            loading: false
+          });
         })
         .catch((err) => {
-            console.log('There was a problem with your fetch request' + err.message);
+          console.log('There was a problem with your fetch request' + err.message);
         });
-      }
+    }
+
+    listOfReview(){
+      const reviews = [];
+      const {review} = styles;
+      this.state.data.reviews.forEach(review => {
+        reviews.push(
+              <View key={review._id} style={review}>
+                <Image source={{uri: review.image}} style={{width: 100, height: 100}}/>
+                <Text>{review.name}</Text>
+                <Text>{review.text}</Text>
+                <Text>{review.rating}</Text>
+              </View>
+              
+          )
+      });
+      return reviews;
+      console.log(this.state.data.reviews);
+    }
   render() {
     const {deal, deal__title, deal__image, deal__name} = styles;
 
@@ -43,9 +62,10 @@ class Deal extends Component{
       </View>
     );
     return (
-      <View>
+      <ScrollView>
         {this.state.loading ? <Spinner /> : dealContent}
-      </View>
+        {this.state.loading ? <Spinner /> : this.listOfReview()}
+      </ScrollView>
     );
   }
 }
@@ -69,6 +89,9 @@ const styles = {
   deal__name: {
     fontSize: 14,
     marginBottom: 4
+  },
+  review:{
+    padding:5
   }
 }
 

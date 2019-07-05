@@ -33,7 +33,6 @@ class Deals extends Component{
     }
 
     loadPage(){
-        console.log(this.state.totalDeals)
         let url = "https://cnycserver.herokuapp.com/items?page=" + this.state.currentPage;
         fetch(url)
         .then(res => {
