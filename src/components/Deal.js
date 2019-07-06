@@ -33,14 +33,16 @@ class Deal extends Component{
 
     listOfReview(){
       const reviews = [];
-      const {review} = styles;
+      const {reviewX, review__image, review__infor} = styles;
       this.state.data.reviews.forEach(review => {
         reviews.push(
-              <View key={review._id} style={review}>
-                <Image source={review.image ? {uri: review.image} : noImage} style={{width: 100, height: 100}}/>
-                <Text>{review.name}</Text>
-                <Text>{review.text}</Text>
-                <Text>{review.rating}</Text>
+              <View key={review._id} style={reviewX}>
+                <Image source={review.image ? {uri: review.image} : noImage} style={review__image}/>
+                <View style={review__infor}>
+                  <Text><Bold>Author:</Bold> {review.name}</Text>
+                  <Text>{review.text}</Text>
+                  <Text><Bold>Rating: </Bold>{review.rating}</Text>
+                </View>                
               </View>
               
           )
@@ -92,8 +94,19 @@ const styles = {
     fontSize: 14,
     marginBottom: 4
   },
-  review:{
-    padding:5
+  reviewX:{
+    padding: 5,
+    flexDirection: "row",
+  },
+  review__image:{
+    width: 100,
+    height: 100,
+    backgroundColor: "#6a81a6"
+  },
+  review__infor:{
+    flexDirection: "column",
+    justifyContent: 'space-around',
+    marginLeft: 5
   }
 }
 
