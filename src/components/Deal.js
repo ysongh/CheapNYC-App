@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, Image, ScrollView} from 'react-native';
 
+import noImage from '../img/blue.jpeg';
 import Bold from './common/Bold';
 import Spinner from './common/Spinner';
 
@@ -36,7 +37,7 @@ class Deal extends Component{
       this.state.data.reviews.forEach(review => {
         reviews.push(
               <View key={review._id} style={review}>
-                <Image source={{uri: review.image}} style={{width: 100, height: 100}}/>
+                <Image source={review.image ? {uri: review.image} : noImage} style={{width: 100, height: 100}}/>
                 <Text>{review.name}</Text>
                 <Text>{review.text}</Text>
                 <Text>{review.rating}</Text>
@@ -49,11 +50,12 @@ class Deal extends Component{
     }
   render() {
     const {deal, deal__title, deal__image, deal__name} = styles;
+    const dealImage = this.state.data.image;
 
     const dealContent = (
       <View style={deal}>
         <Text style={deal__title}>{this.state.data.name}</Text>
-        <Image source={{uri: this.state.data.image}} style={deal__image}/>
+        <Image source={dealImage ? {uri: dealImage} : noImage} style={deal__image}/>
         <Text style={deal__name}><Bold>Company Name:</Bold> {this.state.data.company}</Text>
         <Text style={deal__name}><Bold>Location:</Bold> {this.state.data.location}</Text>
         <Text style={deal__name}><Bold>Catergory:</Bold> {this.state.data.category}</Text>

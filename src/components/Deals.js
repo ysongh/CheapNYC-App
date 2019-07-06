@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Text, View, Image, ScrollView, TouchableOpacity, Linking} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
+import noImage from '../img/blue.jpeg';
 import Spinner from './common/Spinner';
 
 class Deals extends Component{
@@ -56,7 +57,7 @@ class Deals extends Component{
             deals.push(
                 <View key={deal._id} style={deals__container}>
                     <View>
-                        <Image source={{uri: deal.image}} style={{width: 100, height: 100}}/>
+                        <Image source={deal.image ? {uri: deal.image} : noImage} style={{width: 100, height: 100}}/>
                     </View>
                     <View style={deals__rightSide}>
                         <Text style={deals__name}>{deal.name}</Text>
