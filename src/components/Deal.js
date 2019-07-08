@@ -101,6 +101,7 @@ const styles = {
   review__image:{
     width: 100,
     height: 100,
+    borderRadius: 50,
     backgroundColor: "#6a81a6"
   },
   review__infor:{
