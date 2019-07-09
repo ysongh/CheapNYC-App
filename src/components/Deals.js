@@ -72,6 +72,11 @@ class Deals extends Component{
         });
         return deals;
     }
+
+    pressLogout(){
+        tokenG = "";
+        Actions.deals();
+    }
   render() {
     const loadButton = (
         <TouchableOpacity style={styles.deals__loadMoreButton} onPress={() => this.loadPage()}>
@@ -85,9 +90,15 @@ class Deals extends Component{
         </TouchableOpacity>
     );
 
+    const logoutButton = (
+        <TouchableOpacity style={styles.login__button} onPress={() => this.pressLogout()}>
+            <Text style={styles.deals__name}>Logout</Text>
+        </TouchableOpacity>
+    );
+
     return (
       <ScrollView>
-          {tokenG ? <Text>Weclome User</Text> : loginButton}
+          {tokenG ? logoutButton : loginButton}
           {this.state.loading ? <Spinner /> : this.showListofDeals()}
           {this.state.currentPage > this.state.totalDeals ? null : loadButton}    
       </ScrollView>
