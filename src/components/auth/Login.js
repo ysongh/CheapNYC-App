@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 class Login extends Component{
     constructor() {
@@ -31,6 +32,8 @@ class Login extends Component{
             this.setState({
                 token: data.token
             });
+            tokenG = data.token;
+            Actions.deals();
         })
         .catch((err) => {
             console.log('There was a problem with your fetch request' + err.message);
@@ -55,7 +58,6 @@ class Login extends Component{
                 <TouchableOpacity style={login__button} onPress={() => this.pressLogin()}>
                     <Text style={styles.deals__name}>Enter</Text>
                 </TouchableOpacity>
-                <Text>{this.state.token}</Text>
             </View>
         )
     }

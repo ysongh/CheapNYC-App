@@ -79,11 +79,15 @@ class Deals extends Component{
         </TouchableOpacity>
     );
 
+    const loginButton = (
+        <TouchableOpacity style={styles.login__button} onPress={() => Actions.login()}>
+            <Text style={styles.deals__name}>Login</Text>
+        </TouchableOpacity>
+    );
+
     return (
       <ScrollView>
-          <TouchableOpacity style={styles.login__button} onPress={() => Actions.login()}>
-            <Text style={styles.deals__name}>Login</Text>
-          </TouchableOpacity>
+          {tokenG ? <Text>Weclome User</Text> : loginButton}
           {this.state.loading ? <Spinner /> : this.showListofDeals()}
           {this.state.currentPage > this.state.totalDeals ? null : loadButton}    
       </ScrollView>
