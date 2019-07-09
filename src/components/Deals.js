@@ -81,6 +81,9 @@ class Deals extends Component{
 
     return (
       <ScrollView>
+          <TouchableOpacity style={styles.login__button} onPress={() => Actions.login()}>
+            <Text style={styles.deals__name}>Login</Text>
+          </TouchableOpacity>
           {this.state.loading ? <Spinner /> : this.showListofDeals()}
           {this.state.currentPage > this.state.totalDeals ? null : loadButton}    
       </ScrollView>
@@ -118,6 +121,12 @@ const styles = {
         borderRadius: 5,
         padding: 6,
         marginBottom: 40
+    },
+    login__button:{
+        alignSelf: 'flex-end',
+        backgroundColor: "#82cfe8",
+        borderRadius: 5,
+        padding: 10,
     }
 }
 
