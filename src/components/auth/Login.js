@@ -65,6 +65,7 @@ class Login extends Component{
                     label="Password"
                     value={this.state.password}
                     placeholder="Password"
+                    secureTextEntry
                     onChangeText = {password => this.setState({ password })} />
                 <TouchableOpacity style={login__button} onPress={() => this.pressLogin()}>
                     <Text style={styles.deals__name}>Enter</Text>
