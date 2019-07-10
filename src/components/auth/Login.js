@@ -59,7 +59,7 @@ class Login extends Component{
                 <Input
                     label="Email"
                     value={this.state.email}
-                    placeholder="Email"
+                    placeholder="EX - name@mail.com"
                     onChangeText = {email => this.setState({ email })} />
                 <Input
                     label="Password"
