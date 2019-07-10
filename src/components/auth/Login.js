@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+
+import Input from '../common/Input';
 
 class Login extends Component{
     constructor() {
@@ -49,21 +51,21 @@ class Login extends Component{
     }
 
     render(){
-        const { login__input, login__button, errorMessage } = styles;
+        const { login__button, errorMessage } = styles;
 
         return (
             <View>
                 <Text style={errorMessage}>{this.state.error}</Text>
-                <TextInput
+                <Input
+                    label="Email"
                     value={this.state.email}
                     placeholder="Email"
-                    onChangeText = {email => this.setState({ email })}
-                    style={login__input}/>
-                <TextInput
+                    onChangeText = {email => this.setState({ email })} />
+                <Input
+                    label="Password"
                     value={this.state.password}
                     placeholder="Password"
-                    onChangeText = {password => this.setState({ password })}
-                    style={login__input}/>
+                    onChangeText = {password => this.setState({ password })} />
                 <TouchableOpacity style={login__button} onPress={() => this.pressLogin()}>
                     <Text style={styles.deals__name}>Enter</Text>
                 </TouchableOpacity>
@@ -76,12 +78,6 @@ class Login extends Component{
 }
 
 const styles = {
-    login__input:{
-        height: 40,
-        width: '100%',
-        backgroundColor: 'yellow',
-        marginBottom: 10
-    },
     login__button:{
         alignSelf: 'center',
         backgroundColor: "#82cfe8",
