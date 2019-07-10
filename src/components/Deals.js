@@ -75,7 +75,7 @@ class Deals extends Component{
 
     pressLogout(){
         tokenG = "";
-        Actions.deals();
+        Actions.main();
     }
   render() {
     const loadButton = (
@@ -85,7 +85,7 @@ class Deals extends Component{
     );
 
     const loginButton = (
-        <TouchableOpacity style={styles.login__button} onPress={() => Actions.login()}>
+        <TouchableOpacity style={styles.login__button} onPress={() => Actions.auth()}>
             <Text style={styles.deals__name}>Login</Text>
         </TouchableOpacity>
     );

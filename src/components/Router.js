@@ -8,10 +8,16 @@ import Login from './auth/Login';
 const RouterArea = () => {
     return(
         <Router>
-            <Scene key="body">
-                <Scene key="deals" component={Deals} title="List of Deals" initial />
-                <Scene key="deal" component={Deal} title="Your Deal" />
-                <Scene key="login" component={Login} title="Login" />
+            <Scene key="body" hideNavBar>
+                <Scene key="auth">
+                    <Scene key="login" component={Login} title="Login" />
+                </Scene>
+                <Scene key="main" initial>
+                    <Scene key="deals" component={Deals} title="List of Deals" />
+                    <Scene key="deal" component={Deal} title="Your Deal" />
+                </Scene>
+                
+                
             </Scene>
         </Router>
     )

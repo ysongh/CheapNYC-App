@@ -34,7 +34,7 @@ class Login extends Component{
                     token: data.token
                 });
                 tokenG = data.token;
-                Actions.deals();
+                Actions.main();
             }
             else{
                 this.setState({
@@ -67,6 +67,9 @@ class Login extends Component{
                 <TouchableOpacity style={login__button} onPress={() => this.pressLogin()}>
                     <Text style={styles.deals__name}>Enter</Text>
                 </TouchableOpacity>
+                <TouchableOpacity style={login__button} onPress={() => Actions.main()}>
+                    <Text style={styles.deals__name}>Go Back</Text>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -84,6 +87,7 @@ const styles = {
         backgroundColor: "#82cfe8",
         borderRadius: 5,
         padding: 10,
+        marginBottom: 10
     },
     errorMessage:{
         textAlign: 'center',
