@@ -8,7 +8,8 @@ class Login extends Component{
         this.state = {
           email: '',
           password: '',
-          token: ''
+          token: '',
+          error: ''
         };
     }
 
@@ -27,13 +28,20 @@ class Login extends Component{
         .then(res => {
             return res.json();
         })
-        .then((data) => {
-            console.log(data)
-            this.setState({
-                token: data.token
-            });
-            tokenG = data.token;
-            Actions.deals();
+        .then(data => {
+            if(data.success){
+                this.setState({
+                    token: data.token
+                });
+                tokenG = data.token;
+                Actions.deals();
+            }
+            else{
+                this.setState({
+                    error: "Something went wrong, try again"
+                });
+            }
+            
         })
         .catch((err) => {
             console.log('There was a problem with your fetch request' + err.message);
@@ -41,10 +49,11 @@ class Login extends Component{
     }
 
     render(){
-        const { login__input, login__button } = styles;
+        const { login__input, login__button, errorMessage } = styles;
 
         return (
             <View>
+                <Text style={errorMessage}>{this.state.error}</Text>
                 <TextInput
                     value={this.state.email}
                     placeholder="Email"
@@ -68,7 +77,7 @@ const styles = {
         height: 40,
         width: '100%',
         backgroundColor: 'yellow',
-        marginBottom: 5
+        marginBottom: 10
     },
     login__button:{
         alignSelf: 'center',
@@ -76,6 +85,12 @@ const styles = {
         borderRadius: 5,
         padding: 10,
     },
+    errorMessage:{
+        textAlign: 'center',
+        margin: 15,
+        fontSize: 15,
+        color: 'red'
+    }
 }
 
 export default Login;
