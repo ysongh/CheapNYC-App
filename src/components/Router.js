@@ -3,6 +3,7 @@ import { Scene, Router } from 'react-native-router-flux';
 
 import Deals from './Deals';
 import Deal from './Deal';
+import AddReview from './AddReview';
 import Login from './auth/Login';
 
 const RouterArea = () => {
@@ -15,6 +16,7 @@ const RouterArea = () => {
                 <Scene key="main" initial>
                     <Scene key="deals" component={Deals} title="List of Deals" />
                     <Scene key="deal" component={Deal} title="Your Deal" />
+                    <Scene key="addReview" component={AddReview} title="AddReview" />
                 </Scene>
                 
                 

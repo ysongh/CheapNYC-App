@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Text, View, Image, ScrollView} from 'react-native';
+import {Text, View, Image, ScrollView, TouchableOpacity} from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 import noImage from '../img/blue.jpeg';
 import Bold from './common/Bold';
@@ -44,14 +45,13 @@ class Deal extends Component{
                   <Text><Bold>Rating: </Bold>{review.rating}</Text>
                 </View>                
               </View>
-              
           )
       });
       return reviews;
       console.log(this.state.data.reviews);
     }
   render() {
-    const {deal, deal__title, deal__image, deal__name} = styles;
+    const {deal, deal__title, deal__image, deal__name, deal__button} = styles;
     const dealImage = this.state.data.image;
 
     const dealContent = (
@@ -63,6 +63,9 @@ class Deal extends Component{
         <Text style={deal__name}><Bold>Catergory:</Bold> {this.state.data.category}</Text>
         <Text style={deal__name}><Bold>Price:</Bold> ${this.state.data.price !== 0 ? this.state.data.price : "Free"}</Text>
         <Text style={deal__name}><Bold>Description:</Bold> {this.state.data.description}</Text>
+        <TouchableOpacity style={deal__button} onPress={() => Actions.addReview()}>
+          <Text style={deal__name}>Add Review</Text>
+        </TouchableOpacity>
       </View>
     );
     return (
@@ -93,6 +96,13 @@ const styles = {
   deal__name: {
     fontSize: 14,
     marginBottom: 4
+  },
+  deal__button:{
+    alignSelf: 'flex-end',
+    backgroundColor: "#82cfe8",
+    borderRadius: 5,
+    padding: 6,
+    marginTop: 10
   },
   reviewX:{
     padding: 5,
