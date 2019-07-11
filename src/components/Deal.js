@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, Image, ScrollView, TouchableOpacity} from 'react-native';
-import { Actions } from 'react-native-router-flux';
 
+import AddReview from './AddReview';
 import noImage from '../img/blue.jpeg';
 import Bold from './common/Bold';
 import Spinner from './common/Spinner';
@@ -12,6 +12,7 @@ class Deal extends Component{
         this.state = {
           data: "",
           loading: true,
+          showModal: false
         };
     }
     componentDidMount() {
@@ -49,6 +50,9 @@ class Deal extends Component{
       });
       return reviews;
     }
+    onCloseModal(){
+      this.setState({ showModal: false });
+    }
   render() {
     const {deal, deal__title, deal__image, deal__name, deal__button} = styles;
     const dealImage = this.state.data.image;
@@ -66,15 +70,18 @@ class Deal extends Component{
     );
 
     const addReviewButton = (
-      <TouchableOpacity style={deal__button} onPress={() => Actions.addReview({dealID: this.state.data._id})}>
-          <Text style={deal__name}>Add Review</Text>
-        </TouchableOpacity>
+      <TouchableOpacity style={deal__button} onPress={() => this.setState({ showModal: true })}>
+        <Text style={deal__name}>Add Review</Text>
+      </TouchableOpacity>
     )
     return (
       <ScrollView>
         {this.state.loading ? <Spinner /> : dealContent}
         {tokenG ? addReviewButton : null}
         {this.state.loading ? <Spinner /> : this.listOfReview()}
+        <AddReview
+          visible={this.state.showModal}
+          onCancel={this.onCloseModal.bind(this)} />
       </ScrollView>
     );
   }

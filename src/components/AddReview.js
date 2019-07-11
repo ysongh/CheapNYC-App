@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Modal } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 import Input from './common/Input';
@@ -47,25 +47,36 @@ class AddReview extends Component{
     }
 
     render(){
-        const { login__button, errorMessage } = styles;
+        const { login__button, addReview, addReview__Area, errorMessage } = styles;
 
         return (
-            <View>
-                <Text style={errorMessage}>{this.state.error}</Text>
-                <Input
-                    label="Text"
-                    value={this.state.text}
-                    placeholder="Comment..."
-                    onChangeText = {text => this.setState({ text })} />
-                <Input
-                    label="Rating"
-                    value={this.state.rating}
-                    placeholder="1-5"
-                    onChangeText = {rating => this.setState({ rating })} />
-                <TouchableOpacity style={login__button} onPress={() => this.pressAddreview()}>
-                    <Text style={styles.deals__name}>Add</Text>
-                </TouchableOpacity>
-            </View>
+            <Modal
+                visible={this.props.visible}
+                transparent
+                animationType="fade"
+                onRequestClose={() => {}}>
+                <View>
+                    <View>
+                        <Text style={errorMessage}>{this.state.error}</Text>
+                        <Input
+                            label="Text"
+                            value={this.state.text}
+                            placeholder="Comment..."
+                            onChangeText = {text => this.setState({ text })} />
+                        <Input
+                            label="Rating"
+                            value={this.state.rating}
+                            placeholder="1-5"
+                            onChangeText = {rating => this.setState({ rating })} />
+                        <TouchableOpacity style={login__button} onPress={() => this.pressAddreview()}>
+                            <Text style={styles.deals__name}>Add</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={login__button} onPress={this.props.onCancel}>
+                            <Text style={styles.deals__name}>Cancel</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
         )
     }
 }
