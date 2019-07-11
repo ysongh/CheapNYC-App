@@ -32,7 +32,8 @@ class AddReview extends Component{
         })
         .then(data => {
             if(data.msg){
-                Actions.deal({dealID: this.props.dealID})
+                this.props.onCancel();
+                Actions.deals();
             }
             else{
                 this.setState({
@@ -47,7 +48,7 @@ class AddReview extends Component{
     }
 
     render(){
-        const { login__button, addReview, addReview__Area, errorMessage } = styles;
+        const { login__button, addReview, addReview__title, addReview__Area, errorMessage } = styles;
 
         return (
             <Modal
@@ -55,8 +56,9 @@ class AddReview extends Component{
                 transparent
                 animationType="fade"
                 onRequestClose={() => {}}>
-                <View>
-                    <View>
+                <View style={addReview}>
+                    <View style={addReview__Area}>
+                        <Text style={addReview__title}>Add Review</Text>
                         <Text style={errorMessage}>{this.state.error}</Text>
                         <Input
                             label="Text"
@@ -82,6 +84,20 @@ class AddReview extends Component{
 }
 
 const styles = {
+    addReview:{
+        backgroundColor: 'rgba(0, 0, 0, 0.75)',
+        position: 'relative',
+        flex: 1,
+    },
+    addReview__title:{
+        fontSize: 25,
+        padding: 5,
+        textAlign: 'center'
+    },
+    addReview__Area:{
+        backgroundColor: 'white',
+        marginTop: 150
+    },
     login__button:{
         alignSelf: 'center',
         backgroundColor: "#82cfe8",

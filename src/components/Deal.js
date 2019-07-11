@@ -80,6 +80,7 @@ class Deal extends Component{
         {tokenG ? addReviewButton : null}
         {this.state.loading ? <Spinner /> : this.listOfReview()}
         <AddReview
+          dealID={this.props.dealID}
           visible={this.state.showModal}
           onCancel={this.onCloseModal.bind(this)} />
       </ScrollView>
