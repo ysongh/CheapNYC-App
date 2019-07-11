@@ -48,7 +48,6 @@ class Deal extends Component{
           )
       });
       return reviews;
-      console.log(this.state.data.reviews);
     }
   render() {
     const {deal, deal__title, deal__image, deal__name, deal__button} = styles;
@@ -63,14 +62,18 @@ class Deal extends Component{
         <Text style={deal__name}><Bold>Catergory:</Bold> {this.state.data.category}</Text>
         <Text style={deal__name}><Bold>Price:</Bold> ${this.state.data.price !== 0 ? this.state.data.price : "Free"}</Text>
         <Text style={deal__name}><Bold>Description:</Bold> {this.state.data.description}</Text>
-        <TouchableOpacity style={deal__button} onPress={() => Actions.addReview()}>
-          <Text style={deal__name}>Add Review</Text>
-        </TouchableOpacity>
       </View>
     );
+
+    const addReviewButton = (
+      <TouchableOpacity style={deal__button} onPress={() => Actions.addReview({dealID: this.state.data._id})}>
+          <Text style={deal__name}>Add Review</Text>
+        </TouchableOpacity>
+    )
     return (
       <ScrollView>
         {this.state.loading ? <Spinner /> : dealContent}
+        {tokenG ? addReviewButton : null}
         {this.state.loading ? <Spinner /> : this.listOfReview()}
       </ScrollView>
     );

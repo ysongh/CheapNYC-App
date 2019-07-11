@@ -15,7 +15,35 @@ class AddReview extends Component{
     }
 
     pressAddreview(){
-        console.log(this.state.text, this.state.rating)
+        let url = `https://cnycserver.herokuapp.com/items/${this.props.dealID}/reviews`;
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({
+              text: this.state.text,
+              rating: this.state.rating
+            }),
+            headers: {
+              'Authorization': tokenG,
+              'Content-Type': 'application/json'
+            }
+        })
+        .then(res => {
+            return res.json();
+        })
+        .then(data => {
+            if(data.msg){
+                Actions.deal({dealID: this.props.dealID})
+            }
+            else{
+                this.setState({
+                    error: "Something went wrong, try again"
+                });
+            }
+            
+        })
+        .catch((err) => {
+            console.log('There was a problem with your fetch request' + err.message);
+        });
     }
 
     render(){
