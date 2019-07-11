@@ -73,11 +73,16 @@ class Deal extends Component{
       <TouchableOpacity style={deal__button} onPress={() => this.setState({ showModal: true })}>
         <Text style={deal__name}>Add Review</Text>
       </TouchableOpacity>
-    )
+    );
+
+    const loginLink = (
+      <Text style={deal__title}>Log in to add review</Text>
+    );
+
     return (
       <ScrollView>
         {this.state.loading ? <Spinner /> : dealContent}
-        {tokenG ? addReviewButton : null}
+        {tokenG ? addReviewButton : loginLink}
         {this.state.loading ? <Spinner /> : this.listOfReview()}
         <AddReview
           dealID={this.props.dealID}
@@ -109,7 +114,7 @@ const styles = {
     marginBottom: 4
   },
   deal__button:{
-    alignSelf: 'flex-end',
+    alignSelf: 'center',
     backgroundColor: "#82cfe8",
     borderRadius: 5,
     padding: 6,
