@@ -16,8 +16,6 @@ const RouterArea = () => {
                     <Scene key="deals" component={Deals} title="List of Deals" />
                     <Scene key="deal" component={Deal} title="Your Deal" />
                 </Scene>
-                
-                
             </Scene>
         </Router>
     )

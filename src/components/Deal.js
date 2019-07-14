@@ -107,6 +107,7 @@ const styles = {
   deal__image:{
     width: "100%",
     height: 200,
+    backgroundColor: "#6a81a6",
     marginBottom: 10
   },
   deal__name: {
