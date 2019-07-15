@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 import Input from '../common/Input';
+import Spinner from '../common/Spinner';
 
 class Login extends Component{
     constructor() {
@@ -11,11 +12,13 @@ class Login extends Component{
           email: '',
           password: '',
           token: '',
-          error: ''
+          error: '',
+          loading: false
         };
     }
 
     pressLogin(){
+        this.setState({loading: true});
         let url = "https://cnycserver.herokuapp.com/users/login";
         fetch(url, {
             method: 'POST',
@@ -40,18 +43,32 @@ class Login extends Component{
             }
             else{
                 this.setState({
-                    error: "Something went wrong, try again"
+                    error: "Something went wrong, try again",
+                    loading: false
                 });
             }
             
         })
         .catch((err) => {
             console.log('There was a problem with your fetch request' + err.message);
+            this.setState({loading: false});
         });
     }
 
     render(){
         const { login__button, errorMessage } = styles;
+
+        const loginButtons = (
+            <View>
+                <TouchableOpacity style={login__button} onPress={() => this.pressLogin()}>
+                    <Text style={styles.deals__name}>Enter</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={login__button} onPress={() => Actions.main()}>
+                    <Text style={styles.deals__name}>Go Back</Text>
+                </TouchableOpacity>
+            </View>
+            
+        );
 
         return (
             <View>
@@ -67,12 +84,8 @@ class Login extends Component{
                     placeholder="Password"
                     secureTextEntry
                     onChangeText = {password => this.setState({ password })} />
-                <TouchableOpacity style={login__button} onPress={() => this.pressLogin()}>
-                    <Text style={styles.deals__name}>Enter</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={login__button} onPress={() => Actions.main()}>
-                    <Text style={styles.deals__name}>Go Back</Text>
-                </TouchableOpacity>
+                
+                {this.state.loading ? <Spinner /> : loginButtons}
             </View>
         )
     }

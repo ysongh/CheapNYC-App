@@ -12,9 +12,9 @@ const Spinner = ({size}) => {
 
 const styles = {
     spinner__area:{
-        marginTop: 150,
+        marginTop: 30,
+        marginBottom: 30,
         alignItems: 'center',
-        height: '100%'
     }
 }
 

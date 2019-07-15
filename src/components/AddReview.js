@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Modal } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 import Input from './common/Input';
+import Spinner from'./common/Spinner';
 
 class AddReview extends Component{
     constructor() {
@@ -10,11 +11,13 @@ class AddReview extends Component{
         this.state = {
           text: '',
           rating: '',
+          loading: false,
           error: ''
         };
     }
 
     pressAddreview(){
+        this.setState({loading: true});
         let url = `https://cnycserver.herokuapp.com/items/${this.props.dealID}/reviews`;
         fetch(url, {
             method: 'POST',
@@ -37,18 +40,33 @@ class AddReview extends Component{
             }
             else{
                 this.setState({
-                    error: "Something went wrong, try again"
+                    error: "Something went wrong, try again",
+                    loading: false
                 });
             }
             
         })
         .catch((err) => {
-            console.log('There was a problem with your fetch request' + err.message);
+            this.setState({
+                error: "Something went wrong, try again",
+                loading: false
+            });
         });
     }
 
     render(){
         const { login__button, addReview, addReview__title, addReview__Area, errorMessage } = styles;
+
+        const addReviewButtons = (
+            <View>
+                <TouchableOpacity style={login__button} onPress={() => this.pressAddreview()}>
+                    <Text style={styles.deals__name}>Add</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={login__button} onPress={this.props.onCancel}>
+                    <Text style={styles.deals__name}>Cancel</Text>
+                </TouchableOpacity>
+            </View>
+        );
 
         return (
             <Modal
@@ -70,18 +88,13 @@ class AddReview extends Component{
                             value={this.state.rating}
                             placeholder="1-5"
                             onChangeText = {rating => this.setState({ rating })} />
-                        <TouchableOpacity style={login__button} onPress={() => this.pressAddreview()}>
-                            <Text style={styles.deals__name}>Add</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={login__button} onPress={this.props.onCancel}>
-                            <Text style={styles.deals__name}>Cancel</Text>
-                        </TouchableOpacity>
+                        {this.state.loading ? <Spinner /> : addReviewButtons}
                     </View>
                 </View>
             </Modal>
-        )
-    }
-}
+        );
+    };
+};
 
 const styles = {
     addReview:{
