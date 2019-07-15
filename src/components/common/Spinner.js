@@ -1,23 +1,20 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, ActivityIndicator} from 'react-native';
 
-const Spinner = () => {
-    const {spinner__area, spinner__text} = styles;
+const Spinner = ({size}) => {
+    const {spinner__area} = styles;
     return (
         <View style={spinner__area}>
-            <Text style={spinner__text}>Loading Deals...</Text>
+            <ActivityIndicator size={size || 'large'} />
         </View>
-    )
-}
+    );
+};
 
 const styles = {
     spinner__area:{
         marginTop: 150,
         alignItems: 'center',
         height: '100%'
-    },
-    spinner__text:{
-        fontSize: 30
     }
 }
 
