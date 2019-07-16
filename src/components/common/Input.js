@@ -13,6 +13,7 @@ const Input = ({ label, value, onChangeText, placeholder, secureTextEntry }) => 
                 autoCorrect={false}
                 secureTextEntry={secureTextEntry}
                 onChangeText={onChangeText}
+                clearButtonMode
                 style={input__field} />
         </View>
     )
