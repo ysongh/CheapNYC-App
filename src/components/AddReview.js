@@ -87,6 +87,7 @@ class AddReview extends Component{
                             label="Rating"
                             value={this.state.rating}
                             placeholder="1-5"
+                            keyboardType="numeric"
                             onChangeText = {rating => this.setState({ rating })} />
                         {this.state.loading ? <Spinner /> : addReviewButtons}
                     </View>

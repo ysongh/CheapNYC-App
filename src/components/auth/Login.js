@@ -77,11 +77,13 @@ class Login extends Component{
                     label="Email"
                     value={this.state.email}
                     placeholder="EX - name@mail.com"
+                    keyboardType="email-address"
                     onChangeText = {email => this.setState({ email })} />
                 <Input
                     label="Password"
                     value={this.state.password}
                     placeholder="Password"
+                    keyboardType="visbile-password"
                     secureTextEntry
                     onChangeText = {password => this.setState({ password })} />
                 

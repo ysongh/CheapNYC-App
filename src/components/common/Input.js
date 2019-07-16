@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput } from 'react-native';
 
-const Input = ({ label, value, onChangeText, placeholder, secureTextEntry }) => {
+const Input = ({ label, value, onChangeText, placeholder, secureTextEntry, keyboardType }) => {
     const { inputArea, input__label, input__field } = styles;
 
     return(
@@ -13,6 +13,7 @@ const Input = ({ label, value, onChangeText, placeholder, secureTextEntry }) => 
                 autoCorrect={false}
                 secureTextEntry={secureTextEntry}
                 onChangeText={onChangeText}
+                keyboardType={keyboardType}
                 clearButtonMode
                 style={input__field} />
         </View>
