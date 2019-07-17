@@ -1,16 +1,21 @@
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 
 import Router from './src/components/Router';
 
 global.tokenG = "";
 
-export default class App extends Component{
-  render() {
-    return (
+const App = () => {
+  return (
+    <Provider store={createStore}>
       <View style={{ flex: 1 }}>
         <Router />
       </View>
-    );
-  }
+    </Provider>
+    
+  );
 }
+
+export default App;
