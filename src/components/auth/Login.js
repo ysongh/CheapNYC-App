@@ -83,7 +83,6 @@ class Login extends Component{
                     label="Password"
                     value={this.state.password}
                     placeholder="Password"
-                    keyboardType="visbile-password"
                     secureTextEntry
                     onChangeText = {password => this.setState({ password })} />
                 

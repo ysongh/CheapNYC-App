@@ -14,7 +14,7 @@ const Input = ({ label, value, onChangeText, placeholder, secureTextEntry, keybo
                 secureTextEntry={secureTextEntry}
                 onChangeText={onChangeText}
                 keyboardType={keyboardType}
-                clearButtonMode
+                clearButtonMode="while-editing"
                 style={input__field} />
         </View>
     )
