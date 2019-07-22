@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, Image, ScrollView, TouchableOpacity, Linking} from 'react-native';
+import {Text, View, Image, ScrollView, TouchableOpacity} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 import noImage from '../img/blue.jpeg';
@@ -84,21 +84,8 @@ class Deals extends Component{
         </TouchableOpacity>
     );
 
-    const loginButton = (
-        <TouchableOpacity style={styles.login__button} onPress={() => Actions.auth()}>
-            <Text style={styles.deals__name}>Login</Text>
-        </TouchableOpacity>
-    );
-
-    const logoutButton = (
-        <TouchableOpacity style={styles.login__button} onPress={() => this.pressLogout()}>
-            <Text style={styles.deals__name}>Logout</Text>
-        </TouchableOpacity>
-    );
-
     return (
       <ScrollView>
-          {tokenG ? logoutButton : loginButton}
           {this.state.loading ? <Spinner /> : this.showListofDeals()}
           {this.state.currentPage > this.state.totalDeals ? null : loadButton}    
       </ScrollView>
@@ -136,12 +123,6 @@ const styles = {
         borderRadius: 5,
         padding: 6,
         marginBottom: 40
-    },
-    login__button:{
-        alignSelf: 'flex-end',
-        backgroundColor: "#82cfe8",
-        borderRadius: 5,
-        padding: 10,
     }
 }
 
