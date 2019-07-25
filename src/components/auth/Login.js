@@ -5,21 +5,24 @@ import { connect } from 'react-redux';
 
 import Input from '../common/Input';
 import Spinner from '../common/Spinner';
-import { changeEmail} from '../../actions/index';
+import { changeUserEmail, changeUserPassword } from '../../actions/index';
 
 class Login extends Component{
     constructor() {
         super();
         this.state = {
-          password: '',
           token: '',
           error: '',
           loading: false
         };
     }
 
-    onChangeEmail(text){
-        this.props.changeEmail(text);
+    changeEmail(text){
+        this.props.changeUserEmail(text);
+    }
+
+    changePassword(text){
+        this.props.changeUserPassword(text);
     }
 
     pressLogin(){
@@ -28,8 +31,8 @@ class Login extends Component{
         fetch(url, {
             method: 'POST',
             body: JSON.stringify({
-              email: this.state.email,
-              password: this.state.password
+              email: this.props.email,
+              password: this.props.password
             }),
             headers: {
               'Content-Type': 'application/json'
@@ -83,13 +86,13 @@ class Login extends Component{
                     value={this.props.email}
                     placeholder="EX - name@mail.com"
                     keyboardType="email-address"
-                    onChangeText = {this.onChangeEmail.bind(this)} />
+                    onChangeText = {this.changeEmail.bind(this)} />
                 <Input
                     label="Password"
-                    value={this.state.password}
+                    value={this.props.password}
                     placeholder="Password"
                     secureTextEntry
-                    onChangeText = {password => this.setState({ password })} />
+                    onChangeText = {this.changePassword.bind(this)} />
                 
                 {this.state.loading ? <Spinner /> : loginButtons}
             </View>
@@ -115,8 +118,9 @@ const styles = {
 
 const mapStateToProps = state => {
     return{
-        email: state.auth.email
+        email: state.auth.email,
+        password: state.auth.password
     }
 }
 
-export default connect(mapStateToProps, { changeEmail })(Login);
+export default connect(mapStateToProps, { changeUserEmail, changeUserPassword })(Login);
