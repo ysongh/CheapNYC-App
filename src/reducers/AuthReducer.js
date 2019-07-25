@@ -1,7 +1,14 @@
+import { CHANGE_EMAIL } from '../actions/types';
+
 const initialState = {
-    user: {}
+    email: ""
 };
 
-export default (state = initialState) => {
-    return state;
+export default (state = initialState, action) => {
+    switch(action.type){
+        case CHANGE_EMAIL:
+            
+        default:
+            return state;
+    }
 }
