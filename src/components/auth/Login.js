@@ -18,7 +18,7 @@ class Login extends Component{
         };
     }
 
-    onChangeEmail(){
+    onChangeEmail(text){
         this.props.changeEmail(text);
     }
 
@@ -80,7 +80,7 @@ class Login extends Component{
                 <Text style={errorMessage}>{this.state.error}</Text>
                 <Input
                     label="Email"
-                    value={this.state.email}
+                    value={this.props.email}
                     placeholder="EX - name@mail.com"
                     keyboardType="email-address"
                     onChangeText = {this.onChangeEmail.bind(this)} />
@@ -113,4 +113,10 @@ const styles = {
     }
 }
 
-export default connect(null, { changeEmail })(Login);
+const mapStateToProps = state => {
+    return{
+        email: state.auth.email
+    }
+}
+
+export default connect(mapStateToProps, { changeEmail })(Login);
