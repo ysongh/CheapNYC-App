@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 
 import Input from '../common/Input';
 import Spinner from '../common/Spinner';
+import { changeEmail} from '../../actions/index';
 
 class Login extends Component{
     constructor() {
         super();
         this.state = {
-          email: '',
           password: '',
           token: '',
           error: '',
           loading: false
         };
+    }
+
+    onChangeEmail(){
+        this.props.changeEmail(text);
     }
 
     pressLogin(){
@@ -78,7 +83,7 @@ class Login extends Component{
                     value={this.state.email}
                     placeholder="EX - name@mail.com"
                     keyboardType="email-address"
-                    onChangeText = {email => this.setState({ email })} />
+                    onChangeText = {this.onChangeEmail.bind(this)} />
                 <Input
                     label="Password"
                     value={this.state.password}
@@ -108,4 +113,4 @@ const styles = {
     }
 }
 
-export default Login;
+export default connect(null, { changeEmail })(Login);
