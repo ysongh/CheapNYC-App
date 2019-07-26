@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import Input from '../common/Input';
 import Spinner from '../common/Spinner';
-import { changeUserEmail, changeUserPassword } from '../../actions/index';
+import { changeUserEmail, changeUserPassword, loginUser } from '../../actions/index';
 
 class Login extends Component{
     constructor() {
@@ -27,40 +27,13 @@ class Login extends Component{
 
     pressLogin(){
         this.setState({loading: true});
-        let url = "https://cnycserver.herokuapp.com/users/login";
-        fetch(url, {
-            method: 'POST',
-            body: JSON.stringify({
-              email: this.props.email,
-              password: this.props.password
-            }),
-            headers: {
-              'Content-Type': 'application/json'
-            }
-        })
-        .then(res => {
-            return res.json();
-        })
-        .then(data => {
-            if(data.success){
-                this.setState({
-                    token: data.token
-                });
-                tokenG = data.token;
-                Actions.main();
-            }
-            else{
-                this.setState({
-                    error: "Something went wrong, try again",
-                    loading: false
-                });
-            }
-            
-        })
-        .catch((err) => {
-            console.log('There was a problem with your fetch request' + err.message);
-            this.setState({loading: false});
-        });
+
+        const userData = {
+            email: this.props.email,
+            password: this.props.password
+        }
+
+        this.props.loginUser(userData);
     }
 
     render(){
@@ -123,4 +96,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { changeUserEmail, changeUserPassword })(Login);
+export default connect(mapStateToProps, { changeUserEmail, changeUserPassword, loginUser })(Login);
