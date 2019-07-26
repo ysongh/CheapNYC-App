@@ -1,7 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import ReduxThunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
 
 import reducers from './src/reducers';
 import Router from './src/components/Router';
@@ -10,8 +11,10 @@ import Footer from './src/components/Footer';
 global.tokenG = "";
 
 const App = () => {
+  const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+  
   return (
-    <Provider store={createStore(reducers)}>
+    <Provider store={store}>
       <View style={{ flex: 1 }}>
         <Router />
         <Footer />

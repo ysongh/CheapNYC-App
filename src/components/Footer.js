@@ -33,7 +33,7 @@ const Footer = () => {
 
 const styles = {
     footer:{
-        padding: 27,
+        padding: 20,
         flexDirection: "row",
         justifyContent: 'space-around'
     },
