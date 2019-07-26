@@ -1,6 +1,6 @@
 import { Actions } from 'react-native-router-flux';
 
-import { CHANGE_USER_EMAIL, CHANGE_USER_PASSWORD, LOGIN_USER, LOGOUT_USER } from './types';
+import { CHANGE_USER_EMAIL, CHANGE_USER_PASSWORD, LOGIN_USER, LOGOUT_USER, ERROR_LOGIN_USER } from './types';
 
 export const changeUserEmail = text => {
     return{
@@ -38,20 +38,21 @@ export const loginUser = userData => {
                     type: LOGIN_USER,
                     payload: data.token
                 })
-                tokenG = data.token;
                 Actions.main();
             }
             else{
-                // this.setState({
-                //     error: "Something went wrong, try again",
-                //     loading: false
-                // });
+                dispatch({
+                    type: ERROR_LOGIN_USER,
+                    payload: "Something went wrong, try again"
+                })
             }
             
         })
         .catch((err) => {
-            console.log('There was a problem with your fetch request' + err.message);
-            // this.setState({loading: false});
+            dispatch({
+                type: ERROR_LOGIN_USER,
+                payload: "Something went wrong, try again later"
+            })
         });
     }
 }

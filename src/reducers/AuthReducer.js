@@ -1,9 +1,10 @@
-import { CHANGE_USER_EMAIL, CHANGE_USER_PASSWORD, LOGIN_USER, LOGOUT_USER } from '../actions/types';
+import { CHANGE_USER_EMAIL, CHANGE_USER_PASSWORD, LOGIN_USER, LOGOUT_USER, ERROR_LOGIN_USER } from '../actions/types';
 
 const initialState = {
     email: "",
     password: "",
-    token: ""
+    token: "",
+    error: "",
 };
 
 export default (state = initialState, action) => {
@@ -29,6 +30,11 @@ export default (state = initialState, action) => {
                 ...state,
                 token: ""
             };
+        case ERROR_LOGIN_USER:
+            return{
+                ...state,
+                error: action.payload
+            }
         default:
             return state;
     }

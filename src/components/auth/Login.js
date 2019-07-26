@@ -12,7 +12,6 @@ class Login extends Component{
         super();
         this.state = {
           token: '',
-          error: '',
           loading: false
         };
     }
@@ -34,6 +33,7 @@ class Login extends Component{
         }
 
         this.props.loginUser(userData);
+        this.setState({loading: false});
     }
 
     render(){
@@ -53,7 +53,7 @@ class Login extends Component{
 
         return (
             <View>
-                <Text style={errorMessage}>{this.state.error}</Text>
+                <Text style={errorMessage}>{this.props.error}</Text>
                 <Input
                     label="Email"
                     value={this.props.email}
@@ -92,7 +92,8 @@ const styles = {
 const mapStateToProps = state => {
     return{
         email: state.auth.email,
-        password: state.auth.password
+        password: state.auth.password,
+        error: state.auth.error
     }
 }
 
