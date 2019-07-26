@@ -1,6 +1,6 @@
 import { Actions } from 'react-native-router-flux';
 
-import { CHANGE_USER_EMAIL, CHANGE_USER_PASSWORD, LOGIN_USER } from './types';
+import { CHANGE_USER_EMAIL, CHANGE_USER_PASSWORD, LOGIN_USER, LOGOUT_USER } from './types';
 
 export const changeUserEmail = text => {
     return{
@@ -53,5 +53,11 @@ export const loginUser = userData => {
             console.log('There was a problem with your fetch request' + err.message);
             // this.setState({loading: false});
         });
+    }
+}
+
+export const logoutUser = text => {
+    return{
+        type: LOGOUT_USER
     }
 }

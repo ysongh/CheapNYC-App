@@ -1,4 +1,4 @@
-import { CHANGE_USER_EMAIL, CHANGE_USER_PASSWORD, LOGIN_USER } from '../actions/types';
+import { CHANGE_USER_EMAIL, CHANGE_USER_PASSWORD, LOGIN_USER, LOGOUT_USER } from '../actions/types';
 
 const initialState = {
     email: "",
@@ -23,6 +23,11 @@ export default (state = initialState, action) => {
             return{
                 ...state,
                 token: action.payload
+            };
+        case LOGOUT_USER:
+            return{
+                ...state,
+                token: ""
             };
         default:
             return state;

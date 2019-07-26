@@ -72,11 +72,7 @@ class Deals extends Component{
         });
         return deals;
     }
-
-    pressLogout(){
-        tokenG = "";
-        Actions.main();
-    }
+    
   render() {
     const loadButton = (
         <TouchableOpacity style={styles.deals__loadMoreButton} onPress={() => this.loadPage()}>
