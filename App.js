@@ -8,8 +8,6 @@ import reducers from './src/reducers';
 import Router from './src/components/Router';
 import Footer from './src/components/Footer';
 
-global.tokenG = "";
-
 const App = () => {
   const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
   

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View, Image, ScrollView, TouchableOpacity} from 'react-native';
+import { connect } from 'react-redux';
 
 import AddReview from './AddReview';
 import noImage from '../img/blue.jpeg';
@@ -82,7 +83,7 @@ class Deal extends Component{
     return (
       <ScrollView>
         {this.state.loading ? <Spinner /> : dealContent}
-        {tokenG ? addReviewButton : loginLink}
+        {this.props.token ? addReviewButton : loginLink}
         {this.state.loading ? <Spinner /> : this.listOfReview()}
         <AddReview
           dealID={this.props.dealID}
@@ -138,4 +139,10 @@ const styles = {
   }
 }
 
-export default Deal;
+const mapStateToProps = state => {
+  return{
+      token: state.auth.token
+  }
+}
+
+export default connect(mapStateToProps, null)(Deal);
