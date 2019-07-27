@@ -1,6 +1,6 @@
 import { Actions } from 'react-native-router-flux';
 
-import { CHANGE_USER_EMAIL, CHANGE_USER_PASSWORD, LOGIN_USER, LOGOUT_USER, ERROR_LOGIN_USER } from './types';
+import { CHANGE_USER_EMAIL, CHANGE_USER_PASSWORD, LOGIN_USER, LOGOUT_USER, ERROR_LOGIN_USER, AUTH_LOADING } from './types';
 
 export const changeUserEmail = text => {
     return{
@@ -18,6 +18,7 @@ export const changeUserPassword = text => {
 
 export const loginUser = userData => {
     return dispatch => {
+        dispatch(setAuthLoading());
         let url = "https://cnycserver.herokuapp.com/users/login";
         fetch(url, {
             method: 'POST',
@@ -62,3 +63,9 @@ export const logoutUser = text => {
         type: LOGOUT_USER
     }
 }
+
+export const setAuthLoading = () => {
+    return{
+        type: AUTH_LOADING
+    };
+};

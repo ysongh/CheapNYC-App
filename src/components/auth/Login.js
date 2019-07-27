@@ -8,14 +8,6 @@ import Spinner from '../common/Spinner';
 import { changeUserEmail, changeUserPassword, loginUser } from '../../actions/index';
 
 class Login extends Component{
-    constructor() {
-        super();
-        this.state = {
-          token: '',
-          loading: false
-        };
-    }
-
     changeEmail(text){
         this.props.changeUserEmail(text);
     }
@@ -25,8 +17,6 @@ class Login extends Component{
     }
 
     pressLogin(){
-        this.setState({loading: true});
-
         const userData = {
             email: this.props.email,
             password: this.props.password
@@ -67,7 +57,7 @@ class Login extends Component{
                     secureTextEntry
                     onChangeText = {this.changePassword.bind(this)} />
                 
-                {this.state.loading ? <Spinner /> : loginButtons}
+                {this.props.loading ? <Spinner /> : loginButtons}
             </View>
         )
     }
@@ -93,7 +83,8 @@ const mapStateToProps = state => {
     return{
         email: state.auth.email,
         password: state.auth.password,
-        error: state.auth.error
+        error: state.auth.error,
+        loading: state.auth.loading
     }
 }
 
