@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import Input from '../common/Input';
 import Spinner from '../common/Spinner';
-import { changeUserName, changeUserEmail, changeUserPassword, changeUserConfirmPassword } from '../../actions/index';
+import { changeUserName, changeUserEmail, changeUserPassword, changeUserConfirmPassword, registerUser } from '../../actions/index';
 
 
 class Register extends Component{
@@ -32,7 +32,7 @@ class Register extends Component{
             password: this.props.password,
             confirmPassword: this.props.confirmPassword
         }
-        console.log(userData);
+        this.props.registerUser(userData);
     }
 
     render(){
@@ -109,8 +109,9 @@ const mapStateToProps = state => {
         name: state.auth.name,
         email: state.auth.email,
         password: state.auth.password,
-        confirmPassword: state.auth.confirmPassword
+        confirmPassword: state.auth.confirmPassword,
+        error: state.auth.error
     }
 }
 
-export default connect(mapStateToProps, { changeUserName, changeUserEmail, changeUserPassword, changeUserConfirmPassword })(Register);
+export default connect(mapStateToProps, { changeUserName, changeUserEmail, changeUserPassword, changeUserConfirmPassword, registerUser })(Register);

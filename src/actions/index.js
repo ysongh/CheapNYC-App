@@ -38,6 +38,50 @@ export const changeUserName = text => {
     }
 }
 
+export const registerUser = userData => {
+    return dispatch => {
+        dispatch(setAuthLoading());
+        let url = "https://cnycserver.herokuapp.com/users/signup";
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({
+              name: userData.name,
+              email: userData.email,
+              password: userData.password,
+              confirmPassword: userData.confirmPassword
+            }),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+        })
+        .then(res => {
+            return res.json();
+        })
+        .then(data => {
+            if(data.success){
+                dispatch({
+                    type: LOGIN_USER,
+                    payload: data.token
+                })
+                Actions.main();
+            }
+            else{
+                dispatch({
+                    type: ERROR_LOGIN_USER,
+                    payload: data
+                })
+            }
+            
+        })
+        .catch((err) => {
+            dispatch({
+                type: ERROR_LOGIN_USER,
+                payload: {email: "Something went wrong, try again later"}
+            })
+        });
+    }
+}
+
 export const loginUser = userData => {
     return dispatch => {
         dispatch(setAuthLoading());
