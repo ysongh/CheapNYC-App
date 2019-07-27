@@ -27,15 +27,15 @@ class Login extends Component{
     }
 
     render(){
-        const { login, login__button, errorMessage } = styles;
+        const { login, buttonGroup, buttonGroup__button, buttonGroup__text, errorMessage } = styles;
 
         const loginButtons = (
-            <View>
-                <TouchableOpacity style={login__button} onPress={() => this.pressLogin()}>
-                    <Text style={styles.deals__name}>Enter</Text>
+            <View style={buttonGroup}>
+                <TouchableOpacity style={buttonGroup__button} onPress={() => this.pressLogin()}>
+                    <Text style={buttonGroup__text}>Enter</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={login__button} onPress={() => Actions.main()}>
-                    <Text style={styles.deals__name}>Go Back</Text>
+                <TouchableOpacity style={buttonGroup__button} onPress={() => Actions.main()}>
+                    <Text style={buttonGroup__text}>Go Back</Text>
                 </TouchableOpacity>
             </View>
             
@@ -68,18 +68,26 @@ const styles = {
     login:{
         marginTop: 30
     },
-    login__button:{
+    buttonGroup:{
+        flexDirection: "row",
+        justifyContent: 'space-around',
+    },
+    buttonGroup__button:{
         alignSelf: 'center',
         backgroundColor: "#82cfe8",
-        borderRadius: 5,
-        padding: 10,
+        paddingVertical: 12,
+        width: "45%",
         marginVertical: 10
+    },
+    buttonGroup__text:{
+        textAlign: 'center',
+        fontSize: 17
     },
     errorMessage:{
         marginLeft: 5,
         fontSize: 15,
         color: 'red'
-    }
+    },
 }
 
 const mapStateToProps = state => {

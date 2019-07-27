@@ -36,15 +36,15 @@ class Register extends Component{
     }
 
     render(){
-        const { register, register__button, errorMessage } = styles;
+        const { register, register__button, buttonGroup, buttonGroup__button, buttonGroup__text, errorMessage } = styles;
 
         const registerButtons = (
-            <View>
-                <TouchableOpacity style={register__button} onPress={() => this.pressRegister()}>
-                    <Text style={styles.deals__name}>Enter</Text>
+            <View style={buttonGroup}>
+                <TouchableOpacity style={buttonGroup__button} onPress={() => this.pressRegister()}>
+                    <Text style={styles.buttonGroup__text}>Enter</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={register__button} onPress={() => Actions.main()}>
-                    <Text style={styles.deals__name}>Go Back</Text>
+                <TouchableOpacity style={buttonGroup__button} onPress={() => Actions.main()}>
+                    <Text style={styles.buttonGroup__text}>Go Back</Text>
                 </TouchableOpacity>
             </View>
             
@@ -90,12 +90,20 @@ const styles = {
     register:{
         marginTop: 30
     },
-    register__button:{
+    buttonGroup:{
+        flexDirection: "row",
+        justifyContent: 'space-around',
+    },
+    buttonGroup__button:{
         alignSelf: 'center',
         backgroundColor: "#82cfe8",
-        borderRadius: 5,
-        padding: 10,
+        paddingVertical: 12,
+        width: "45%",
         marginVertical: 10
+    },
+    buttonGroup__text:{
+        textAlign: 'center',
+        fontSize: 17
     },
     errorMessage:{
         marginLeft: 5,
