@@ -51,15 +51,13 @@ class Footer extends Component{
 
 const styles = {
     footer:{
-        padding: 20,
         flexDirection: "row",
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
     },
     footer__button:{
-        alignSelf: 'flex-end',
-        backgroundColor: "#82cfe8",
-        borderRadius: 5,
-        padding: 10
+        backgroundColor: "#f0f2f5",
+        paddingHorizontal: 15,
+        paddingVertical: 20
     }   
 }
 
