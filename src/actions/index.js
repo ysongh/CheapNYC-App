@@ -34,7 +34,6 @@ export const loginUser = userData => {
             return res.json();
         })
         .then(data => {
-            console.log(data)
             if(data.success){
                 dispatch({
                     type: LOGIN_USER,

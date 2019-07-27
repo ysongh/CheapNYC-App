@@ -13,28 +13,37 @@ class Footer extends Component{
     render(){
         const {footer, footer__button} = styles;
 
-        const loginButton = (
-            <TouchableOpacity style={footer__button} onPress={() => Actions.auth()}>
-                <Text style={styles.deals__name}>Login</Text>
-            </TouchableOpacity>
-        );
-
-        const logoutButton = (
-            <TouchableOpacity style={footer__button} onPress={() => this.pressLogout()}>
-                <Text style={styles.deals__name}>Logout</Text>
-            </TouchableOpacity>
-        );
-
         const DealsButton = (
             <TouchableOpacity style={footer__button} onPress={() => Actions.deals()}>
                 <Text style={styles.deals__name}>Deals</Text>
             </TouchableOpacity>
         );
 
-        return (
+        const guestButtons = (
             <View style={footer}>
                 {DealsButton}
-                {this.props.token ? logoutButton : loginButton}
+                <TouchableOpacity style={footer__button} onPress={() => Actions.register()}>
+                    <Text style={styles.deals__name}>Register</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={footer__button} onPress={() => Actions.login()}>
+                    <Text style={styles.deals__name}>Login</Text>
+                </TouchableOpacity>
+            </View>
+        );
+
+        const userButtons = (
+            <View style={footer}>
+                {DealsButton}
+                <TouchableOpacity style={footer__button} onPress={() => this.pressLogout()}>
+                    <Text style={styles.deals__name}>Logout</Text>
+                </TouchableOpacity>
+            </View>
+            
+        );
+
+        return (
+            <View>
+                {this.props.token ? userButtons : guestButtons}
             </View>
         );
     }
