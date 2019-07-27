@@ -34,6 +34,7 @@ export const loginUser = userData => {
             return res.json();
         })
         .then(data => {
+            console.log(data)
             if(data.success){
                 dispatch({
                     type: LOGIN_USER,
@@ -44,7 +45,7 @@ export const loginUser = userData => {
             else{
                 dispatch({
                     type: ERROR_LOGIN_USER,
-                    payload: "Something went wrong, try again"
+                    payload: data
                 })
             }
             
@@ -52,7 +53,7 @@ export const loginUser = userData => {
         .catch((err) => {
             dispatch({
                 type: ERROR_LOGIN_USER,
-                payload: "Something went wrong, try again later"
+                payload: {email: "Something went wrong, try again later"}
             })
         });
     }
@@ -64,7 +65,7 @@ export const logoutUser = text => {
     }
 }
 
-export const setAuthLoading = () => {
+const setAuthLoading = () => {
     return{
         type: AUTH_LOADING
     };

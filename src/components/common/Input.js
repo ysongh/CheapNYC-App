@@ -22,7 +22,8 @@ const Input = ({ label, value, onChangeText, placeholder, secureTextEntry, keybo
 
 const styles = {
     inputArea:{
-        padding: 1
+        padding: 1,
+        marginTop: 10
     },
     input__label:{
         fontSize: 18,
@@ -32,7 +33,6 @@ const styles = {
         height: 40,
         width: '100%',
         backgroundColor: '#dcdee0',
-        marginBottom: 10,
         paddingRight: 5,
         paddingLeft: 5,
         fontSize: 15,

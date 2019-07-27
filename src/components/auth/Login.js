@@ -27,7 +27,7 @@ class Login extends Component{
     }
 
     render(){
-        const { login__button, errorMessage } = styles;
+        const { login, login__button, errorMessage } = styles;
 
         const loginButtons = (
             <View>
@@ -42,20 +42,21 @@ class Login extends Component{
         );
 
         return (
-            <View>
-                <Text style={errorMessage}>{this.props.error}</Text>
+            <View style={login}>
                 <Input
                     label="Email"
                     value={this.props.email}
                     placeholder="EX - name@mail.com"
                     keyboardType="email-address"
                     onChangeText = {this.changeEmail.bind(this)} />
+                <Text style={errorMessage}>{this.props.error.email}</Text>
                 <Input
                     label="Password"
                     value={this.props.password}
                     placeholder="Password"
                     secureTextEntry
                     onChangeText = {this.changePassword.bind(this)} />
+                <Text style={errorMessage}>{this.props.error.password}</Text>
                 
                 {this.props.loading ? <Spinner /> : loginButtons}
             </View>
@@ -64,16 +65,18 @@ class Login extends Component{
 }
 
 const styles = {
+    login:{
+        marginTop: 30
+    },
     login__button:{
         alignSelf: 'center',
         backgroundColor: "#82cfe8",
         borderRadius: 5,
         padding: 10,
-        marginBottom: 10
+        marginVertical: 10
     },
     errorMessage:{
-        textAlign: 'center',
-        margin: 15,
+        marginLeft: 5,
         fontSize: 15,
         color: 'red'
     }
