@@ -1,6 +1,14 @@
 import { Actions } from 'react-native-router-flux';
 
-import { CHANGE_USER_EMAIL, CHANGE_USER_PASSWORD, LOGIN_USER, LOGOUT_USER, ERROR_LOGIN_USER, AUTH_LOADING } from './types';
+import {
+    CHANGE_USER_EMAIL,
+    CHANGE_USER_PASSWORD,
+    CHANGE_USER_CONFIRM_PASSWORD,
+    LOGIN_USER, LOGOUT_USER,
+    ERROR_LOGIN_USER,
+    AUTH_LOADING,
+    CHANGE_USER_NAME
+} from './types';
 
 export const changeUserEmail = text => {
     return{
@@ -12,6 +20,20 @@ export const changeUserEmail = text => {
 export const changeUserPassword = text => {
     return{
         type: CHANGE_USER_PASSWORD,
+        payload: text
+    }
+}
+
+export const changeUserConfirmPassword = text => {
+    return{
+        type: CHANGE_USER_CONFIRM_PASSWORD,
+        payload: text
+    }
+}
+
+export const changeUserName = text => {
+    return{
+        type: CHANGE_USER_NAME,
         payload: text
     }
 }

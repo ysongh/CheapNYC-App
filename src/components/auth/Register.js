@@ -5,10 +5,14 @@ import { connect } from 'react-redux';
 
 import Input from '../common/Input';
 import Spinner from '../common/Spinner';
-import { changeUserEmail, changeUserPassword } from '../../actions/index';
+import { changeUserName, changeUserEmail, changeUserPassword, changeUserConfirmPassword } from '../../actions/index';
 
 
 class Register extends Component{
+    changeName(text){
+        this.props.changeUserName(text);
+    }
+
     changeEmail(text){
         this.props.changeUserEmail(text);
     }
@@ -17,8 +21,18 @@ class Register extends Component{
         this.props.changeUserPassword(text);
     }
 
+    changeConfirmPassword(text){
+        this.props.changeUserConfirmPassword(text);
+    }
+
     pressRegister(){
-        console.log("Register");
+        const userData = {
+            name: this.props.name,
+            email: this.props.email,
+            password: this.props.password,
+            confirmPassword: this.props.confirmPassword
+        }
+        console.log(userData);
     }
 
     render(){
@@ -26,7 +40,7 @@ class Register extends Component{
 
         const registerButtons = (
             <View>
-                <TouchableOpacity style={register__button} onPress={() => this.pressregister()}>
+                <TouchableOpacity style={register__button} onPress={() => this.pressRegister()}>
                     <Text style={styles.deals__name}>Enter</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={register__button} onPress={() => Actions.main()}>
@@ -40,7 +54,9 @@ class Register extends Component{
             <View style={register}>
                 <Input
                     label="Name"
-                    placeholder="EX - Joe Doe"/>
+                    value={this.props.name}
+                    placeholder="EX - Joe Doe"
+                    onChangeText = {this.changeName.bind(this)} />
                 <Text style={errorMessage}>{this.props.error.email}</Text>
                 <Input
                     label="Email"
@@ -58,8 +74,10 @@ class Register extends Component{
                 <Text style={errorMessage}>{this.props.error.password}</Text>
                 <Input
                     label="Confirm Password"
+                    value={this.props.confirmPassword}
                     placeholder="Confirm Password"
-                    secureTextEntry />
+                    secureTextEntry
+                    onChangeText = {this.changeConfirmPassword.bind(this)} />
                 <Text style={errorMessage}>{this.props.error.password}</Text>
                 
                 {this.props.loading ? <Spinner /> : registerButtons}
@@ -88,9 +106,11 @@ const styles = {
 
 const mapStateToProps = state => {
     return{
+        name: state.auth.name,
         email: state.auth.email,
-        password: state.auth.password
+        password: state.auth.password,
+        confirmPassword: state.auth.confirmPassword
     }
 }
 
-export default connect(mapStateToProps, { changeUserEmail, changeUserPassword })(Register);
+export default connect(mapStateToProps, { changeUserName, changeUserEmail, changeUserPassword, changeUserConfirmPassword })(Register);
