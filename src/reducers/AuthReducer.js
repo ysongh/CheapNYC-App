@@ -5,8 +5,9 @@ import {
     CHANGE_USER_NAME,
     LOGIN_USER,
     LOGOUT_USER,
-    ERROR_LOGIN_USER,
-    AUTH_LOADING
+    ERROR_AUTH,
+    AUTH_LOADING,
+    CLEAR_INPUTS
 } from '../actions/types';
 
 const initialState = {
@@ -45,9 +46,6 @@ export default (state = initialState, action) => {
             return{
                 ...state,
                 token: action.payload,
-                email: "",
-                password: "",
-                error: "",
                 loading: false
             };
         case LOGOUT_USER:
@@ -55,7 +53,7 @@ export default (state = initialState, action) => {
                 ...state,
                 token: ""
             };
-        case ERROR_LOGIN_USER:
+        case ERROR_AUTH:
             return{
                 ...state,
                 error: action.payload,
@@ -65,6 +63,15 @@ export default (state = initialState, action) => {
             return{
                 ...state,
                 loading: true
+            }
+        case CLEAR_INPUTS:
+            return{
+                ...state,
+                name: "",
+                email: "",
+                password: "",
+                confirmPassword: "",
+                error: "",
             }
         default:
             return state;

@@ -1,13 +1,15 @@
 import { Actions } from 'react-native-router-flux';
 
 import {
+    CHANGE_USER_NAME,
     CHANGE_USER_EMAIL,
     CHANGE_USER_PASSWORD,
     CHANGE_USER_CONFIRM_PASSWORD,
-    LOGIN_USER, LOGOUT_USER,
-    ERROR_LOGIN_USER,
+    LOGIN_USER,
+    LOGOUT_USER,
+    ERROR_AUTH,
     AUTH_LOADING,
-    CHANGE_USER_NAME
+    CLEAR_INPUTS
 } from './types';
 
 export const changeUserEmail = text => {
@@ -62,12 +64,13 @@ export const registerUser = userData => {
                 dispatch({
                     type: LOGIN_USER,
                     payload: data.token
-                })
+                });
+                dispatch(clearInputs());
                 Actions.main();
             }
             else{
                 dispatch({
-                    type: ERROR_LOGIN_USER,
+                    type: ERROR_AUTH,
                     payload: data
                 })
             }
@@ -75,7 +78,7 @@ export const registerUser = userData => {
         })
         .catch((err) => {
             dispatch({
-                type: ERROR_LOGIN_USER,
+                type: ERROR_AUTH,
                 payload: {email: "Something went wrong, try again later"}
             })
         });
@@ -104,12 +107,13 @@ export const loginUser = userData => {
                 dispatch({
                     type: LOGIN_USER,
                     payload: data.token
-                })
+                });
+                dispatch(clearInputs());
                 Actions.main();
             }
             else{
                 dispatch({
-                    type: ERROR_LOGIN_USER,
+                    type: ERROR_AUTH,
                     payload: data
                 })
             }
@@ -117,7 +121,7 @@ export const loginUser = userData => {
         })
         .catch((err) => {
             dispatch({
-                type: ERROR_LOGIN_USER,
+                type: ERROR_AUTH,
                 payload: {email: "Something went wrong, try again later"}
             })
         });
@@ -135,3 +139,9 @@ const setAuthLoading = () => {
         type: AUTH_LOADING
     };
 };
+
+const clearInputs = () => {
+    return{
+        type: CLEAR_INPUTS
+    }
+}

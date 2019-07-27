@@ -57,7 +57,7 @@ class Register extends Component{
                     value={this.props.name}
                     placeholder="EX - Joe Doe"
                     onChangeText = {this.changeName.bind(this)} />
-                <Text style={errorMessage}>{this.props.error.email}</Text>
+                <Text style={errorMessage}>{this.props.error.name}</Text>
                 <Input
                     label="Email"
                     value={this.props.email}
@@ -78,7 +78,7 @@ class Register extends Component{
                     placeholder="Confirm Password"
                     secureTextEntry
                     onChangeText = {this.changeConfirmPassword.bind(this)} />
-                <Text style={errorMessage}>{this.props.error.password}</Text>
+                <Text style={errorMessage}>{this.props.error.confirmPassword}</Text>
                 
                 {this.props.loading ? <Spinner /> : registerButtons}
             </View>
@@ -110,7 +110,8 @@ const mapStateToProps = state => {
         email: state.auth.email,
         password: state.auth.password,
         confirmPassword: state.auth.confirmPassword,
-        error: state.auth.error
+        error: state.auth.error,
+        loading: state.auth.loading
     }
 }
 
