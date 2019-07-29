@@ -5,10 +5,14 @@ import { connect } from 'react-redux';
 
 import Input from '../common/Input';
 import Spinner from '../common/Spinner';
-import { changeUserName, changeUserEmail, changeUserPassword, changeUserConfirmPassword, registerUser } from '../../actions/index';
+import { changeUserName, changeUserEmail, changeUserPassword, changeUserConfirmPassword, registerUser, clearInputs } from '../../actions/index';
 
 
 class Register extends Component{
+    componentDidMount(){
+        this.props.clearInputs();
+    }
+
     changeName(text){
         this.props.changeUserName(text);
     }
@@ -123,4 +127,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { changeUserName, changeUserEmail, changeUserPassword, changeUserConfirmPassword, registerUser })(Register);
+export default connect(mapStateToProps, { changeUserName, changeUserEmail, changeUserPassword, changeUserConfirmPassword, registerUser, clearInputs })(Register);

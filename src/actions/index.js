@@ -140,7 +140,7 @@ const setAuthLoading = () => {
     };
 };
 
-const clearInputs = () => {
+export const clearInputs = () => {
     return{
         type: CLEAR_INPUTS
     }
