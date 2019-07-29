@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 
 import Input from '../common/Input';
 import Spinner from '../common/Spinner';
-import { changeUserEmail, changeUserPassword, loginUser, clearInputs } from '../../actions/index';
+import { changeUserEmail, changeUserPassword, loginUser, clearInputs } from '../../actions/AuthActions';
 
 class Login extends Component{
     componentDidMount(){
         this.props.clearInputs();
     }
-    
+
     changeEmail(text){
         this.props.changeUserEmail(text);
     }

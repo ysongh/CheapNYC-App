@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import Input from '../common/Input';
 import Spinner from '../common/Spinner';
-import { changeUserName, changeUserEmail, changeUserPassword, changeUserConfirmPassword, registerUser, clearInputs } from '../../actions/index';
+import { changeUserName, changeUserEmail, changeUserPassword, changeUserConfirmPassword, registerUser, clearInputs } from '../../actions/AuthActions';
 
 
 class Register extends Component{
