@@ -10,3 +10,4 @@ export const AUTH_LOADING = 'AUTH_LOADING';
 export const CLEAR_INPUTS = 'CLEAR_INPUTS';
 
 export const GET_DEALS = 'GET_DEALS';
+export const GET_MORE_DEALS = 'GET_MORE_DEALS';

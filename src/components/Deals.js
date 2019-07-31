@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import noImage from '../img/blue.jpeg';
 import Spinner from './common/Spinner';
-import { getDeals } from '../actions/DealActions';
+import { getDeals, getMoreDeals } from '../actions/DealActions';
 
 class Deals extends Component{
     constructor() {
@@ -22,20 +22,7 @@ class Deals extends Component{
     }
 
     loadPage(){
-        let url = "https://cnycserver.herokuapp.com/items?page=" + this.state.currentPage;
-        fetch(url)
-        .then(res => {
-            return res.json();
-        })
-        .then((data) => {
-            this.setState({
-              data: this.state.data.concat(data.items),
-              currentPage: this.state.currentPage += 1
-            });
-        })
-        .catch((err) => {
-            console.log('There was a problem with your fetch request' + err.message);
-        });
+        this.props.getMoreDeals(this.props.currentPage);
     }
 
     showListofDeals(){
@@ -119,4 +106,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getDeals })(Deals);
+export default connect(mapStateToProps, { getDeals, getMoreDeals })(Deals);

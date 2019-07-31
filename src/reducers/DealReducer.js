@@ -1,5 +1,6 @@
 import {
-    GET_DEALS
+    GET_DEALS,
+    GET_MORE_DEALS
 } from '../actions/types';
 
 const initialState = {
@@ -18,6 +19,12 @@ export default (state = initialState, action) => {
                 loading: false,
                 totalDeals: Math.floor(action.payload.totalDeals / 12) + 1
             };
+        case GET_MORE_DEALS:
+            return{
+                ...state,
+                deals: state.deals.concat(action.payload.items),
+                currentPage: state.currentPage += 1
+            }
         default:
             return state;
     }
