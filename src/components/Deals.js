@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {Text, View, Image, ScrollView, TouchableOpacity} from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 
 import noImage from '../img/blue.jpeg';
 import Spinner from './common/Spinner';
+import { getDeals } from '../actions/DealActions';
 
 class Deals extends Component{
     constructor() {
@@ -16,21 +18,7 @@ class Deals extends Component{
         };
     }
     componentWillMount() {
-        let url = `https://cnycserver.herokuapp.com/items`;
-        fetch(url)
-        .then(res => {
-            return res.json();
-        })
-        .then(data => {
-            this.setState({
-              data: data.items,
-              loading: false,
-              totalDeals: Math.floor(data.totalDeals / 12) + 1
-            });
-        })
-        .catch((err) => {
-            console.log('There was a problem with your fetch request' + err.message);
-        });
+        this.props.getDeals();
     }
 
     loadPage(){
@@ -53,7 +41,7 @@ class Deals extends Component{
     showListofDeals(){
         const {deals__name, deals__rightSide, deals__container, deals__price, deals__button} = styles;
         const deals = [];
-        this.state.data.forEach(deal => {
+        this.props.deals.forEach(deal => {
             deals.push(
                 <View key={deal._id} style={deals__container}>
                     <View>
@@ -82,8 +70,8 @@ class Deals extends Component{
 
     return (
       <ScrollView>
-          {this.state.loading ? <Spinner /> : this.showListofDeals()}
-          {this.state.currentPage > this.state.totalDeals ? null : loadButton}    
+          {this.props.loading ? <Spinner /> : this.showListofDeals()}
+          {this.props.currentPage > this.props.totalDeals ? null : loadButton}    
       </ScrollView>
     );
   }
@@ -122,4 +110,13 @@ const styles = {
     }
 }
 
-export default Deals;
+const mapStateToProps = state => {
+    return{
+        deals: state.deal.deals,
+        totalDeals: state.deal.totalDeals,
+        currentPage: state.deal.currentPage,
+        loading: state.deal.loading
+    }
+}
+
+export default connect(mapStateToProps, { getDeals })(Deals);

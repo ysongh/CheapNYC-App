@@ -1,3 +1,7 @@
+import {
+    GET_DEALS
+} from '../actions/types';
+
 const initialState = {
     deals: [],
     loading: true,
@@ -7,6 +11,13 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch(action.type){
+        case GET_DEALS:
+            return{
+                ...state,
+                deals: action.payload.items,
+                loading: false,
+                totalDeals: Math.floor(action.payload.totalDeals / 12) + 1
+            };
         default:
             return state;
     }

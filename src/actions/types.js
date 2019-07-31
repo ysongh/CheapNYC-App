@@ -8,3 +8,5 @@ export const ERROR_AUTH = 'ERROR_AUTH';
 export const AUTH_LOADING = 'AUTH_LOADING';
 
 export const CLEAR_INPUTS = 'CLEAR_INPUTS';
+
+export const GET_DEALS = 'GET_DEALS';
