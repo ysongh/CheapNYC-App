@@ -8,15 +8,6 @@ import Spinner from './common/Spinner';
 import { getDeals, getMoreDeals } from '../actions/DealActions';
 
 class Deals extends Component{
-    constructor() {
-        super();
-        this.state = {
-          data: [],
-          loading: true,
-          totalDeals: 0,
-          currentPage: 2
-        };
-    }
     componentWillMount() {
         this.props.getDeals();
     }
@@ -99,10 +90,10 @@ const styles = {
 
 const mapStateToProps = state => {
     return{
-        deals: state.deal.deals,
-        totalDeals: state.deal.totalDeals,
-        currentPage: state.deal.currentPage,
-        loading: state.deal.loading
+        deals: state.deals.deals,
+        totalDeals: state.deals.totalDeals,
+        currentPage: state.deals.currentPage,
+        loading: state.deals.loading
     }
 }
 
