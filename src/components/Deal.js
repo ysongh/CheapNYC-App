@@ -6,38 +6,23 @@ import AddReview from './AddReview';
 import noImage from '../img/blue.jpeg';
 import Bold from './common/Bold';
 import Spinner from './common/Spinner';
+import { getDealById } from '../actions/DealActions';
 
 class Deal extends Component{
     constructor() {
         super();
         this.state = {
-          data: "",
-          loading: true,
           showModal: false
         };
     }
     componentDidMount() {
-        let url = "https://cnycserver.herokuapp.com/items/" + this.props.dealID;
-        fetch(url)
-        .then(res => {
-          return res.json();
-        })
-        .then((data) => {
-          console.log(data)
-          this.setState({
-            data: data.item,
-            loading: false
-          });
-        })
-        .catch((err) => {
-          console.log('There was a problem with your fetch request' + err.message);
-        });
+        this.props.getDealById(this.props.dealID);
     }
 
     listOfReview(){
       const reviews = [];
       const {reviewX, review__image, review__infor} = styles;
-      this.state.data.reviews.forEach(review => {
+      this.props.deal.reviews.forEach(review => {
         reviews.push(
               <View key={review._id} style={reviewX}>
                 <Image source={review.image ? {uri: review.image} : noImage} style={review__image}/>
@@ -56,17 +41,17 @@ class Deal extends Component{
     }
   render() {
     const {deal, deal__title, deal__image, deal__name, deal__button} = styles;
-    const dealImage = this.state.data.image;
+    const dealImage = this.props.deal.image;
 
     const dealContent = (
       <View style={deal}>
-        <Text style={deal__title}>{this.state.data.name}</Text>
+        <Text style={deal__title}>{this.props.deal.name}</Text>
         <Image source={dealImage ? {uri: dealImage} : noImage} style={deal__image}/>
-        <Text style={deal__name}><Bold>Company Name:</Bold> {this.state.data.company}</Text>
-        <Text style={deal__name}><Bold>Location:</Bold> {this.state.data.location}</Text>
-        <Text style={deal__name}><Bold>Catergory:</Bold> {this.state.data.category}</Text>
-        <Text style={deal__name}><Bold>Price:</Bold> ${this.state.data.price !== 0 ? this.state.data.price : "Free"}</Text>
-        <Text style={deal__name}><Bold>Description:</Bold> {this.state.data.description}</Text>
+        <Text style={deal__name}><Bold>Company Name:</Bold> {this.props.deal.company}</Text>
+        <Text style={deal__name}><Bold>Location:</Bold> {this.props.deal.location}</Text>
+        <Text style={deal__name}><Bold>Catergory:</Bold> {this.props.deal.category}</Text>
+        <Text style={deal__name}><Bold>Price:</Bold> ${this.props.deal.price !== 0 ? this.props.deal.price : "Free"}</Text>
+        <Text style={deal__name}><Bold>Description:</Bold> {this.props.deal.description}</Text>
       </View>
     );
 
@@ -82,9 +67,9 @@ class Deal extends Component{
 
     return (
       <ScrollView>
-        {this.state.loading ? <Spinner /> : dealContent}
+        {this.props.loading ? <Spinner /> : dealContent}
         {this.props.token ? addReviewButton : loginLink}
-        {this.state.loading ? <Spinner /> : this.listOfReview()}
+        {this.props.loading ? <Spinner /> : this.listOfReview()}
         <AddReview
           dealID={this.props.dealID}
           visible={this.state.showModal}
@@ -141,8 +126,10 @@ const styles = {
 
 const mapStateToProps = state => {
   return{
-      token: state.auth.token
+      token: state.auth.token,
+      deal: state.deal.deal,
+      loading: state.deal.loading
   }
 }
 
-export default connect(mapStateToProps, null)(Deal);
+export default connect(mapStateToProps, { getDealById })(Deal);

@@ -8,7 +8,7 @@ import Spinner from './common/Spinner';
 import { getDeals, getMoreDeals } from '../actions/DealActions';
 
 class Deals extends Component{
-    componentWillMount() {
+    componentDidMount() {
         this.props.getDeals();
     }
 

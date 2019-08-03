@@ -1,5 +1,6 @@
 import {
     GET_DEALS,
+    GET_DEAL_BY_ID,
     GET_MORE_DEALS
 } from './types';
 
@@ -13,6 +14,25 @@ export const getDeals = () => {
             .then(data => {
                 dispatch({
                     type: GET_DEALS,
+                    payload: data
+                });
+            })
+            .catch((err) => {
+                console.log('There was a problem with your fetch request' + err.message);
+            });
+    }
+}
+
+export const getDealById = dealID => {
+    return dispatch => {
+        let url = "https://cnycserver.herokuapp.com/items/" + dealID;
+        fetch(url)
+            .then(res => {
+                return res.json();
+            })
+            .then(data => {
+                dispatch({
+                    type: GET_DEAL_BY_ID,
                     payload: data
                 });
             })
