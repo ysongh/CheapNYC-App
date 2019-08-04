@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Modal } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 
 import Input from './common/Input';
-import Spinner from'./common/Spinner';
+import Spinner from './common/Spinner';
+import { changeReviewText, changeReviewRating } from '../actions/ReviewActions';
 
 class AddReview extends Component{
     constructor() {
         super();
         this.state = {
-          text: '',
-          rating: '',
           loading: false,
           error: ''
         };
+    }
+
+    changeText(text){
+        this.props.changeReviewText(text);
+    }
+
+    changeRating(text){
+        this.props.changeReviewRating(text);
     }
 
     pressAddreview(){
@@ -80,15 +88,15 @@ class AddReview extends Component{
                         <Text style={errorMessage}>{this.state.error}</Text>
                         <Input
                             label="Text"
-                            value={this.state.text}
+                            value={this.props.text}
                             placeholder="Comment..."
-                            onChangeText = {text => this.setState({ text })} />
+                            onChangeText = {this.changeText.bind(this)} />
                         <Input
                             label="Rating"
-                            value={this.state.rating}
+                            value={this.props.rating}
                             placeholder="1-5"
                             keyboardType="numeric"
-                            onChangeText = {rating => this.setState({ rating })} />
+                            onChangeText = {this.changeRating.bind(this)} />
                         {this.state.loading ? <Spinner /> : addReviewButtons}
                     </View>
                 </View>
@@ -127,4 +135,11 @@ const styles = {
     }
 }
 
-export default AddReview;
+const mapStateToProps = state => {
+    return{
+        text: state.review.text,
+        rating: state.review.rating
+    }
+}
+
+export default connect(mapStateToProps, { changeReviewText, changeReviewRating })(AddReview);
