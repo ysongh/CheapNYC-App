@@ -2,7 +2,8 @@ import {
     CHANGE_REVIEW_TEXT,
     CHANGE_REVIEW_RATING,
     SET_REVIEW_LOADING,
-    REMOVE_REVIEW_LOADING
+    REMOVE_REVIEW_LOADING,
+    REVIEW_ERROR
 } from '../actions/types';
 
 const initialState = {
@@ -30,10 +31,15 @@ export default (state = initialState, action) => {
                 loading: true
             }
         case REMOVE_REVIEW_LOADING:
-                return{
-                    ...state,
-                    loading: false
-                }
+            return{
+                ...state,
+                loading: false
+            }
+        case REVIEW_ERROR:
+            return{
+                ...state,
+                error: action.payload
+            }
         default:
             return state;
     }

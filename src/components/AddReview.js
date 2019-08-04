@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Modal } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
 import Input from './common/Input';
@@ -48,18 +47,19 @@ class AddReview extends Component{
                 <View style={addReview}>
                     <View style={addReview__Area}>
                         <Text style={addReview__title}>Add Review</Text>
-                        <Text style={errorMessage}>{this.props.error}</Text>
                         <Input
                             label="Text"
                             value={this.props.text}
                             placeholder="Comment..."
                             onChangeText = {this.changeText.bind(this)} />
+                        <Text style={errorMessage}>{this.props.error.text}</Text>
                         <Input
                             label="Rating"
                             value={this.props.rating}
                             placeholder="1-5"
                             keyboardType="numeric"
                             onChangeText = {this.changeRating.bind(this)} />
+                        <Text style={errorMessage}>{this.props.error.rating}</Text>
                         {this.props.loading ? <Spinner /> : addReviewButtons}
                     </View>
                 </View>
@@ -91,8 +91,7 @@ const styles = {
         marginBottom: 10
     },
     errorMessage:{
-        textAlign: 'center',
-        margin: 15,
+        marginLeft: 5,
         fontSize: 15,
         color: 'red'
     }

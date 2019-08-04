@@ -6,7 +6,8 @@ import {
     OPEN_ADDREVIEW_MODAL,
     CLOSE_ADDREVIEW_MODAL,
     SET_REVIEW_LOADING,
-    REMOVE_REVIEW_LOADING
+    REMOVE_REVIEW_LOADING,
+    REVIEW_ERROR
 } from './types';
 
 export const changeReviewText = text => {
@@ -47,7 +48,10 @@ export const addReview = (reviewData, dealID) => {
                 dispatch(closeAddReviewModal());
             }
             else{
-                console.log(err);
+                dispatch({
+                    type: REVIEW_ERROR,
+                    payload: data
+                })
             }
             dispatch(removeReviewLoading());
             
