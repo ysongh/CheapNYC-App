@@ -5,7 +5,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-    deal: [],
+    deal: "",
     loading: true,
     showAddReviewModal: false
 }

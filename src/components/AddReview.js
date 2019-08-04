@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import Input from './common/Input';
 import Spinner from './common/Spinner';
-import { changeReviewText, changeReviewRating } from '../actions/ReviewActions';
+import { changeReviewText, changeReviewRating, addReview } from '../actions/ReviewActions';
 
 class AddReview extends Component{
     constructor() {
@@ -25,41 +25,12 @@ class AddReview extends Component{
     }
 
     pressAddreview(){
-        this.setState({loading: true});
-        let url = `https://cnycserver.herokuapp.com/items/${this.props.dealID}/reviews`;
-        fetch(url, {
-            method: 'POST',
-            body: JSON.stringify({
-              text: this.state.text,
-              rating: this.state.rating
-            }),
-            headers: {
-              'Authorization': tokenG,
-              'Content-Type': 'application/json'
-            }
-        })
-        .then(res => {
-            return res.json();
-        })
-        .then(data => {
-            if(data.msg){
-                this.props.onCancel();
-                Actions.deals();
-            }
-            else{
-                this.setState({
-                    error: "Something went wrong, try again",
-                    loading: false
-                });
-            }
-            
-        })
-        .catch((err) => {
-            this.setState({
-                error: "Something went wrong, try again",
-                loading: false
-            });
-        });
+        const reviewData = {
+            text: this.props.text,
+            rating: this.props.rating,
+            token: this.props.token
+        }
+        this.props.addReview(reviewData, this.props.dealID);
     }
 
     render(){
@@ -137,9 +108,10 @@ const styles = {
 
 const mapStateToProps = state => {
     return{
+        token: state.auth.token,
         text: state.review.text,
         rating: state.review.rating
     }
 }
 
-export default connect(mapStateToProps, { changeReviewText, changeReviewRating })(AddReview);
+export default connect(mapStateToProps, { changeReviewText, changeReviewRating, addReview })(AddReview);
