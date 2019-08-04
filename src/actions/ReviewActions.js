@@ -4,7 +4,9 @@ import {
     CHANGE_REVIEW_TEXT,
     CHANGE_REVIEW_RATING,
     OPEN_ADDREVIEW_MODAL,
-    CLOSE_ADDREVIEW_MODAL
+    CLOSE_ADDREVIEW_MODAL,
+    SET_REVIEW_LOADING,
+    REMOVE_REVIEW_LOADING
 } from './types';
 
 export const changeReviewText = text => {
@@ -23,6 +25,7 @@ export const changeReviewRating = text => {
 
 export const addReview = (reviewData, dealID) => {
     return dispatch => {
+        dispatch(setReviewLoading());
         let url = `https://cnycserver.herokuapp.com/items/${dealID}/reviews`;
         fetch(url, {
             method: 'POST',
@@ -46,6 +49,7 @@ export const addReview = (reviewData, dealID) => {
             else{
                 console.log(err);
             }
+            dispatch(removeReviewLoading());
             
         })
         .catch((err) => {
@@ -63,5 +67,17 @@ export const openAddReviewModal = () => {
 export const closeAddReviewModal = () => {
     return{
         type: CLOSE_ADDREVIEW_MODAL
+    }
+}
+
+const setReviewLoading = () => {
+    return{
+        type: SET_REVIEW_LOADING
+    }
+}
+
+const removeReviewLoading = () => {
+    return{
+        type: REMOVE_REVIEW_LOADING
     }
 }

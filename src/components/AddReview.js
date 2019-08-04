@@ -8,14 +8,6 @@ import Spinner from './common/Spinner';
 import { changeReviewText, changeReviewRating, addReview } from '../actions/ReviewActions';
 
 class AddReview extends Component{
-    constructor() {
-        super();
-        this.state = {
-          loading: false,
-          error: ''
-        };
-    }
-
     changeText(text){
         this.props.changeReviewText(text);
     }
@@ -56,7 +48,7 @@ class AddReview extends Component{
                 <View style={addReview}>
                     <View style={addReview__Area}>
                         <Text style={addReview__title}>Add Review</Text>
-                        <Text style={errorMessage}>{this.state.error}</Text>
+                        <Text style={errorMessage}>{this.props.error}</Text>
                         <Input
                             label="Text"
                             value={this.props.text}
@@ -68,7 +60,7 @@ class AddReview extends Component{
                             placeholder="1-5"
                             keyboardType="numeric"
                             onChangeText = {this.changeRating.bind(this)} />
-                        {this.state.loading ? <Spinner /> : addReviewButtons}
+                        {this.props.loading ? <Spinner /> : addReviewButtons}
                     </View>
                 </View>
             </Modal>
@@ -110,7 +102,9 @@ const mapStateToProps = state => {
     return{
         token: state.auth.token,
         text: state.review.text,
-        rating: state.review.rating
+        rating: state.review.rating,
+        loading: state.review.loading,
+        error: state.review.error
     }
 }
 
