@@ -7,14 +7,9 @@ import noImage from '../img/blue.jpeg';
 import Bold from './common/Bold';
 import Spinner from './common/Spinner';
 import { getDealById } from '../actions/DealActions';
+import { openAddReviewModal, closeAddReviewModal } from '../actions/ReviewActions';
 
 class Deal extends Component{
-    constructor() {
-        super();
-        this.state = {
-          showModal: false
-        };
-    }
     componentDidMount() {
         this.props.getDealById(this.props.dealID);
     }
@@ -37,7 +32,7 @@ class Deal extends Component{
       return reviews;
     }
     onCloseModal(){
-      this.setState({ showModal: false });
+      this.props.closeAddReviewModal();
     }
   render() {
     const {deal, deal__title, deal__image, deal__name, deal__button} = styles;
@@ -56,7 +51,7 @@ class Deal extends Component{
     );
 
     const addReviewButton = (
-      <TouchableOpacity style={deal__button} onPress={() => this.setState({ showModal: true })}>
+      <TouchableOpacity style={deal__button} onPress={() => this.props.openAddReviewModal()}>
         <Text style={deal__name}>Add Review</Text>
       </TouchableOpacity>
     );
@@ -72,7 +67,7 @@ class Deal extends Component{
         {this.props.loading ? <Spinner /> : this.listOfReview()}
         <AddReview
           dealID={this.props.dealID}
-          visible={this.state.showModal}
+          visible={this.props.showAddReviewModal}
           onCancel={this.onCloseModal.bind(this)} />
       </ScrollView>
     );
@@ -128,8 +123,9 @@ const mapStateToProps = state => {
   return{
       token: state.auth.token,
       deal: state.deal.deal,
-      loading: state.deal.loading
+      loading: state.deal.loading,
+      showAddReviewModal: state.deal.showAddReviewModal
   }
 }
 
-export default connect(mapStateToProps, { getDealById })(Deal);
+export default connect(mapStateToProps, { getDealById, openAddReviewModal, closeAddReviewModal })(Deal);
