@@ -7,7 +7,8 @@ import {
     CLOSE_ADDREVIEW_MODAL,
     SET_REVIEW_LOADING,
     REMOVE_REVIEW_LOADING,
-    REVIEW_ERROR
+    REVIEW_ERROR,
+    CLEAR_REVIEW_INPUTS
 } from './types';
 
 export const changeReviewText = text => {
@@ -83,5 +84,11 @@ const setReviewLoading = () => {
 const removeReviewLoading = () => {
     return{
         type: REMOVE_REVIEW_LOADING
+    }
+}
+
+export const clearReviewInputs = () => {
+    return{
+        type: CLEAR_REVIEW_INPUTS
     }
 }

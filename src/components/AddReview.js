@@ -4,9 +4,13 @@ import { connect } from 'react-redux';
 
 import Input from './common/Input';
 import Spinner from './common/Spinner';
-import { changeReviewText, changeReviewRating, addReview } from '../actions/ReviewActions';
+import { changeReviewText, changeReviewRating, addReview, clearReviewInputs } from '../actions/ReviewActions';
 
 class AddReview extends Component{
+    componentDidMount(){
+        this.props.clearReviewInputs();
+    }
+
     changeText(text){
         this.props.changeReviewText(text);
     }
@@ -107,4 +111,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { changeReviewText, changeReviewRating, addReview })(AddReview);
+export default connect(mapStateToProps, { changeReviewText, changeReviewRating, addReview, clearReviewInputs })(AddReview);

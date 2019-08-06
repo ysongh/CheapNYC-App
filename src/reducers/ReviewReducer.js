@@ -3,7 +3,8 @@ import {
     CHANGE_REVIEW_RATING,
     SET_REVIEW_LOADING,
     REMOVE_REVIEW_LOADING,
-    REVIEW_ERROR
+    REVIEW_ERROR,
+    CLEAR_REVIEW_INPUTS
 } from '../actions/types';
 
 const initialState = {
@@ -39,6 +40,13 @@ export default (state = initialState, action) => {
             return{
                 ...state,
                 error: action.payload
+            }
+        case CLEAR_REVIEW_INPUTS:
+            return{
+                ...state,
+                text: "",
+                rating: "",
+                error: ""
             }
         default:
             return state;
