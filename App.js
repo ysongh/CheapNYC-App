@@ -5,8 +5,8 @@ import ReduxThunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 
 import reducers from './src/reducers';
-import Router from './src/components/Router';
-import Footer from './src/components/Footer';
+import Router from './src/components/layout/Router';
+import Footer from './src/components/layout/Footer';
 
 const App = () => {
   const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));

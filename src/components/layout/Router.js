@@ -1,10 +1,10 @@
 import React from 'react';
 import { Scene, Router } from 'react-native-router-flux';
 
-import Deals from './Deals';
-import Deal from './Deal';
-import Login from './auth/Login';
-import Register from './auth/Register';
+import Deals from '../Deals';
+import Deal from '../Deal';
+import Login from '../auth/Login';
+import Register from '../auth/Register';
 
 const RouterArea = () => {
     return(

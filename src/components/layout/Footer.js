@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
-import { logoutUser } from '../actions/AuthActions';
+import { logoutUser } from '../../actions/AuthActions';
 
 class Footer extends Component{
     pressLogout(){
