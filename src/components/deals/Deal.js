@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {Text, View, Image, ScrollView, TouchableOpacity} from 'react-native';
 import { connect } from 'react-redux';
 
-import AddReview from './AddReview';
-import noImage from '../img/blue.jpeg';
-import Bold from './common/Bold';
-import Spinner from './common/Spinner';
-import { getDealById } from '../actions/DealActions';
-import { openAddReviewModal, closeAddReviewModal } from '../actions/ReviewActions';
+import AddReview from '../AddReview';
+import noImage from '../../img/blue.jpeg';
+import Bold from '../common/Bold';
+import Spinner from '../common/Spinner';
+import { getDealById } from '../../actions/DealActions';
+import { openAddReviewModal, closeAddReviewModal } from '../../actions/ReviewActions';
 
 class Deal extends Component{
     componentDidMount() {

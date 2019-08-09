@@ -3,9 +3,9 @@ import {Text, View, Image, ScrollView, TouchableOpacity} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
-import noImage from '../img/blue.jpeg';
-import Spinner from './common/Spinner';
-import { getDeals, getMoreDeals } from '../actions/DealActions';
+import noImage from '../../img/blue.jpeg';
+import Spinner from '../common/Spinner';
+import { getDeals, getMoreDeals } from '../../actions/DealActions';
 
 class Deals extends Component{
     componentDidMount() {
