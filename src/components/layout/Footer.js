@@ -14,7 +14,7 @@ class Footer extends Component{
         const {footer, footer__button} = styles;
 
         const DealsButton = (
-            <TouchableOpacity style={footer__button} onPress={() => Actions.deals()}>
+            <TouchableOpacity style={footer__button} onPress={() => Actions.main()}>
                 <Text style={styles.deals__name}>Deals</Text>
             </TouchableOpacity>
         );
@@ -34,6 +34,9 @@ class Footer extends Component{
         const userButtons = (
             <View style={footer}>
                 {DealsButton}
+                <TouchableOpacity style={footer__button} onPress={() => Actions.userProfile()}>
+                    <Text style={styles.deals__name}>Profile</Text>
+                </TouchableOpacity>
                 <TouchableOpacity style={footer__button} onPress={() => this.pressLogout()}>
                     <Text style={styles.deals__name}>Logout</Text>
                 </TouchableOpacity>

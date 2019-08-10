@@ -5,6 +5,7 @@ import Deals from '../deals/Deals';
 import Deal from '../deals/Deal';
 import Login from '../auth/Login';
 import Register from '../auth/Register';
+import UserProfile from '../profile/UserProfile';
 
 const RouterArea = () => {
     return(
@@ -20,6 +21,10 @@ const RouterArea = () => {
                     <Scene key="deals" component={Deals} title="List of Deals" />
                     <Scene key="deal" component={Deal} title="Your Deal" />
                 </Scene>
+                <Scene key="userProfile">
+                    <Scene component={UserProfile} title="Your Profile" />
+                </Scene>
+
             </Scene>
         </Router>
     )
