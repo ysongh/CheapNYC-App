@@ -15,7 +15,7 @@ const initialState = {
     email: "",
     password: "",
     confirmPassword: "",
-    token: "",
+    token: "3",
     error: "",
     loading: false
 };
