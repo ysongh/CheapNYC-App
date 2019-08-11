@@ -7,7 +7,8 @@ import {
     LOGOUT_USER,
     ERROR_AUTH,
     AUTH_LOADING,
-    CLEAR_INPUTS
+    CLEAR_INPUTS,
+    SET_CURRENT_USER
 } from '../actions/types';
 
 const initialState = {
@@ -15,7 +16,8 @@ const initialState = {
     email: "",
     password: "",
     confirmPassword: "",
-    token: "3",
+    token: "",
+    user: {},
     error: "",
     loading: false
 };
@@ -72,6 +74,11 @@ export default (state = initialState, action) => {
                 password: "",
                 confirmPassword: "",
                 error: "",
+            }
+        case SET_CURRENT_USER:
+            return{
+                ...state,
+                user: action.payload
             }
         default:
             return state;

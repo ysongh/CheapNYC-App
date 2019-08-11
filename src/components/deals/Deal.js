@@ -124,7 +124,8 @@ const mapStateToProps = state => {
       token: state.auth.token,
       deal: state.deal.deal,
       loading: state.deal.loading,
-      showAddReviewModal: state.deal.showAddReviewModal
+      showAddReviewModal: state.deal.showAddReviewModal,
+      user: state.auth.user
   }
 }
 

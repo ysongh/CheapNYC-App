@@ -1,3 +1,4 @@
+import jwt_decode from 'jwt-decode';
 import { Actions } from 'react-native-router-flux';
 
 import {
@@ -9,7 +10,8 @@ import {
     LOGOUT_USER,
     ERROR_AUTH,
     AUTH_LOADING,
-    CLEAR_INPUTS
+    CLEAR_INPUTS,
+    SET_CURRENT_USER
 } from './types';
 
 export const changeUserEmail = text => {
@@ -65,6 +67,9 @@ export const registerUser = userData => {
                     type: LOGIN_USER,
                     payload: data.token
                 });
+                const decode = jwt_decode(data.token);
+                
+                dispatch(setCurrentUser(decode));
                 dispatch(clearInputs());
                 Actions.main();
             }
@@ -108,6 +113,9 @@ export const loginUser = userData => {
                     type: LOGIN_USER,
                     payload: data.token
                 });
+                const decode = jwt_decode(data.token);
+
+                dispatch(setCurrentUser(decode));
                 dispatch(clearInputs());
                 Actions.main();
             }
@@ -145,3 +153,10 @@ export const clearInputs = () => {
         type: CLEAR_INPUTS
     }
 }
+
+const setCurrentUser = decoded => {
+    return {
+      type: SET_CURRENT_USER,
+      payload: decoded
+    };
+  };

@@ -6,6 +6,7 @@ export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const ERROR_AUTH = 'ERROR_AUTH';
 export const AUTH_LOADING = 'AUTH_LOADING';
+export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 
 export const CLEAR_INPUTS = 'CLEAR_INPUTS';
 
