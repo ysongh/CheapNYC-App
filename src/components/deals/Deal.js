@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, Image, ScrollView, TouchableOpacity} from 'react-native';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 
 import AddReview from '../AddReview';
 import noImage from '../../img/blue.jpeg';
@@ -22,7 +23,7 @@ class Deal extends Component{
               <View key={review._id} style={reviewX}>
                 <Image source={review.image ? {uri: review.image} : noImage} style={review__image}/>
                 <View style={review__infor}>
-                  <Text><Bold>Author:</Bold> {review.name}</Text>
+                  <Text onPress={() => Actions.userProfile({userId: review.userId})}><Bold>Author:</Bold> {review.name}</Text>
                   <Text>{review.text}</Text>
                   <Text><Bold>Rating: </Bold>{review.rating}</Text>
                 </View>                

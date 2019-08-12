@@ -34,7 +34,7 @@ class Footer extends Component{
         const userButtons = (
             <View style={footer}>
                 {DealsButton}
-                <TouchableOpacity style={footer__button} onPress={() => Actions.userProfile({userId: this.props.user.id})}>
+                <TouchableOpacity style={footer__button} onPress={() => Actions.yourProfile({userId: this.props.user.id})}>
                     <Text style={styles.deals__name}>Profile</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={footer__button} onPress={() => this.pressLogout()}>

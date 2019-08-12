@@ -20,9 +20,10 @@ const RouterArea = () => {
                 <Scene key="main" initial>
                     <Scene key="deals" component={Deals} title="List of Deals" />
                     <Scene key="deal" component={Deal} title="Your Deal" />
+                    <Scene key="userProfile" component={UserProfile} title="Profile" />
                 </Scene>
-                <Scene key="userProfile">
-                    <Scene component={UserProfile} title="Your Profile" />
+                <Scene key="yourProfile">
+                    <Scene component={UserProfile} title="Profile" />
                 </Scene>
 
             </Scene>
