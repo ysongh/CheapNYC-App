@@ -6,6 +6,7 @@ import { Actions } from 'react-native-router-flux';
 import AddReview from '../AddReview';
 import noImage from '../../img/blue.jpeg';
 import Bold from '../common/Bold';
+import Hyperlink from '../common/Hyperlink';
 import Spinner from '../common/Spinner';
 import { getDealById } from '../../actions/DealActions';
 import { openAddReviewModal, closeAddReviewModal } from '../../actions/ReviewActions';
@@ -23,7 +24,7 @@ class Deal extends Component{
               <View key={review._id} style={reviewX}>
                 <Image source={review.image ? {uri: review.image} : noImage} style={review__image}/>
                 <View style={review__infor}>
-                  <Text onPress={() => Actions.userProfile({userId: review.userId})}><Bold>Author:</Bold> {review.name}</Text>
+                  <Text onPress={() => Actions.userProfile({userId: review.userId})}><Bold>Author:</Bold> <Hyperlink>{review.name}</Hyperlink></Text>
                   <Text>{review.text}</Text>
                   <Text><Bold>Rating: </Bold>{review.rating}</Text>
                 </View>                
