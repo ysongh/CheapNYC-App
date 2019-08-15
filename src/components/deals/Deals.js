@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, Image, ScrollView, TouchableOpacity} from 'react-native';
+import { Text, View, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
@@ -18,25 +18,28 @@ class Deals extends Component{
 
     showListofDeals(){
         const {deals__name, deals__rightSide, deals__container, deals__price, deals__button} = styles;
-        const deals = [];
-        this.props.deals.forEach(deal => {
-            deals.push(
-                <View key={deal._id} style={deals__container}>
-                    <View>
-                        <Image source={deal.image ? {uri: deal.image} : noImage} style={{width: 100, height: 100}}/>
-                    </View>
-                    <View style={deals__rightSide}>
-                        <Text style={deals__name}>{deal.name}</Text>
-                        <Text style={deals__price}>${deal.price === 0 ? "Free" : deal.price}</Text>
-                        <TouchableOpacity style={deals__button} onPress={() => Actions.deal({dealID: deal._id})}>
-                            <Text style={deals__name}>See More</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                
-            )
-        });
-        return deals;
+        
+        return (
+            <FlatList 
+                keyExtractor={deal => deal._id}
+                data={this.props.deals}
+                renderItem={({ item }) => {
+                    return (
+                        <View key={item._id} style={deals__container}>
+                            <View>
+                                <Image source={item.image ? {uri: item.image} : noImage} style={{width: 100, height: 100}}/>
+                            </View>
+                            <View style={deals__rightSide}>
+                                <Text style={deals__name}>{item.name}</Text>
+                                <Text style={deals__price}>${item.price === 0 ? "Free" : item.price}</Text>
+                                <TouchableOpacity style={deals__button} onPress={() => Actions.deal({dealID: item._id})}>
+                                    <Text style={deals__name}>See More</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    )
+                }} />
+        );
     }
     
   render() {

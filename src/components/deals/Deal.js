@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, Image, ScrollView, TouchableOpacity} from 'react-native';
+import {Text, View, Image, ScrollView, TouchableOpacity, FlatList} from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
@@ -17,21 +17,23 @@ class Deal extends Component{
     }
 
     listOfReview(){
-      const reviews = [];
       const {reviewX, review__image, review__infor} = styles;
-      this.props.deal.reviews.forEach(review => {
-        reviews.push(
-              <View key={review._id} style={reviewX}>
-                <Image source={review.image ? {uri: review.image} : noImage} style={review__image}/>
+      
+      return <FlatList 
+        keyExtractor={review => review._id}
+        data={this.props.deal.reviews}
+        renderItem={({ item }) => {
+          return (
+            <View key={item._id} style={reviewX}>
+                <Image source={item.image ? {uri: item.image} : noImage} style={review__image}/>
                 <View style={review__infor}>
-                  <Text onPress={() => Actions.userProfile({userId: review.userId})}><Bold>Author:</Bold> <Hyperlink>{review.name}</Hyperlink></Text>
-                  <Text>{review.text}</Text>
-                  <Text><Bold>Rating: </Bold>{review.rating}</Text>
+                  <Text onPress={() => Actions.userProfile({userId: item.userId})}><Bold>Author:</Bold> <Hyperlink>{item.name}</Hyperlink></Text>
+                  <Text>{item.text}</Text>
+                  <Text><Bold>Rating: </Bold>{item.rating}</Text>
                 </View>                
               </View>
           )
-      });
-      return reviews;
+        }}/>
     }
     onCloseModal(){
       this.props.closeAddReviewModal();
