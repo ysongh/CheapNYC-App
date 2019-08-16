@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, ImageBackground } from 'react-native';
+import { View, Text, Image, ImageBackground, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import defaultUserImage from '../../img/defaultUserImage.png';
@@ -27,7 +27,7 @@ class UserProfile extends Component{
     };
 };
 
-const styles = {
+const styles = StyleSheet.create({
     user__background:{
         width: '100%',
         height: '80%',
@@ -44,7 +44,7 @@ const styles = {
         textAlign: 'center',
         marginVertical: 5
     }
-}
+});
 
 const mapStateToProps = state => {
     return{

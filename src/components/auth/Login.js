@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
@@ -68,7 +68,7 @@ class Login extends Component{
     }
 }
 
-const styles = {
+const styles = StyleSheet.create({
     login:{
         marginTop: 30
     },
@@ -92,7 +92,7 @@ const styles = {
         fontSize: 15,
         color: 'red'
     },
-}
+});
 
 const mapStateToProps = state => {
     return{

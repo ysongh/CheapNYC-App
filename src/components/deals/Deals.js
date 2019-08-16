@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, View, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
+import { Text, View, Image, ScrollView, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
@@ -58,7 +58,7 @@ class Deals extends Component{
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
     deals__container:{
         backgroundColor: "#daf2f2",
         flexDirection: "row",
@@ -89,7 +89,7 @@ const styles = {
         padding: 6,
         marginBottom: 40
     }
-}
+});
 
 const mapStateToProps = state => {
     return{

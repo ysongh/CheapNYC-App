@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import Input from './common/Input';
@@ -72,7 +72,7 @@ class AddReview extends Component{
     };
 };
 
-const styles = {
+const styles = StyleSheet.create({
     addReview:{
         backgroundColor: 'rgba(0, 0, 0, 0.75)',
         position: 'relative',
@@ -99,7 +99,7 @@ const styles = {
         fontSize: 15,
         color: 'red'
     }
-}
+});
 
 const mapStateToProps = state => {
     return{

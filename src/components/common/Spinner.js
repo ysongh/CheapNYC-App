@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ActivityIndicator} from 'react-native';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
 
 const Spinner = ({size}) => {
     const {spinner__area} = styles;
@@ -10,12 +10,12 @@ const Spinner = ({size}) => {
     );
 };
 
-const styles = {
+const styles = StyleSheet.create({
     spinner__area:{
         marginTop: 30,
         marginBottom: 30,
         alignItems: 'center',
     }
-}
+});
 
 export default Spinner;

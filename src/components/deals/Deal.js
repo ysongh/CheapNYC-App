@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Text, View, Image, ScrollView, TouchableOpacity, FlatList} from 'react-native';
+import React, { Component } from 'react';
+import { Text, View, Image, ScrollView, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
@@ -78,7 +78,7 @@ class Deal extends Component{
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   deal: {
     padding: 5
   },
@@ -121,7 +121,7 @@ const styles = {
     justifyContent: 'space-around',
     marginLeft: 5
   }
-}
+});
 
 const mapStateToProps = state => {
   return{
