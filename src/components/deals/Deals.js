@@ -3,6 +3,7 @@ import { Text, View, Image, ScrollView, TouchableOpacity, FlatList, StyleSheet }
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
+import SearchBar from '../common/SearchBar';
 import noImage from '../../img/blue.jpeg';
 import Spinner from '../common/Spinner';
 import { getDeals, getMoreDeals } from '../../actions/DealActions';
@@ -51,6 +52,8 @@ class Deals extends Component{
 
     return (
       <ScrollView>
+          <SearchBar
+            placeholder="Search Deals" />
           {this.props.loading ? <Spinner /> : this.showListofDeals()}
           {this.props.currentPage > this.props.totalDeals ? null : loadButton}    
       </ScrollView>
