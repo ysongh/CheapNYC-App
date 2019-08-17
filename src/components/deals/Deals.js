@@ -9,6 +9,10 @@ import Spinner from '../common/Spinner';
 import { getDeals, getMoreDeals } from '../../actions/DealActions';
 
 class Deals extends Component{
+    state = {
+        dealName: ''
+    };
+
     componentDidMount() {
         this.props.getDeals();
     }
@@ -42,6 +46,10 @@ class Deals extends Component{
                 }} />
         );
     }
+
+    searchDealsByName(){
+        console.log(this.state.dealName);
+    }
     
   render() {
     const loadButton = (
@@ -53,7 +61,10 @@ class Deals extends Component{
     return (
       <ScrollView>
           <SearchBar
-            placeholder="Search Deals" />
+            placeholder="Search Deals"
+            value={this.state.dealName}
+            onChangeText = {dealName => this.setState({ dealName })}
+            onEndEditing = {() => this.searchDealsByName()} />
           {this.props.loading ? <Spinner /> : this.showListofDeals()}
           {this.props.currentPage > this.props.totalDeals ? null : loadButton}    
       </ScrollView>

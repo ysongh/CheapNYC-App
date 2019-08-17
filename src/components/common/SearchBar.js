@@ -1,14 +1,20 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 
-const SearchBar = ({ placeholder }) => {
+const SearchBar = ({ placeholder, value, onChangeText, onEndEditing }) => {
     const { searchBar, searchBar__Input } = styles;
 
     return(
         <View style={searchBar}>
             <TextInput 
+                autoCapitalize="none"
+                autoCorrect={false}
                 placeholder={placeholder}
-                style={searchBar__Input} />
+                value={value}
+                style={searchBar__Input}
+                clearButtonMode="while-editing"
+                onChangeText={onChangeText}
+                onEndEditing={onEndEditing} />
         </View>
     );
 };

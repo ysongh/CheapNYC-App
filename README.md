@@ -6,6 +6,7 @@ Using React Native
 
 - FlatList is better than Map
 - StyleSheet.create validates the styles
+- onEndEditing in TextInput allows function to be called when the user tap the Enter button on the keyboard
 
 ### What I Did?
 
