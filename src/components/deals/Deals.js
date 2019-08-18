@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import SearchBar from '../common/SearchBar';
 import noImage from '../../img/blue.jpeg';
 import Spinner from '../common/Spinner';
-import { getDeals, getMoreDeals } from '../../actions/DealActions';
+import { getDeals, getMoreDeals, getDealsByName } from '../../actions/DealActions';
 
 class Deals extends Component{
     state = {
@@ -48,7 +48,7 @@ class Deals extends Component{
     }
 
     searchDealsByName(){
-        console.log(this.state.dealName);
+        this.props.getDealsByName(this.state.dealName);
     }
     
   render() {
@@ -114,4 +114,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getDeals, getMoreDeals })(Deals);
+export default connect(mapStateToProps, { getDeals, getMoreDeals, getDealsByName })(Deals);

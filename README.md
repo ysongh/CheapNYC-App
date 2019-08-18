@@ -13,3 +13,4 @@ Using React Native
 - Add logo to splash screen
 - Move all api request logic for deal to redux
 - Add user profile page
+- Add search bar
