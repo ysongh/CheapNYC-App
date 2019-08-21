@@ -1,12 +1,14 @@
 import {
     GET_DEALS,
     GET_DEAL_BY_ID,
-    GET_MORE_DEALS
+    GET_MORE_DEALS,
+    CHANGE_FILTER_TYPE
 } from './types';
 
-export const getDeals = () => {
+export const getDeals = filterType => {
     return dispatch => {
-        let url = `https://cnycserver.herokuapp.com/items`;
+        const url = "https://cnycserver.herokuapp.com/items";
+
         fetch(url)
             .then(res => {
                 return res.json();
@@ -16,6 +18,7 @@ export const getDeals = () => {
                     type: GET_DEALS,
                     payload: data
                 });
+                dispatch(changeFilterType(filterType));
             })
             .catch((err) => {
                 console.log('There was a problem with your fetch request' + err.message);
@@ -25,7 +28,7 @@ export const getDeals = () => {
 
 export const getDealById = dealID => {
     return dispatch => {
-        let url = "https://cnycserver.herokuapp.com/items/" + dealID;
+        const url = "https://cnycserver.herokuapp.com/items/" + dealID;
         fetch(url)
             .then(res => {
                 return res.json();
@@ -42,9 +45,10 @@ export const getDealById = dealID => {
     }
 }
 
-export const getDealsByName = dealName => {
+export const getDealsByName = (dealName, filterType) => {
     return dispatch => {
-        let url =  "https://cnycserver.herokuapp.com/items/searchItemByName?name=" + dealName;
+        const url = "https://cnycserver.herokuapp.com/items/searchItemByName?name=" + dealName;
+
         fetch(url)
             .then(res => {
                 return res.json();
@@ -54,20 +58,26 @@ export const getDealsByName = dealName => {
                     type: GET_DEALS,
                     payload: data
                 });
+                dispatch(changeFilterType(filterType));
             })
             .catch((err) => {
                 console.log('There was a problem with your fetch request' + err.message);
             });
     }
 }
-export const getMoreDeals = currentPage => {
+export const getMoreDeals = (dealName, currentPage, filterType) => {
     return dispatch => {
         let url = "https://cnycserver.herokuapp.com/items?page=" + currentPage;
+
+        if(filterType === 'byName'){ 
+            url = `https://cnycserver.herokuapp.com/items/searchItemByName?name=${dealName}&page=${currentPage}`;
+         }
+        
         fetch(url)
             .then(res => {
                 return res.json();
             })
-            .then((data) => {
+            .then(data => {
                 dispatch({
                     type: GET_MORE_DEALS,
                     payload: data
@@ -76,5 +86,12 @@ export const getMoreDeals = currentPage => {
             .catch((err) => {
                 console.log('There was a problem with your fetch request' + err.message);
             });
+    }
+}
+
+const changeFilterType = filterType => {
+    return{
+        type: CHANGE_FILTER_TYPE,
+        payload: filterType
     }
 }

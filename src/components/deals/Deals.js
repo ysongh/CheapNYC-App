@@ -14,11 +14,12 @@ class Deals extends Component{
     };
 
     componentDidMount() {
-        this.props.getDeals();
+        this.props.getDeals("All");
     }
 
     loadPage(){
-        this.props.getMoreDeals(this.props.currentPage);
+        console.log(this.props.filterType);
+        this.props.getMoreDeals(this.state.dealName, this.props.currentPage, this.props.filterType);
     }
 
     showListofDeals(){
@@ -48,7 +49,7 @@ class Deals extends Component{
     }
 
     searchDealsByName(){
-        this.props.getDealsByName(this.state.dealName);
+        this.props.getDealsByName(this.state.dealName, "byName");
     }
     
   render() {
@@ -66,7 +67,7 @@ class Deals extends Component{
             onChangeText = {dealName => this.setState({ dealName })}
             onEndEditing = {() => this.searchDealsByName()} />
           {this.props.loading ? <Spinner /> : this.showListofDeals()}
-          {this.props.currentPage > this.props.totalDeals ? null : loadButton}    
+          {this.props.currentPage - 1 >= this.props.totalDeals ? null : loadButton}    
       </ScrollView>
     );
   }
@@ -110,7 +111,8 @@ const mapStateToProps = state => {
         deals: state.deals.deals,
         totalDeals: state.deals.totalDeals,
         currentPage: state.deals.currentPage,
-        loading: state.deals.loading
+        loading: state.deals.loading,
+        filterType: state.deals.filterType
     }
 }
 
