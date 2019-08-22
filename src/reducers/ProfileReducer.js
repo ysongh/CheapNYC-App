@@ -1,9 +1,11 @@
 import {
-    GET_USER
+    GET_USER,
+    GET_USER_FAVORITES
 } from '../actions/types';
 
 const initialState = {
-    userData: {}
+    userData: {},
+    dealsList: []
 };
 
 export default function(state = initialState, action){
@@ -13,6 +15,11 @@ export default function(state = initialState, action){
                 ...state,
                 userData: action.payload
             };
+        case GET_USER_FAVORITES:
+            return{
+                ...state,
+                dealsList: action.payload
+            }
         default:
             return state;
     }

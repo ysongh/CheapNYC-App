@@ -25,3 +25,4 @@ export const REVIEW_ERROR = 'REVIEW_ERROR';
 export const CLEAR_REVIEW_INPUTS = 'CLEAR_REVIEW_INPUTS';
 
 export const GET_USER = 'GET_USER';
+export const GET_USER_FAVORITES = 'GET_USER_FAVORITES';
