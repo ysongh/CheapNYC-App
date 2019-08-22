@@ -66,6 +66,7 @@ class Deals extends Component{
             value={this.state.dealName}
             onChangeText = {dealName => this.setState({ dealName })}
             onEndEditing = {() => this.searchDealsByName()} />
+          {this.props.deals.length !== 0 ? null : <Text style={styles.deals__message}>No Deals Found</Text>}
           {this.props.loading ? <Spinner /> : this.showListofDeals()}
           {this.props.currentPage - 1 >= this.props.totalDeals ? null : loadButton}    
       </ScrollView>
@@ -103,6 +104,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 6,
         marginBottom: 40
+    },
+    deals__message:{
+        textAlign: 'center',
+        fontSize: 26,
+        marginVertical: 20,
+        color: '#db4670'
     }
 });
 
