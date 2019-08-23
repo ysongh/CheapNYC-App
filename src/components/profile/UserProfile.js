@@ -8,13 +8,26 @@ import backgroundImage from '../../img/backgroundImage.jpeg';
 import { getUser, getUserProfileDeals } from '../../actions/ProfileActions';
 
 class UserProfile extends Component{
+    state = {
+        dealListType: 'Favorites'
+    }
     componentDidMount(){
         this.props.getUser(this.props.userId);
-        this.props.getUserProfileDeals(this.props.userId, "DealsAdded");
+        this.props.getUserProfileDeals(this.props.userId, this.state.dealListType);
+    }
+
+    getFavoritesDeals(){
+        this.setState({dealListType: "Favorites"});
+        this.props.getUserProfileDeals(this.props.userId, this.state.dealListType);
+    }
+
+    getDealsAdded(){
+        this.setState({dealListType: "DealsAdded"});
+        this.props.getUserProfileDeals(this.props.userId, this.state.dealListType);
     }
     
     render(){
-        const { user__background, user__image, user__infor, user__dealList, user__dealText, user__dealButton } = styles;
+        const { user__background, user__image, user__infor, user__dealList, user__dealText, user__dealButton, user__buttonGroup, user__button, user__selectButton, user__buttonText } = styles;
         const profileImage = this.props.profile.image;
 
         return(
@@ -24,6 +37,16 @@ class UserProfile extends Component{
                     <Text style={user__infor}>{ this.props.profile.name }</Text>
                     <Text style={user__infor}>{ this.props.profile.title }</Text>
                 </ImageBackground>
+
+                <View style={user__buttonGroup}>
+                    <TouchableOpacity style={this.state.dealListType === 'Favorites' ? user__selectButton : user__button} onPress={() => this.getFavoritesDeals()}>
+                        <Text style={user__buttonText}>Deals Liked</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={this.state.dealListType === 'DealsAdded' ? user__selectButton : user__button} onPress={() => this.getDealsAdded()}>
+                        <Text style={user__buttonText}>Deals Post</Text>
+                    </TouchableOpacity>
+                </View>
+                
                 <FlatList 
                     keyExtractor={deal => deal.id}
                     data={this.props.dealsList}
@@ -45,7 +68,7 @@ class UserProfile extends Component{
 const styles = StyleSheet.create({
     user__background:{
         width: '100%',
-        height: 350,
+        height: 320,
         backgroundColor: 'blue'
     },
     user__image:{
@@ -76,6 +99,27 @@ const styles = StyleSheet.create({
     user__dealButton: {
         backgroundColor: "#82cfe8",
         padding: 10
+    },
+    user__buttonGroup:{
+        flexDirection: "row",
+        justifyContent: "space-around",
+        marginVertical: 10
+    },
+    user__button:{
+        alignSelf: 'center',
+        backgroundColor: "#dfe0f0",
+        paddingVertical: 10,
+        width: "45%",
+    },
+    user__selectButton:{
+        alignSelf: 'center',
+        backgroundColor: "#f04a60",
+        paddingVertical: 10,
+        width: "45%",
+    },
+    user__buttonText:{
+        textAlign: 'center',
+        fontSize: 18
     }
 });
 
