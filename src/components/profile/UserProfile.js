@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, Image, ImageBackground, FlatList, StyleSheet } from 'react-native';
+import { View, Text, Image, ImageBackground, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 
 import defaultUserImage from '../../img/defaultUserImage.png';
 import backgroundImage from '../../img/backgroundImage.jpeg';
@@ -13,7 +14,7 @@ class UserProfile extends Component{
     }
     
     render(){
-        const { user__background, user__image, user__infor } = styles;
+        const { user__background, user__image, user__infor, user__dealList, user__dealText, user__dealButton } = styles;
         const profileImage = this.props.profile.image;
 
         return(
@@ -28,10 +29,11 @@ class UserProfile extends Component{
                     data={this.props.dealsList}
                     renderItem={({ item }) => {
                         return (
-                            <View key={item._id}>
-                                <View>
-                                    <Text>{item.name}</Text>
-                                </View>
+                            <View key={item.id} style={user__dealList}>
+                                <Text style={user__dealText}>{item.name}</Text>
+                                <TouchableOpacity style={user__dealButton} onPress={() => Actions.deal({dealID: item.id})}>
+                                    <Text style={user__dealText}>>></Text>
+                                </TouchableOpacity>
                             </View>
                         )
                     }} />
@@ -43,7 +45,7 @@ class UserProfile extends Component{
 const styles = StyleSheet.create({
     user__background:{
         width: '100%',
-        height: 400,
+        height: 350,
         backgroundColor: 'blue'
     },
     user__image:{
@@ -58,6 +60,22 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: 'center',
         marginVertical: 5
+    },
+    user__dealList:{
+        paddingLeft: 10,
+        margin: 1,
+        borderColor: '#910d1a',
+        borderWidth: 2,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: 'center'
+    },
+    user__dealText: {
+        fontSize: 15
+    },
+    user__dealButton: {
+        backgroundColor: "#82cfe8",
+        padding: 10
     }
 });
 
