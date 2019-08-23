@@ -5,12 +5,12 @@ import { Actions } from 'react-native-router-flux';
 
 import defaultUserImage from '../../img/defaultUserImage.png';
 import backgroundImage from '../../img/backgroundImage.jpeg';
-import { getUser, getFavoritesDeals } from '../../actions/ProfileActions';
+import { getUser, getUserProfileDeals } from '../../actions/ProfileActions';
 
 class UserProfile extends Component{
     componentDidMount(){
         this.props.getUser(this.props.userId);
-        this.props.getFavoritesDeals(this.props.userId);
+        this.props.getUserProfileDeals(this.props.userId, "DealsAdded");
     }
     
     render(){
@@ -18,7 +18,7 @@ class UserProfile extends Component{
         const profileImage = this.props.profile.image;
 
         return(
-            <View>
+            <View style={{ flex: 1 }}>
                 <ImageBackground source={backgroundImage} style={user__background}>
                     <Image source={profileImage ? { uri: profileImage } : defaultUserImage} style={user__image}/>
                     <Text style={user__infor}>{ this.props.profile.name }</Text>
@@ -86,4 +86,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getUser, getFavoritesDeals })(UserProfile);
+export default connect(mapStateToProps, { getUser, getUserProfileDeals })(UserProfile);

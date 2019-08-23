@@ -6,4 +6,4 @@ Using React Native
 
 ### What I Did?
 
-- Add user favorites deals to user profile
+- Display user favorites deals and deals they made on user profile

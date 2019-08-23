@@ -1,6 +1,6 @@
 import {
     GET_USER,
-    GET_USER_FAVORITES
+    GET_USER_LISTOFDEALS
 } from './types';
 
 export const getUser = userId => dispatch => {
@@ -41,19 +41,35 @@ export const getUser = userId => dispatch => {
         });
 };
 
-export const getFavoritesDeals = userId => dispatch => {
-    const graphqlQuery = {
+export const getUserProfileDeals = (userId, type) => dispatch => {
+    let graphqlQuery = {
         query: `
             query{
                 userById(id:"${userId}"){
-                favorites {
-                    id
-                    name
+                    favorites {
+                        id
+                        name
                     }
                 }
             }
-            `
+        `
     };
+
+    if(type === 'DealsAdded'){
+        graphqlQuery = {
+            query: `
+                query{
+                    userById(id:"${userId}"){
+                        listOfPosts {
+                            id
+                            name
+                        }
+                    }
+                }
+            `
+        };
+    }
+
     fetch('https://cnycserver.herokuapp.com/graphql', {
         method: 'POST',
         headers: {
@@ -68,9 +84,15 @@ export const getFavoritesDeals = userId => dispatch => {
             if(resData.errors){
                 return console.log(resData.errors);
             }
+            else if(type === 'DealsAdded'){
+                dispatch({
+                    type: GET_USER_LISTOFDEALS,
+                    payload: resData.data.userById.listOfPosts
+                });
+            }
             else{
                 dispatch({
-                    type: GET_USER_FAVORITES,
+                    type: GET_USER_LISTOFDEALS,
                     payload: resData.data.userById.favorites
                 });
             }
@@ -79,4 +101,4 @@ export const getFavoritesDeals = userId => dispatch => {
             console.log(err);
         });
     
-}
+};
