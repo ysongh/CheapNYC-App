@@ -28,7 +28,7 @@ class UserProfile extends Component{
     }
     
     render(){
-        const { user__background, user__image, user__infor, user__dealList, user__dealText, user__dealButton, user__buttonGroup, user__button, user__selectButton, user__buttonText } = styles;
+        const { user__background, user__image, user__infor, user__dealList, user__dealText, user__dealButton, user__buttonGroup, user__button, user__selectButton, user__buttonText, user__error } = styles;
         const profileImage = this.props.profile.image;
 
         const userInfor = (
@@ -57,6 +57,7 @@ class UserProfile extends Component{
 
         return(
             <View style={{ flex: 1 }}>
+                {this.props.error ? <Text style={user__error}>{this.props.error}</Text> : null}
                 <ImageBackground source={backgroundImage} style={user__background}>
                     {this.props.userLoading ? <Spinner /> : userInfor}
                 </ImageBackground>
@@ -131,6 +132,12 @@ const styles = StyleSheet.create({
     user__buttonText:{
         textAlign: 'center',
         fontSize: 18
+    },
+    user__error:{
+        textAlign: 'center',
+        fontSize: 18,
+        color: 'red',
+        marginVertical: 10
     }
 });
 
@@ -139,7 +146,8 @@ const mapStateToProps = state => {
         profile: state.profile.userData,
         dealsList: state.profile.dealsList,
         userLoading: state.profile.userLoading,
-        dealsLoading: state.profile.dealsLoading
+        dealsLoading: state.profile.dealsLoading,
+        error: state.profile.profileError
     }
 }
 

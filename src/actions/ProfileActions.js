@@ -2,7 +2,8 @@ import {
     GET_USER,
     GET_USER_LISTOFDEALS,
     PROFILE_USER_LOADING,
-    PROFILE_DEALS_LOADING
+    PROFILE_DEALS_LOADING,
+    PROFILE_ERROR
 } from './types';
 
 export const getUser = userId => dispatch => {
@@ -32,7 +33,10 @@ export const getUser = userId => dispatch => {
         })
         .then(resData =>{
             if(resData.errors){
-                return console.log(resData.errors);
+                dispatch({
+                    type: PROFILE_ERROR,
+                    payload: "There is a problem getting user information"
+                });
             }
             dispatch({
                 type: GET_USER,
@@ -40,7 +44,10 @@ export const getUser = userId => dispatch => {
             });
         })
         .catch(err => {
-            console.log(err);
+            dispatch({
+                type: PROFILE_ERROR,
+                payload: "Something went wrong, try again later"
+            });
         });
 };
 
@@ -86,7 +93,10 @@ export const getUserProfileDeals = (userId, type) => dispatch => {
         })
         .then(resData =>{
             if(resData.errors){
-                return console.log(resData.errors);
+                dispatch({
+                    type: PROFILE_ERROR,
+                    payload: "There is a problem getting deals list"
+                });
             }
             else if(type === 'DealsAdded'){
                 dispatch({
@@ -102,7 +112,10 @@ export const getUserProfileDeals = (userId, type) => dispatch => {
             }
         })
         .catch(err => {
-            console.log(err);
+            dispatch({
+                type: PROFILE_ERROR,
+                payload: "Something went wrong, try again later"
+            });
         });
     
 };

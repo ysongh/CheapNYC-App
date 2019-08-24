@@ -2,7 +2,8 @@ import {
     GET_USER,
     GET_USER_LISTOFDEALS,
     PROFILE_USER_LOADING,
-    PROFILE_DEALS_LOADING
+    PROFILE_DEALS_LOADING,
+    PROFILE_ERROR
 } from '../actions/types';
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
     dealsList: [],
     userLoading: true,
     dealsLoading: true,
+    profileError: ""
 };
 
 export default function(state = initialState, action){
@@ -18,7 +20,8 @@ export default function(state = initialState, action){
             return{
                 ...state,
                 userData: action.payload,
-                userLoading: false
+                userLoading: false,
+                profileError: ""
             };
         case GET_USER_LISTOFDEALS:
             return{
@@ -35,6 +38,13 @@ export default function(state = initialState, action){
             return{
                 ...state,
                 dealsLoading: true
+            }
+        case PROFILE_ERROR:
+            return{
+                ...state,
+                profileError: action.payload,
+                userLoading: false,
+                dealsLoading: false
             }
         default:
             return state;
