@@ -28,11 +28,15 @@ class UserProfile extends Component{
     }
     
     render(){
-        const { user__background, user__image, user__infor, user__dealList, user__dealText, user__dealButton, user__buttonGroup, user__button, user__selectButton, user__buttonText, user__error } = styles;
+        const { user__background, user__image, user__infor, user__dealList, user__dealText, user__dealButton, user__buttonGroup, 
+            user__button, user__selectButton, user__editButton, user__buttonText, user__error } = styles;
         const profileImage = this.props.profile.image;
 
         const userInfor = (
             <View>
+                { this.props.user.id === this.props.profile._id ? <TouchableOpacity style={user__editButton} >
+                    <Text style={user__buttonText}>Edit</Text>
+                </TouchableOpacity> : null }
                 <Image source={profileImage ? { uri: profileImage } : defaultUserImage} style={user__image}/>
                 <Text style={user__infor}>{ this.props.profile.name }</Text>
                 <Text style={user__infor}>{ this.props.profile.title }</Text>
@@ -133,6 +137,14 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 18
     },
+    user__editButton:{
+        position: 'absolute',
+        right: 0,
+        top: 0,
+        backgroundColor: "#82cfe8",
+        paddingVertical: 10,
+        width: "25%",
+    },
     user__error:{
         textAlign: 'center',
         fontSize: 18,
@@ -143,6 +155,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return{
+        user: state.auth.user,
         profile: state.profile.userData,
         dealsList: state.profile.dealsList,
         userLoading: state.profile.userLoading,
