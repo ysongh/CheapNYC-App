@@ -19,12 +19,12 @@ class UserProfile extends Component{
 
     getFavoritesDeals(){
         this.setState({dealListType: "Favorites"});
-        this.props.getUserProfileDeals(this.props.userId, this.state.dealListType);
+        this.props.getUserProfileDeals(this.props.userId, "Favorites");
     }
 
     getDealsAdded(){
         this.setState({dealListType: "DealsAdded"});
-        this.props.getUserProfileDeals(this.props.userId, this.state.dealListType);
+        this.props.getUserProfileDeals(this.props.userId, "DealsAdded");
     }
     
     render(){

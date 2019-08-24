@@ -3,6 +3,7 @@
 Using React Native
 
 ### What I Learned?
+- setState is asynchronous
 
 ### What I Did?
 
