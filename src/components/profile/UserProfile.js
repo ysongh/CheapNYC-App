@@ -5,6 +5,7 @@ import { Actions } from 'react-native-router-flux';
 
 import defaultUserImage from '../../img/defaultUserImage.png';
 import backgroundImage from '../../img/backgroundImage.jpeg';
+import Spinner from '../common/Spinner';
 import { getUser, getUserProfileDeals } from '../../actions/ProfileActions';
 
 class UserProfile extends Component{
@@ -30,12 +31,34 @@ class UserProfile extends Component{
         const { user__background, user__image, user__infor, user__dealList, user__dealText, user__dealButton, user__buttonGroup, user__button, user__selectButton, user__buttonText } = styles;
         const profileImage = this.props.profile.image;
 
+        const userInfor = (
+            <View>
+                <Image source={profileImage ? { uri: profileImage } : defaultUserImage} style={user__image}/>
+                <Text style={user__infor}>{ this.props.profile.name }</Text>
+                <Text style={user__infor}>{ this.props.profile.title }</Text>
+            </View>
+        );
+
+        const listOfDeals = (
+            <FlatList 
+                keyExtractor={deal => deal.id}
+                data={this.props.dealsList}
+                renderItem={({ item }) => {
+                    return (
+                        <View key={item.id} style={user__dealList}>
+                            <Text style={user__dealText}>{item.name}</Text>
+                            <TouchableOpacity style={user__dealButton} onPress={() => Actions.deal({dealID: item.id})}>
+                                <Text style={user__dealText}>>></Text>
+                            </TouchableOpacity>
+                        </View>
+                    )
+                }} />
+        );
+
         return(
             <View style={{ flex: 1 }}>
                 <ImageBackground source={backgroundImage} style={user__background}>
-                    <Image source={profileImage ? { uri: profileImage } : defaultUserImage} style={user__image}/>
-                    <Text style={user__infor}>{ this.props.profile.name }</Text>
-                    <Text style={user__infor}>{ this.props.profile.title }</Text>
+                    {this.props.userLoading ? <Spinner /> : userInfor}
                 </ImageBackground>
 
                 <View style={user__buttonGroup}>
@@ -47,19 +70,7 @@ class UserProfile extends Component{
                     </TouchableOpacity>
                 </View>
                 
-                <FlatList 
-                    keyExtractor={deal => deal.id}
-                    data={this.props.dealsList}
-                    renderItem={({ item }) => {
-                        return (
-                            <View key={item.id} style={user__dealList}>
-                                <Text style={user__dealText}>{item.name}</Text>
-                                <TouchableOpacity style={user__dealButton} onPress={() => Actions.deal({dealID: item.id})}>
-                                    <Text style={user__dealText}>>></Text>
-                                </TouchableOpacity>
-                            </View>
-                        )
-                    }} />
+                {this.props.dealsLoading ? <Spinner /> : listOfDeals}
             </View>
         );
     };
@@ -126,7 +137,9 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
     return{
         profile: state.profile.userData,
-        dealsList: state.profile.dealsList
+        dealsList: state.profile.dealsList,
+        userLoading: state.profile.userLoading,
+        dealsLoading: state.profile.dealsLoading
     }
 }
 

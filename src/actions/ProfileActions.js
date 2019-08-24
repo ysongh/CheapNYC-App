@@ -1,9 +1,12 @@
 import {
     GET_USER,
-    GET_USER_LISTOFDEALS
+    GET_USER_LISTOFDEALS,
+    PROFILE_USER_LOADING,
+    PROFILE_DEALS_LOADING
 } from './types';
 
 export const getUser = userId => dispatch => {
+    dispatch(setProfileLoading())
     const graphqlQuery = {
         query: `
             query{
@@ -42,6 +45,7 @@ export const getUser = userId => dispatch => {
 };
 
 export const getUserProfileDeals = (userId, type) => dispatch => {
+    dispatch(setProfileDealsLoading());
     let graphqlQuery = {
         query: `
             query{
@@ -101,4 +105,16 @@ export const getUserProfileDeals = (userId, type) => dispatch => {
             console.log(err);
         });
     
+};
+
+const setProfileLoading = () => {
+    return{
+        type: PROFILE_USER_LOADING
+    };
+};
+
+const setProfileDealsLoading = () => {
+    return{
+        type: PROFILE_DEALS_LOADING
+    };
 };
