@@ -8,3 +8,4 @@ Using React Native
 ### What I Did?
 
 - Display user favorites deals and deals they made on user profile
+- Add checkbox
