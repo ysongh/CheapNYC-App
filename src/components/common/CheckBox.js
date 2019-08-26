@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-const CheckBox = props => {
+const CheckBox = ({ value }) => {
     const { checkBox, checkBox__outerBorder, checkBox__innerBorder, checkBox__text } = styles;
 
     return (
@@ -11,7 +11,7 @@ const CheckBox = props => {
                     <View style={checkBox__innerBorder} />
                 </View>
             </TouchableOpacity>
-            <Text style={checkBox__text}>Running</Text>
+            <Text style={checkBox__text}>{value}</Text>
         </View>
     );
 };
@@ -19,7 +19,9 @@ const CheckBox = props => {
 const styles = StyleSheet.create({
     checkBox:{
         flexDirection: "row",
-        alignItems: "center"
+        alignItems: "center",
+        width: "30%",
+        marginBottom: 5
     },
     checkBox__outerBorder:{
         height: 27,
