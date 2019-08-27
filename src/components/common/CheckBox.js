@@ -21,11 +21,11 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         width: "30%",
-        marginBottom: 10
+        marginVertical: 4
     },
     checkBox__outerBorder:{
-        height: 32,
-        width: 32,
+        height: 30,
+        width: 30,
         borderWidth: 2,
         borderColor: "#34cbed",
         borderRadius: 50,
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
         borderRadius: 50,
     },
     checkBox__text:{
-        fontSize: 15,
-        marginLeft: 3
+        fontSize: 14,
+        marginLeft: 2
     }
 });
 

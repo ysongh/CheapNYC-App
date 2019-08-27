@@ -18,7 +18,6 @@ class Deals extends Component{
     }
 
     loadPage(){
-        console.log(this.props.filterType);
         this.props.getMoreDeals(this.state.dealName, this.props.currentPage, this.props.filterType);
     }
 

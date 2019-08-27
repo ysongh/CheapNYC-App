@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 import CheckBox from '../common/CheckBox';
 
@@ -24,13 +24,17 @@ class EditProfile extends Component{
 
         this.setState({ interestOptions: newOptions});
     }
+
+    updateUserProfile(){
+
+    }
     
     render(){
-        const { checkBox__group } = styles;
+        const { profile__label, checkBox__group, button__centerButton, button__text } = styles;
 
         return(
-            <View>
-                <Text>Edit</Text>
+            <View style={{ padding: 2 }}>
+                <Text style={profile__label}>Select your Interests:</Text>
                 <View style={checkBox__group}>
                     {
                         this.state.interestOptions.map(interest => {
@@ -42,16 +46,38 @@ class EditProfile extends Component{
                         })
                     }
                 </View>
+                <TouchableOpacity style={button__centerButton} onPress={() => this.updateUserProfile()}>
+                    <Text style={button__text}>Update</Text>
+                </TouchableOpacity>
             </View>
         );
     };
 };
 
 const styles = StyleSheet.create({
+    profile__label: {
+        fontSize: 18,
+        marginVertical: 4,
+        fontWeight: "bold"
+    },
     checkBox__group:{
         flexDirection: "row",
         justifyContent: "space-around", 
-        flexWrap: "wrap"
+        flexWrap: "wrap",
+        borderWidth: 2,
+        borderColor: "#e8176b"
+    },
+    button__centerButton:{
+        width: "50%",
+        alignSelf: "center",
+        backgroundColor: "#82cfe8",
+        borderRadius: 5,
+        padding: 6,
+        marginTop: 10
+    },
+    button__text:{
+        textAlign: 'center',
+        fontSize: 20
     }
 })
 
