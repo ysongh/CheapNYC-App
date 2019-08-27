@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-const CheckBox = ({ value }) => {
-    const { checkBox, checkBox__outerBorder, checkBox__innerBorder, checkBox__text } = styles;
+const CheckBox = ({ value, isCheck, onPress }) => {
+    const { checkBox, checkBox__outerBorder, checkBox__innerBorderChecked, checkBox__innerBorderNotChecked, checkBox__text } = styles;
 
     return (
         <View style={checkBox}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onPress}>
                 <View style={checkBox__outerBorder}>
-                    <View style={checkBox__innerBorder} />
+                    <View style={isCheck ? checkBox__innerBorderChecked : checkBox__innerBorderNotChecked} />
                 </View>
             </TouchableOpacity>
             <Text style={checkBox__text}>{value}</Text>
@@ -21,22 +21,27 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         width: "30%",
-        marginBottom: 5
+        marginBottom: 10
     },
     checkBox__outerBorder:{
-        height: 27,
-        width: 27,
+        height: 32,
+        width: 32,
         borderWidth: 2,
         borderColor: "#34cbed",
         borderRadius: 50,
         alignItems: "center",
         justifyContent: "center",
     },
-    checkBox__innerBorder:{
+    checkBox__innerBorderChecked:{
+        height: 20,
+        width: 20,
+        borderRadius: 50,
+        backgroundColor: "#34cbed"
+    },
+    checkBox__innerBorderNotChecked:{
         height: 15,
         width: 15,
         borderRadius: 50,
-        backgroundColor: "#34cbed"
     },
     checkBox__text:{
         fontSize: 15,

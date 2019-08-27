@@ -5,8 +5,24 @@ import CheckBox from '../common/CheckBox';
 
 class EditProfile extends Component{
     state  = {
-        interestOptions: ["Sports", "Adventure", "Food", "Social", "Bars", "Photography", "Outdoor", "Indoor", "Events", "Concerts",
-            "Theater", "Karaoke", "Movies", "Night Life", "Dancing", "Museums", "Party", "Games", "Biking", "Hiking"]
+        interestOptions: [
+                            {"name": "Sports", isCheck: false}, {"name": "Adventure", isCheck: false}, {"name": "Food", isCheck: false}, {"name": "Social", isCheck: false}, {"name": "Bars", isCheck: false},
+                            {"name": "Photography", isCheck: false}, {"name": "Outdoor", isCheck: false}, {"name": "Indoor", isCheck: false}, {"name": "Events", isCheck: false}, {"name": "Concerts", isCheck: false},
+                            {"name": "Theater", isCheck: false}, {"name": "Karaoke", isCheck: false}, {"name": "Movies", isCheck: false}, {"name": "Night Life", isCheck: false}, {"name": "Dancing", isCheck: false},
+                            {"name": "Museums", isCheck: false}, {"name": "Party", isCheck: false}, {"name": "Games", isCheck: false}, {"name": "Biking", isCheck: false}, {"name": "Hiking", isCheck: false},
+                    ]
+    }
+
+    handleCheckBox(interestName) {
+        let newOptions = this.state.interestOptions;
+
+        newOptions.forEach(interest => {
+            if(interest.name === interestName){
+                interest.isCheck = !interest.isCheck;
+            }
+        })
+
+        this.setState({ interestOptions: newOptions});
     }
     
     render(){
@@ -18,7 +34,11 @@ class EditProfile extends Component{
                 <View style={checkBox__group}>
                     {
                         this.state.interestOptions.map(interest => {
-                            return <CheckBox value={interest}/>
+                            return <CheckBox
+                                        key={interest.name}
+                                        value={interest.name}
+                                        isCheck={interest.isCheck}
+                                        onPress={() => this.handleCheckBox(interest.name)}/>
                         })
                     }
                 </View>
