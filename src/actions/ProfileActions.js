@@ -1,3 +1,5 @@
+import { Actions } from 'react-native-router-flux';
+
 import {
     GET_USER,
     GET_USER_LISTOFDEALS,
@@ -119,6 +121,38 @@ export const getUserProfileDeals = (userId, type) => dispatch => {
         });
     
 };
+
+export const updateUserInformation = (token, userIdProfile, name, interestList) => {
+    return dispatch => {
+        let url = `https://cnycserver.herokuapp.com/users/${userIdProfile}/edit`;
+        fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify({
+              name: name,
+              title: interestList
+            }),
+            headers: {
+              'Authorization': token,
+              'Content-Type': 'application/json'
+            }
+        })
+        .then(res => {
+            return res.json();
+        })
+        .then(data => {
+            if(data.msg){
+                Actions.yourProfile({userId: userIdProfile});
+            }
+            else{
+                console.log(data);
+            }
+            
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
+}
 
 const setProfileLoading = () => {
     return{

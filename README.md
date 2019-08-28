@@ -9,3 +9,4 @@ Using React Native
 
 - Display user favorites deals and deals they made on user profile
 - Add checkbox
+- Allow user to change their name and interests

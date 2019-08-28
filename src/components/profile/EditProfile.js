@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 
 import Input from '../common/Input';
 import CheckBox from '../common/CheckBox';
+import { updateUserInformation } from '../../actions/ProfileActions';
 
 class EditProfile extends Component{
     state  = {
@@ -40,7 +42,7 @@ class EditProfile extends Component{
             }
         })
 
-        console.log(newInterest.join(", "));
+        this.props.updateUserInformation(this.props.token, this.props.userIdProfile, this.state.name, newInterest.join(", "));
     }
     
     render(){
@@ -99,6 +101,12 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 20
     }
-})
+});
 
-export default EditProfile;
+const mapStateToProps = state => {
+    return{
+        token: state.auth.token
+    };
+};
+
+export default connect(mapStateToProps, { updateUserInformation })(EditProfile);
