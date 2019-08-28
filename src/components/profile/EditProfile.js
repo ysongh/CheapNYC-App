@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
+import Input from '../common/Input';
 import CheckBox from '../common/CheckBox';
 
 class EditProfile extends Component{
     state  = {
+        name: this.props.nameProfile,
         interestOptions: [
                             {"name": "Sports", isCheck: false}, {"name": "Adventure", isCheck: false}, {"name": "Food", isCheck: false}, {"name": "Social", isCheck: false}, {"name": "Bars", isCheck: false},
                             {"name": "Photography", isCheck: false}, {"name": "Outdoor", isCheck: false}, {"name": "Indoor", isCheck: false}, {"name": "Events", isCheck: false}, {"name": "Concerts", isCheck: false},
                             {"name": "Theater", isCheck: false}, {"name": "Karaoke", isCheck: false}, {"name": "Movies", isCheck: false}, {"name": "Night Life", isCheck: false}, {"name": "Dancing", isCheck: false},
                             {"name": "Museums", isCheck: false}, {"name": "Party", isCheck: false}, {"name": "Games", isCheck: false}, {"name": "Biking", isCheck: false}, {"name": "Hiking", isCheck: false},
                     ]
+    }
+
+    changeName(text){
+        this.setState({ name: text });
     }
 
     handleCheckBox(interestName) {
@@ -26,7 +32,15 @@ class EditProfile extends Component{
     }
 
     updateUserProfile(){
+        let newInterest = [];
 
+        this.state.interestOptions.forEach(interest => {
+            if(interest.isCheck){
+                newInterest.push(interest.name);
+            }
+        })
+
+        console.log(newInterest.join(", "));
     }
     
     render(){
@@ -34,6 +48,12 @@ class EditProfile extends Component{
 
         return(
             <View style={{ padding: 2 }}>
+                <Input
+                    label="Name"
+                    value={this.state.name}
+                    placeholder="EX - Joe Doe"
+                    onChangeText = {this.changeName.bind(this)} />
+
                 <Text style={profile__label}>Select your Interests:</Text>
                 <View style={checkBox__group}>
                     {
