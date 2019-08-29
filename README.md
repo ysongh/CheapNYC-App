@@ -4,6 +4,7 @@ Using React Native
 
 ### What I Learned?
 - setState is asynchronous
+- use react-native-image-picker to upload an image
 
 ### What I Did?
 

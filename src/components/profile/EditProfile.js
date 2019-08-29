@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import ImagePicker from 'react-native-image-picker';
+import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import Input from '../common/Input';
 import CheckBox from '../common/CheckBox';
 import Spinner from '../common/Spinner';
+import defaultUserImage from '../../img/defaultUserImage.png';
 import { updateUserInformation } from '../../actions/ProfileActions';
+
+const options = {
+    title: 'Upload an Image',
+    chooseFromLibraryButtonTitle: 'Choose image from your phone',
+    takePhotoButtonTitle: "Take a photo with your phone"
+};
 
 class EditProfile extends Component{
     state  = {
@@ -15,7 +23,8 @@ class EditProfile extends Component{
                             {"name": "Photography", isCheck: false}, {"name": "Outdoor", isCheck: false}, {"name": "Indoor", isCheck: false}, {"name": "Events", isCheck: false}, {"name": "Concerts", isCheck: false},
                             {"name": "Theater", isCheck: false}, {"name": "Karaoke", isCheck: false}, {"name": "Movies", isCheck: false}, {"name": "Night Life", isCheck: false}, {"name": "Dancing", isCheck: false},
                             {"name": "Museums", isCheck: false}, {"name": "Party", isCheck: false}, {"name": "Games", isCheck: false}, {"name": "Biking", isCheck: false}, {"name": "Hiking", isCheck: false},
-                    ]
+                    ],
+        imageSource: ""
     }
     componentDidMount(){
         let userInterest = this.props.userInterest.split(", ");
@@ -59,9 +68,30 @@ class EditProfile extends Component{
 
         this.props.updateUserInformation(this.props.token, this.props.userIdProfile, this.state.name, newInterest.join(", "));
     }
+
+    selectImage(){
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+          
+            if (response.didCancel) {
+              console.log('User cancelled image picker');
+            } else if (response.error) {
+              console.log('ImagePicker Error: ', response.error);
+            } else {
+              const source = { uri: response.uri };
+          
+              // You can also display the image using data:
+              // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+          
+              this.setState({
+                imageSource: source,
+              });
+            }
+          });
+    }
     
     render(){
-        const { profile__label, checkBox__group, button__centerButton, button__text } = styles;
+        const { profile__label, user__image, checkBox__group, button__centerButton, button__text } = styles;
         const updateButton = (
             <TouchableOpacity style={button__centerButton} onPress={() => this.updateUserProfile()}>
                 <Text style={button__text}>Update</Text>
@@ -89,6 +119,11 @@ class EditProfile extends Component{
                     }
                 </View>
                 { this.props.userLoading ? <Spinner /> : updateButton }
+
+                <Image source={this.state.imageSource ? null : defaultUserImage} style={user__image}/>
+                <TouchableOpacity style={button__centerButton} onPress={() => this.selectImage()}>
+                    <Text style={button__text}>Change Image</Text>
+                </TouchableOpacity>
             </View>
         );
     };
@@ -99,6 +134,13 @@ const styles = StyleSheet.create({
         fontSize: 18,
         marginVertical: 4,
         fontWeight: "bold"
+    },
+    user__image:{
+        width: 150,
+        height: 150,
+        alignSelf: 'center',
+        marginVertical: 20,
+        borderRadius: 50
     },
     checkBox__group:{
         flexDirection: "row",

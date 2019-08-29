@@ -10,6 +10,7 @@
     "jwt-decode": "^2.2.0",
     "react": "16.8.3",
     "react-native": "0.59.9",
+    "react-native-image-picker": "^1.0.2",
     "react-native-router-flux": "^4.0.6",
     "react-redux": "^7.1.0",
     "redux": "^4.0.4",
