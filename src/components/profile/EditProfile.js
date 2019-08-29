@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import Input from '../common/Input';
 import CheckBox from '../common/CheckBox';
+import Spinner from '../common/Spinner';
 import { updateUserInformation } from '../../actions/ProfileActions';
 
 class EditProfile extends Component{
@@ -47,6 +48,11 @@ class EditProfile extends Component{
     
     render(){
         const { profile__label, checkBox__group, button__centerButton, button__text } = styles;
+        const updateButton = (
+            <TouchableOpacity style={button__centerButton} onPress={() => this.updateUserProfile()}>
+                <Text style={button__text}>Update</Text>
+            </TouchableOpacity>
+        );
 
         return(
             <View style={{ padding: 2 }}>
@@ -68,9 +74,7 @@ class EditProfile extends Component{
                         })
                     }
                 </View>
-                <TouchableOpacity style={button__centerButton} onPress={() => this.updateUserProfile()}>
-                    <Text style={button__text}>Update</Text>
-                </TouchableOpacity>
+                { this.props.userLoading ? <Spinner /> : updateButton }
             </View>
         );
     };
@@ -105,7 +109,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return{
-        token: state.auth.token
+        token: state.auth.token,
+        userLoading: state.profile.userLoading
     };
 };
 

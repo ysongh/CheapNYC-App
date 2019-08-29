@@ -2,6 +2,7 @@ import {
     GET_USER,
     GET_USER_LISTOFDEALS,
     PROFILE_USER_LOADING,
+    PROFILE_USER_REMOVELOADING,
     PROFILE_DEALS_LOADING,
     PROFILE_ERROR
 } from '../actions/types';
@@ -33,6 +34,11 @@ export default function(state = initialState, action){
             return{
                 ...state,
                 userLoading: true
+            }
+        case PROFILE_USER_REMOVELOADING:
+            return{
+                ...state,
+                userLoading: false
             }
         case PROFILE_DEALS_LOADING:
             return{

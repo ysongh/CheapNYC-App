@@ -4,6 +4,7 @@ import {
     GET_USER,
     GET_USER_LISTOFDEALS,
     PROFILE_USER_LOADING,
+    PROFILE_USER_REMOVELOADING,
     PROFILE_DEALS_LOADING,
     PROFILE_ERROR
 } from './types';
@@ -124,6 +125,8 @@ export const getUserProfileDeals = (userId, type) => dispatch => {
 
 export const updateUserInformation = (token, userIdProfile, name, interestList) => {
     return dispatch => {
+        dispatch(setProfileLoading());
+
         let url = `https://cnycserver.herokuapp.com/users/${userIdProfile}/edit`;
         fetch(url, {
             method: 'PUT',
@@ -141,15 +144,18 @@ export const updateUserInformation = (token, userIdProfile, name, interestList) 
         })
         .then(data => {
             if(data.msg){
+                dispatch(removeProfileLoading());
                 Actions.yourProfile({userId: userIdProfile});
             }
             else{
                 console.log(data);
+                dispatch(removeProfileLoading());
             }
             
         })
         .catch((err) => {
             console.log(err);
+            dispatch(removeProfileLoading());
         });
     }
 }
@@ -157,6 +163,12 @@ export const updateUserInformation = (token, userIdProfile, name, interestList) 
 const setProfileLoading = () => {
     return{
         type: PROFILE_USER_LOADING
+    };
+};
+
+const removeProfileLoading = () => {
+    return{
+        type: PROFILE_USER_REMOVELOADING
     };
 };
 
