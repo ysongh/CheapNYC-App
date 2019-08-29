@@ -70,7 +70,9 @@ class EditProfile extends Component{
     }
 
     selectImage(){
+        console.log("hi")
         ImagePicker.showImagePicker(options, (response) => {
+            console.log(options);
             console.log('Response = ', response);
           
             if (response.didCancel) {
@@ -120,7 +122,7 @@ class EditProfile extends Component{
                 </View>
                 { this.props.userLoading ? <Spinner /> : updateButton }
 
-                <Image source={this.state.imageSource ? null : defaultUserImage} style={user__image}/>
+                <Image source={this.state.imageSource ? this.state.imageSource : defaultUserImage} style={user__image}/>
                 <TouchableOpacity style={button__centerButton} onPress={() => this.selectImage()}>
                     <Text style={button__text}>Change Image</Text>
                 </TouchableOpacity>
