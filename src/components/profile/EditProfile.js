@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ImagePicker from 'react-native-image-picker';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import Input from '../common/Input';
@@ -70,9 +70,7 @@ class EditProfile extends Component{
     }
 
     selectImage(){
-        console.log("hi")
         ImagePicker.showImagePicker(options, (response) => {
-            console.log(options);
             console.log('Response = ', response);
           
             if (response.didCancel) {
@@ -81,9 +79,6 @@ class EditProfile extends Component{
               console.log('ImagePicker Error: ', response.error);
             } else {
               const source = { uri: response.uri };
-          
-              // You can also display the image using data:
-              // const source = { uri: 'data:image/jpeg;base64,' + response.data };
           
               this.setState({
                 imageSource: source,
@@ -101,7 +96,7 @@ class EditProfile extends Component{
         );
 
         return(
-            <View style={{ padding: 2 }}>
+            <ScrollView style={{ padding: 2 }}>
                 <Input
                     label="Name"
                     value={this.state.name}
@@ -126,7 +121,7 @@ class EditProfile extends Component{
                 <TouchableOpacity style={button__centerButton} onPress={() => this.selectImage()}>
                     <Text style={button__text}>Change Image</Text>
                 </TouchableOpacity>
-            </View>
+            </ScrollView>
         );
     };
 };
