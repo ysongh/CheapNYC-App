@@ -34,7 +34,7 @@ class UserProfile extends Component{
 
         const userInfor = (
             <View>
-                { this.props.user.id === this.props.profile._id ? <TouchableOpacity style={user__editButton} onPress={() => Actions.editProfile({ nameProfile: this.props.profile.name, userIdProfile: this.props.user.id })}>
+                { this.props.user.id === this.props.profile._id ? <TouchableOpacity style={user__editButton} onPress={() => Actions.editProfile({ nameProfile: this.props.profile.name, userIdProfile: this.props.user.id, userInterest: this.props.profile.title })}>
                     <Text style={user__buttonText}>Edit</Text>
                 </TouchableOpacity> : null }
                 <Image source={profileImage ? { uri: profileImage } : defaultUserImage} style={user__image}/>

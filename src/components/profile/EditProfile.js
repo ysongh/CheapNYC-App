@@ -17,6 +17,20 @@ class EditProfile extends Component{
                             {"name": "Museums", isCheck: false}, {"name": "Party", isCheck: false}, {"name": "Games", isCheck: false}, {"name": "Biking", isCheck: false}, {"name": "Hiking", isCheck: false},
                     ]
     }
+    componentDidMount(){
+        let userInterest = this.props.userInterest.split(", ");
+        let newOptions = this.state.interestOptions;
+
+        for(let interestName of userInterest){
+            newOptions.forEach(interest => {
+                if(interest.name === interestName){
+                    interest.isCheck = true;
+                }
+            })
+        };
+        
+        this.setState({interestOptions: newOptions})
+    }
 
     changeName(text){
         this.setState({ name: text });
