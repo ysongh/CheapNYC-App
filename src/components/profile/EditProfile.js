@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ImagePicker from 'react-native-image-picker';
-import RNFetchBlob from 'react-native-fetch-blob';
 import { View, Text, TouchableOpacity, Image, ScrollView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -8,7 +7,7 @@ import Input from '../common/Input';
 import CheckBox from '../common/CheckBox';
 import Spinner from '../common/Spinner';
 import defaultUserImage from '../../img/defaultUserImage.png';
-import { updateUserInformation } from '../../actions/ProfileActions';
+import { updateUserInformation, updateUserImage } from '../../actions/ProfileActions';
 
 const options = {
     title: 'Upload an Image',
@@ -91,21 +90,7 @@ class EditProfile extends Component{
     }
 
     changeImage(){
-        const url = `https://cnycserver.herokuapp.com/users/${this.props.userIdProfile}/edit-image`;
-
-        RNFetchBlob.fetch('PUT', url, {
-            'Authorization': this.props.token,
-            otherHeader : "foo",
-            'Content-Type' : 'multipart/form-data',
-        }, [
-            { name : 'image', filename : 'image.png', type:'image/png', data: this.state.imageData}
-        ]).then((resp) => {
-            console.log(resp);
-            console.log("it work");
-        }).catch((err) => {
-            console.log(err);
-        })
-
+        this.props.updateUserImage(this.props.token, this.props.userIdProfile, this.state.imageData);
     }
     
     render(){
@@ -191,4 +176,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, { updateUserInformation })(EditProfile);
+export default connect(mapStateToProps, { updateUserInformation, updateUserImage })(EditProfile);

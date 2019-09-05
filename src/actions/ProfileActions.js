@@ -1,3 +1,5 @@
+import RNFetchBlob from 'react-native-fetch-blob';
+
 import { Actions } from 'react-native-router-flux';
 
 import {
@@ -157,6 +159,33 @@ export const updateUserInformation = (token, userIdProfile, name, interestList) 
             console.log(err);
             dispatch(removeProfileLoading());
         });
+    }
+}
+
+export const updateUserImage = (token, userIdProfile, imageData) => {
+    return dispatch => {
+        const url = `https://cnycserver.herokuapp.com/users/${userIdProfile}/edit-image`;
+
+        RNFetchBlob.fetch('PUT', url, {
+            'Authorization': token,
+            otherHeader : "foo",
+            'Content-Type' : 'multipart/form-data',
+        }, [
+            { name : 'image', filename : 'image.png', type:'image/png', data: imageData}
+        ])
+        .then(res => {
+            return res.json();
+        })
+        .then(resData => {
+            console.log(resData);
+            dispatch({
+                type: GET_USER,
+                payload: resData.user
+            });
+            Actions.yourProfile({userId: userIdProfile});
+        }).catch((err) => {
+            console.log(err);
+        })
     }
 }
 
