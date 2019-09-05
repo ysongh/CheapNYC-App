@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ImagePicker from 'react-native-image-picker';
+import RNFetchBlob from 'react-native-fetch-blob';
 import { View, Text, TouchableOpacity, Image, ScrollView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -24,7 +25,8 @@ class EditProfile extends Component{
                             {"name": "Theater", isCheck: false}, {"name": "Karaoke", isCheck: false}, {"name": "Movies", isCheck: false}, {"name": "Night Life", isCheck: false}, {"name": "Dancing", isCheck: false},
                             {"name": "Museums", isCheck: false}, {"name": "Party", isCheck: false}, {"name": "Games", isCheck: false}, {"name": "Biking", isCheck: false}, {"name": "Hiking", isCheck: false},
                     ],
-        imageSource: ""
+        imageSource: "",
+        imageData: ""
     }
     componentDidMount(){
         let userInterest = this.props.userInterest.split(", ");
@@ -82,9 +84,28 @@ class EditProfile extends Component{
           
               this.setState({
                 imageSource: source,
+                imageData: response.data
               });
             }
           });
+    }
+
+    changeImage(){
+        const url = `https://cnycserver.herokuapp.com/users/${this.props.userIdProfile}/edit-image`;
+
+        RNFetchBlob.fetch('PUT', url, {
+            'Authorization': this.props.token,
+            otherHeader : "foo",
+            'Content-Type' : 'multipart/form-data',
+        }, [
+            { name : 'image', filename : 'image.png', type:'image/png', data: this.state.imageData}
+        ]).then((resp) => {
+            console.log(resp);
+            console.log("it work");
+        }).catch((err) => {
+            console.log(err);
+        })
+
     }
     
     render(){
@@ -119,6 +140,9 @@ class EditProfile extends Component{
 
                 <Image source={this.state.imageSource ? this.state.imageSource : defaultUserImage} style={user__image}/>
                 <TouchableOpacity style={button__centerButton} onPress={() => this.selectImage()}>
+                    <Text style={button__text}>Select Image</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={button__centerButton} onPress={() => this.changeImage()}>
                     <Text style={button__text}>Change Image</Text>
                 </TouchableOpacity>
             </ScrollView>
