@@ -4,7 +4,9 @@ import {
     PROFILE_USER_LOADING,
     PROFILE_USER_REMOVELOADING,
     PROFILE_DEALS_LOADING,
-    PROFILE_ERROR
+    PROFILE_ERROR,
+    IMAGE_LOADING,
+    IMAGE_REMOVELOADING
 } from '../actions/types';
 
 const initialState = {
@@ -12,6 +14,7 @@ const initialState = {
     dealsList: [],
     userLoading: true,
     dealsLoading: true,
+    imageLoading: false,
     profileError: ""
 };
 
@@ -51,6 +54,16 @@ export default function(state = initialState, action){
                 profileError: action.payload,
                 userLoading: false,
                 dealsLoading: false
+            }
+        case IMAGE_LOADING:
+            return{
+                ...state,
+                imageLoading: true
+            }
+        case IMAGE_REMOVELOADING:
+            return{
+                ...state,
+                imageLoading: false
             }
         default:
             return state;

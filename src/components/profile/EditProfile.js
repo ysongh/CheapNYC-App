@@ -39,7 +39,7 @@ class EditProfile extends Component{
             })
         };
         
-        this.setState({interestOptions: newOptions})
+        this.setState({ interestOptions: newOptions });
     }
 
     changeName(text){
@@ -100,6 +100,17 @@ class EditProfile extends Component{
                 <Text style={button__text}>Update</Text>
             </TouchableOpacity>
         );
+        
+        const imageButtons = (
+            <View>
+                <TouchableOpacity style={button__centerButton} onPress={() => this.selectImage()}>
+                    <Text style={button__text}>Select Image</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={button__centerButton} onPress={() => this.changeImage()}>
+                    <Text style={button__text}>Change Image</Text>
+                </TouchableOpacity>
+            </View>
+        );
 
         return(
             <ScrollView style={{ padding: 2 }}>
@@ -124,12 +135,7 @@ class EditProfile extends Component{
                 { this.props.userLoading ? <Spinner /> : updateButton }
 
                 <Image source={this.state.imageSource ? this.state.imageSource : defaultUserImage} style={user__image}/>
-                <TouchableOpacity style={button__centerButton} onPress={() => this.selectImage()}>
-                    <Text style={button__text}>Select Image</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={button__centerButton} onPress={() => this.changeImage()}>
-                    <Text style={button__text}>Change Image</Text>
-                </TouchableOpacity>
+                { this.props.imageLoading ? <Spinner /> : imageButtons }
             </ScrollView>
         );
     };
@@ -161,7 +167,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#82cfe8",
         borderRadius: 5,
         padding: 6,
-        marginTop: 10
+        marginVertical: 10
     },
     button__text:{
         textAlign: 'center',
@@ -172,7 +178,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
     return{
         token: state.auth.token,
-        userLoading: state.profile.userLoading
+        userLoading: state.profile.userLoading,
+        imageLoading: state.profile.imageLoading
     };
 };
 

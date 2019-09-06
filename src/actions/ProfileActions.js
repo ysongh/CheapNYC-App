@@ -8,7 +8,9 @@ import {
     PROFILE_USER_LOADING,
     PROFILE_USER_REMOVELOADING,
     PROFILE_DEALS_LOADING,
-    PROFILE_ERROR
+    PROFILE_ERROR,
+    IMAGE_LOADING,
+    IMAGE_REMOVELOADING
 } from './types';
 
 export const getUser = userId => dispatch => {
@@ -164,6 +166,8 @@ export const updateUserInformation = (token, userIdProfile, name, interestList) 
 
 export const updateUserImage = (token, userIdProfile, imageData) => {
     return dispatch => {
+        dispatch(setImageLoading());
+
         const url = `https://cnycserver.herokuapp.com/users/${userIdProfile}/edit-image`;
 
         RNFetchBlob.fetch('PUT', url, {
@@ -177,14 +181,15 @@ export const updateUserImage = (token, userIdProfile, imageData) => {
             return res.json();
         })
         .then(resData => {
-            console.log(resData);
             dispatch({
                 type: GET_USER,
                 payload: resData.user
             });
+            dispatch(removeImageLoading());
             Actions.yourProfile({userId: userIdProfile});
-        }).catch((err) => {
+        }).catch(err => {
             console.log(err);
+            dispatch(removeImageLoading());
         })
     }
 }
@@ -204,5 +209,17 @@ const removeProfileLoading = () => {
 const setProfileDealsLoading = () => {
     return{
         type: PROFILE_DEALS_LOADING
+    };
+};
+
+const setImageLoading = () => {
+    return{
+        type: IMAGE_LOADING
+    };
+};
+
+const removeImageLoading = () => {
+    return{
+        type: IMAGE_REMOVELOADING
     };
 };
