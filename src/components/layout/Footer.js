@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
+import Button from '../common/Button';
 import { logoutUser } from '../../actions/AuthActions';
 
 class Footer extends Component{
@@ -14,34 +15,38 @@ class Footer extends Component{
         const {footer, footer__button} = styles;
 
         const DealsButton = (
-            <TouchableOpacity style={footer__button} onPress={() => Actions.main()}>
-                <Text style={styles.deals__name}>Deals</Text>
-            </TouchableOpacity>
+            <Button
+                buttonStyle={footer__button}
+                value="Deals"
+                onPress={() => Actions.main()} />
         );
 
         const guestButtons = (
             <View style={footer}>
                 {DealsButton}
-                <TouchableOpacity style={footer__button} onPress={() => Actions.register()}>
-                    <Text style={styles.deals__name}>Register</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={footer__button} onPress={() => Actions.login()}>
-                    <Text style={styles.deals__name}>Login</Text>
-                </TouchableOpacity>
+                <Button
+                    buttonStyle={footer__button}
+                    value="Register"
+                    onPress={() => Actions.register()} />
+                <Button
+                    buttonStyle={footer__button}
+                    value="Login"
+                    onPress={() => Actions.login()} />
             </View>
         );
 
         const userButtons = (
             <View style={footer}>
                 {DealsButton}
-                <TouchableOpacity style={footer__button} onPress={() => Actions.yourProfile({userId: this.props.user.id})}>
-                    <Text style={styles.deals__name}>Profile</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={footer__button} onPress={() => this.pressLogout()}>
-                    <Text style={styles.deals__name}>Logout</Text>
-                </TouchableOpacity>
+                <Button
+                    buttonStyle={footer__button}
+                    value="Profile"
+                    onPress={() => Actions.yourProfile({userId: this.props.user.id})} />
+                <Button
+                    buttonStyle={footer__button}
+                    value="Logout"
+                    onPress={() => this.pressLogout()} />
             </View>
-            
         );
 
         return (

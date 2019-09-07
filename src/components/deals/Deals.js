@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import { Text, View, Image, ScrollView, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
+import { Text, View, Image, ScrollView, FlatList, StyleSheet } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
 import SearchBar from '../common/SearchBar';
 import noImage from '../../img/blue.jpeg';
 import Spinner from '../common/Spinner';
+import Button from '../common/Button';
 import { getDeals, getMoreDeals, getDealsByName } from '../../actions/DealActions';
 
 class Deals extends Component{
@@ -37,9 +38,11 @@ class Deals extends Component{
                             <View style={deals__rightSide}>
                                 <Text style={deals__name}>{item.name}</Text>
                                 <Text style={deals__price}>${item.price === 0 ? "Free" : item.price}</Text>
-                                <TouchableOpacity style={deals__button} onPress={() => Actions.deal({dealID: item._id})}>
-                                    <Text style={deals__name}>See More</Text>
-                                </TouchableOpacity>
+                                <Button
+                                    buttonStyle={deals__button}
+                                    textStyle={deals__name}
+                                    value="See More"
+                                    onPress={() => Actions.deal({dealID: item._id})} />
                             </View>
                         </View>
                     )
@@ -53,9 +56,11 @@ class Deals extends Component{
     
   render() {
     const loadButton = (
-        <TouchableOpacity style={styles.deals__loadMoreButton} onPress={() => this.loadPage()}>
-            <Text style={styles.deals__name}>Show More</Text>
-        </TouchableOpacity>
+        <Button
+            buttonStyle={styles.deals__loadMoreButton}
+            textStyle={styles.deals__name}
+            value="Show More"
+            onPress={() => this.loadPage()} />
     );
 
     return (
