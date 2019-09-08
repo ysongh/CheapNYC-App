@@ -7,6 +7,7 @@ import Login from '../auth/Login';
 import Register from '../auth/Register';
 import UserProfile from '../profile/UserProfile';
 import EditProfile from '../profile/EditProfile';
+import AddDeal from '../deals/AddDeal';
 
 const RouterArea = () => {
     return(
@@ -28,6 +29,9 @@ const RouterArea = () => {
                     <Scene component={UserProfile} title="Your Profile" initial/>
                     <Scene key="deal" component={Deal} title="Deal" />
                     <Scene key="editProfile" component={EditProfile} title="Edit Profile" />
+                </Scene>
+                <Scene key="addDeal">
+                    <Scene component={AddDeal} title="Add Deal" />
                 </Scene>
             </Scene>
         </Router>

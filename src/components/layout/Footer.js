@@ -44,6 +44,10 @@ class Footer extends Component{
                     onPress={() => Actions.yourProfile({userId: this.props.user.id})} />
                 <Button
                     buttonStyle={footer__button}
+                    value="Add Deal"
+                    onPress={() => Actions.addDeal()} />
+                <Button
+                    buttonStyle={footer__button}
                     value="Logout"
                     onPress={() => this.pressLogout()} />
             </View>
@@ -51,7 +55,7 @@ class Footer extends Component{
 
         return (
             <View>
-                {this.props.token ? userButtons : guestButtons}
+                {!this.props.token ? userButtons : guestButtons}
             </View>
         );
     }
