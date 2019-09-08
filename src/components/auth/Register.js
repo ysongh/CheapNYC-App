@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
 import Input from '../common/Input';
 import Spinner from '../common/Spinner';
+import ButtonGroup from '../common/ButtonGroup';
 import { changeUserName, changeUserEmail, changeUserPassword, changeUserConfirmPassword, registerUser, clearInputs } from '../../actions/AuthActions';
 
 
@@ -40,18 +41,14 @@ class Register extends Component{
     }
 
     render(){
-        const { register, register__button, buttonGroup, buttonGroup__button, buttonGroup__text, errorMessage } = styles;
+        const { register, errorMessage } = styles;
 
         const registerButtons = (
-            <View style={buttonGroup}>
-                <TouchableOpacity style={buttonGroup__button} onPress={() => this.pressRegister()}>
-                    <Text style={styles.buttonGroup__text}>Enter</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={buttonGroup__button} onPress={() => Actions.main()}>
-                    <Text style={styles.buttonGroup__text}>Go Back</Text>
-                </TouchableOpacity>
-            </View>
-            
+            <ButtonGroup
+                value1="Enter"
+                value2="Go Back"
+                onPress1={() => this.pressRegister()}
+                onPress2={() => Actions.main()} />
         );
 
         return (
@@ -93,21 +90,6 @@ class Register extends Component{
 const styles = StyleSheet.create({
     register:{
         marginTop: 30
-    },
-    buttonGroup:{
-        flexDirection: "row",
-        justifyContent: 'space-around',
-    },
-    buttonGroup__button:{
-        alignSelf: 'center',
-        backgroundColor: "#82cfe8",
-        paddingVertical: 12,
-        width: "45%",
-        marginVertical: 10
-    },
-    buttonGroup__text:{
-        textAlign: 'center',
-        fontSize: 17
     },
     errorMessage:{
         marginLeft: 5,

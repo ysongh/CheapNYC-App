@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
+import { View, Text, Modal, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import Input from './common/Input';
 import Spinner from './common/Spinner';
+import ButtonGroup from './common/ButtonGroup';
 import { changeReviewText, changeReviewRating, addReview, clearReviewInputs } from '../actions/ReviewActions';
 
 class AddReview extends Component{
@@ -29,17 +30,14 @@ class AddReview extends Component{
     }
 
     render(){
-        const { login__button, addReview, addReview__title, addReview__Area, errorMessage } = styles;
+        const { addReview, addReview__title, addReview__Area, errorMessage } = styles;
 
         const addReviewButtons = (
-            <View>
-                <TouchableOpacity style={login__button} onPress={() => this.pressAddreview()}>
-                    <Text style={styles.deals__name}>Add</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={login__button} onPress={this.props.onCancel}>
-                    <Text style={styles.deals__name}>Cancel</Text>
-                </TouchableOpacity>
-            </View>
+            <ButtonGroup
+                value1="Add"
+                value2="Cancel"
+                onPress1={() => this.pressAddreview()}
+                onPress2={this.props.onCancel} />
         );
 
         return (
@@ -86,13 +84,6 @@ const styles = StyleSheet.create({
     addReview__Area:{
         backgroundColor: 'white',
         marginTop: 150
-    },
-    login__button:{
-        alignSelf: 'center',
-        backgroundColor: "#82cfe8",
-        borderRadius: 5,
-        padding: 10,
-        marginBottom: 10
     },
     errorMessage:{
         marginLeft: 5,

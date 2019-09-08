@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
 import Input from '../common/Input';
 import Spinner from '../common/Spinner';
+import ButtonGroup from '../common/ButtonGroup';
 import { changeUserEmail, changeUserPassword, loginUser, clearInputs } from '../../actions/AuthActions';
 
 class Login extends Component{
@@ -31,18 +32,14 @@ class Login extends Component{
     }
 
     render(){
-        const { login, buttonGroup, buttonGroup__button, buttonGroup__text, errorMessage } = styles;
+        const { login, errorMessage } = styles;
 
         const loginButtons = (
-            <View style={buttonGroup}>
-                <TouchableOpacity style={buttonGroup__button} onPress={() => this.pressLogin()}>
-                    <Text style={buttonGroup__text}>Enter</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={buttonGroup__button} onPress={() => Actions.main()}>
-                    <Text style={buttonGroup__text}>Go Back</Text>
-                </TouchableOpacity>
-            </View>
-            
+            <ButtonGroup
+                value1="Enter"
+                value2="Go Back"
+                onPress1={() => this.pressLogin()}
+                onPress2={() => Actions.main()} />
         );
 
         return (
@@ -71,21 +68,6 @@ class Login extends Component{
 const styles = StyleSheet.create({
     login:{
         marginTop: 30
-    },
-    buttonGroup:{
-        flexDirection: "row",
-        justifyContent: 'space-around',
-    },
-    buttonGroup__button:{
-        alignSelf: 'center',
-        backgroundColor: "#82cfe8",
-        paddingVertical: 12,
-        width: "45%",
-        marginVertical: 10
-    },
-    buttonGroup__text:{
-        textAlign: 'center',
-        fontSize: 17
     },
     errorMessage:{
         marginLeft: 5,
