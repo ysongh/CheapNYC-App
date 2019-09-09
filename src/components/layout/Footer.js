@@ -55,7 +55,7 @@ class Footer extends Component{
 
         return (
             <View>
-                {!this.props.token ? userButtons : guestButtons}
+                {this.props.token ? userButtons : guestButtons}
             </View>
         );
     }
