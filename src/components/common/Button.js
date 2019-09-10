@@ -14,7 +14,8 @@ const Button = ({ buttonStyle, textStyle, value, onPress }) => {
 const styles = StyleSheet.create({
     default__buttonText:{
         fontSize: 15,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        textAlign: "center"
     }
 })
 

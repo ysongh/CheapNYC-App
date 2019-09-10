@@ -1,14 +1,29 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import Input from '../common/Input';
-import { changeDealInfor } from '../../actions/DealFormActions';
+import Button from '../common/Button';
+import { changeDealInfor, createNewDeal } from '../../actions/DealFormActions';
 
 class AddDeal extends Component{
-    
+    addDeal(name, category, price, location, city, description, company, duration){
+        const dealData = {
+            name: name,
+            category: category,
+            price: price,
+            location: location,
+            city: city,
+            description: description,
+            company: company,
+            duration: duration
+        }
+        this.props.createNewDeal(dealData, this.props.token);
+    };
+
     render(){
-        const { name, category, price, location, description, company, duration } = this.props;
+        const { name, category, price, location, city, description, company, duration } = this.props;
+        const { addDeal__button } = styles;
 
         return(
             <View>
@@ -34,6 +49,11 @@ class AddDeal extends Component{
                     placeholder="EX - 123 Pizza St"
                     onChangeText={text => this.props.changeDealInfor({ prop: 'location', value: text})} />
                 <Input
+                    value={city}
+                    label="City"
+                    placeholder="EX - Bronx"
+                    onChangeText={text => this.props.changeDealInfor({ prop: 'city', value: text})} />
+                <Input
                     value={description}
                     label="Description"
                     placeholder="EX - This is a yummy pizza"
@@ -49,6 +69,10 @@ class AddDeal extends Component{
                     placeholder="EX - 30"
                     keyboardType="numeric"
                     onChangeText={text => this.props.changeDealInfor({ prop: 'duration', value: text})} />
+                <Button
+                    buttonStyle={addDeal__button}
+                    value="Create Deal"
+                    onPress={() => this.addDeal(name, category, price, location, city, description, company, duration)} />
             </View>
         );
     };
@@ -60,10 +84,23 @@ const mapStateToProps = state => {
         category: state.dealForm.category,
         price: state.dealForm.price,
         location: state.dealForm.location,
+        city: state.dealForm.city,
         description: state.dealForm.description,
         company: state.dealForm.company,
-        duration: state.dealForm.duration
+        duration: state.dealForm.duration,
+        token: state.auth.token,
     }
 }
 
-export default connect(mapStateToProps, { changeDealInfor })(AddDeal);
+const styles = StyleSheet.create({
+    addDeal__button:{
+        justifyContent: "center",
+        backgroundColor: "#82cfe8",
+        borderRadius: 5,
+        paddingVertical: 15,
+        marginTop: 20,
+        marginHorizontal: 5
+    },
+})
+
+export default connect(mapStateToProps, { changeDealInfor, createNewDeal })(AddDeal);

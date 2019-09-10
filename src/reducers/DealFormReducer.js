@@ -7,6 +7,7 @@ const initialState = {
     category: "",
     price: "",
     location: "",
+    city: "",
     description: "",
     company: "",
     duration: ""
