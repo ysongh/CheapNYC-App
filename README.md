@@ -9,9 +9,11 @@ Using React Native
 ### What I Learned?
 - setState is asynchronous
 - use react-native-image-picker to upload an image
+- use Picker for select element
 
 ### What I Did?
 
 - Display user favorites deals and deals they made on user profile
 - Add checkbox
 - Allow user to change their name, interests, and image
+- Add deal form

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { ScrollView, Picker, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import Input from '../common/Input';
@@ -26,17 +26,31 @@ class AddDeal extends Component{
         const { addDeal__button } = styles;
 
         return(
-            <View>
+            <ScrollView>
                 <Input
                     value={name}
                     label="Name"
                     placeholder="EX - Pizza"
                     onChangeText={text => this.props.changeDealInfor({ prop: 'name', value: text})} />
-                <Input
-                    value={category}
-                    label="Category"
-                    placeholder="EX - Food"
-                    onChangeText={text => this.props.changeDealInfor({ prop: 'category', value: text})} />
+                <Picker
+                    selectedValue={category}
+                    onValueChange={text => this.props.changeDealInfor({ prop: 'category', value: text})}
+                >
+                    <Picker.Item label="Category" value="" />
+                    <Picker.Item label="Food" value="Food" />
+                    <Picker.Item label="Drinks" value="Drinks" />
+                    <Picker.Item label="Activities" value="Activities" />
+                    <Picker.Item label="Events" value="Events" />
+                    <Picker.Item label="Arts" value="Arts" />
+                    <Picker.Item label="Sports" value="Sports" />
+                    <Picker.Item label="Outdoor" value="Outdoor" />
+                    <Picker.Item label="Indoor" value="Indoor" />
+                    <Picker.Item label="Music" value="Music" />
+                    <Picker.Item label="Classes" value="Classes" />
+                    <Picker.Item label="Travel" value="Travel" />
+                    <Picker.Item label="Social" value="Social" />
+                    <Picker.Item label="Others" value="Others" />
+                </Picker>
                 <Input
                     value={price}
                     label="Price"
@@ -48,11 +62,17 @@ class AddDeal extends Component{
                     label="Location"
                     placeholder="EX - 123 Pizza St"
                     onChangeText={text => this.props.changeDealInfor({ prop: 'location', value: text})} />
-                <Input
-                    value={city}
-                    label="City"
-                    placeholder="EX - Bronx"
-                    onChangeText={text => this.props.changeDealInfor({ prop: 'city', value: text})} />
+                <Picker
+                    selectedValue={city}
+                    onValueChange={text => this.props.changeDealInfor({ prop: 'city', value: text})}
+                >
+                    <Picker.Item label="City" value="" />
+                    <Picker.Item label="Manhattan" value="Manhattan" />
+                    <Picker.Item label="Queens" value="Queens" />
+                    <Picker.Item label="Bronx" value="Bronx" />
+                    <Picker.Item label="Brooklyn" value="Brooklyn" />
+                    <Picker.Item label="Staten Island" value="Staten Island" />
+                </Picker>
                 <Input
                     value={description}
                     label="Description"
@@ -73,7 +93,7 @@ class AddDeal extends Component{
                     buttonStyle={addDeal__button}
                     value="Create Deal"
                     onPress={() => this.addDeal(name, category, price, location, city, description, company, duration)} />
-            </View>
+            </ScrollView>
         );
     };
 };
