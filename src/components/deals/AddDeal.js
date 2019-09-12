@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Picker, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, Picker, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import Input from '../common/Input';
@@ -23,7 +23,7 @@ class AddDeal extends Component{
 
     render(){
         const { name, category, price, location, city, description, company, duration } = this.props;
-        const { addDeal__button } = styles;
+        const { addDeal__button, picker__container, picker__subContainer, picker__label } = styles;
 
         return(
             <ScrollView>
@@ -32,25 +32,6 @@ class AddDeal extends Component{
                     label="Name"
                     placeholder="EX - Pizza"
                     onChangeText={text => this.props.changeDealInfor({ prop: 'name', value: text})} />
-                <Picker
-                    selectedValue={category}
-                    onValueChange={text => this.props.changeDealInfor({ prop: 'category', value: text})}
-                >
-                    <Picker.Item label="Category" value="" />
-                    <Picker.Item label="Food" value="Food" />
-                    <Picker.Item label="Drinks" value="Drinks" />
-                    <Picker.Item label="Activities" value="Activities" />
-                    <Picker.Item label="Events" value="Events" />
-                    <Picker.Item label="Arts" value="Arts" />
-                    <Picker.Item label="Sports" value="Sports" />
-                    <Picker.Item label="Outdoor" value="Outdoor" />
-                    <Picker.Item label="Indoor" value="Indoor" />
-                    <Picker.Item label="Music" value="Music" />
-                    <Picker.Item label="Classes" value="Classes" />
-                    <Picker.Item label="Travel" value="Travel" />
-                    <Picker.Item label="Social" value="Social" />
-                    <Picker.Item label="Others" value="Others" />
-                </Picker>
                 <Input
                     value={price}
                     label="Price"
@@ -62,17 +43,46 @@ class AddDeal extends Component{
                     label="Location"
                     placeholder="EX - 123 Pizza St"
                     onChangeText={text => this.props.changeDealInfor({ prop: 'location', value: text})} />
-                <Picker
-                    selectedValue={city}
-                    onValueChange={text => this.props.changeDealInfor({ prop: 'city', value: text})}
-                >
-                    <Picker.Item label="City" value="" />
-                    <Picker.Item label="Manhattan" value="Manhattan" />
-                    <Picker.Item label="Queens" value="Queens" />
-                    <Picker.Item label="Bronx" value="Bronx" />
-                    <Picker.Item label="Brooklyn" value="Brooklyn" />
-                    <Picker.Item label="Staten Island" value="Staten Island" />
-                </Picker>
+                
+                <View style={picker__container}>
+                    <View style={picker__subContainer}>
+                        <Text style={picker__label}>Category</Text>
+                        <Picker
+                            selectedValue={category}
+                            onValueChange={text => this.props.changeDealInfor({ prop: 'category', value: text})}
+                        >
+                            <Picker.Item label="Category" value="" />
+                            <Picker.Item label="Food" value="Food" />
+                            <Picker.Item label="Drinks" value="Drinks" />
+                            <Picker.Item label="Activities" value="Activities" />
+                            <Picker.Item label="Events" value="Events" />
+                            <Picker.Item label="Arts" value="Arts" />
+                            <Picker.Item label="Sports" value="Sports" />
+                            <Picker.Item label="Outdoor" value="Outdoor" />
+                            <Picker.Item label="Indoor" value="Indoor" />
+                            <Picker.Item label="Music" value="Music" />
+                            <Picker.Item label="Classes" value="Classes" />
+                            <Picker.Item label="Travel" value="Travel" />
+                            <Picker.Item label="Social" value="Social" />
+                            <Picker.Item label="Others" value="Others" />
+                        </Picker>
+                    </View>
+                    <View style={picker__subContainer}>
+                        <Text style={picker__label}>City</Text>
+                        <Picker
+                            selectedValue={city}
+                            onValueChange={text => this.props.changeDealInfor({ prop: 'city', value: text})}
+                        >
+                            <Picker.Item label="City" value="" />
+                            <Picker.Item label="Manhattan" value="Manhattan" />
+                            <Picker.Item label="Queens" value="Queens" />
+                            <Picker.Item label="Bronx" value="Bronx" />
+                            <Picker.Item label="Brooklyn" value="Brooklyn" />
+                            <Picker.Item label="Staten Island" value="Staten Island" />
+                        </Picker>
+                    </View>
+                </View>
+
                 <Input
                     value={description}
                     label="Description"
@@ -121,6 +131,19 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginHorizontal: 5
     },
+    picker__label:{
+        fontSize: 18,
+        paddingLeft: 5,
+        marginTop: 10,
+        textAlign: "center"
+    },
+    picker__container:{
+        flexDirection: "row",
+        justifyContent: "space-between"
+    },
+    picker__subContainer:{
+        width: "50%"
+    }
 })
 
 export default connect(mapStateToProps, { changeDealInfor, createNewDeal })(AddDeal);
