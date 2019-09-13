@@ -3,6 +3,7 @@ import { View, Text, Modal, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import Input from './common/Input';
+import AreaInput from './common/AreaInput';
 import Spinner from './common/Spinner';
 import ButtonGroup from './common/ButtonGroup';
 import { changeReviewText, changeReviewRating, addReview, clearReviewInputs } from '../actions/ReviewActions';
@@ -49,7 +50,7 @@ class AddReview extends Component{
                 <View style={addReview}>
                     <View style={addReview__Area}>
                         <Text style={addReview__title}>Add Review</Text>
-                        <Input
+                        <AreaInput
                             label="Text"
                             value={this.props.text}
                             placeholder="Comment..."

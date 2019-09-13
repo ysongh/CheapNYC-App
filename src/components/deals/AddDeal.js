@@ -3,6 +3,7 @@ import { ScrollView, View, Text, Picker, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import Input from '../common/Input';
+import AreaInput from '../common/AreaInput';
 import Button from '../common/Button';
 import { changeDealInfor, createNewDeal } from '../../actions/DealFormActions';
 
@@ -84,11 +85,6 @@ class AddDeal extends Component{
                 </View>
 
                 <Input
-                    value={description}
-                    label="Description"
-                    placeholder="EX - This is a yummy pizza"
-                    onChangeText={text => this.props.changeDealInfor({ prop: 'description', value: text})} />
-                <Input
                     value={company}
                     label="Company"
                     placeholder="EX - Pizza Store"
@@ -99,6 +95,11 @@ class AddDeal extends Component{
                     placeholder="EX - 30"
                     keyboardType="numeric"
                     onChangeText={text => this.props.changeDealInfor({ prop: 'duration', value: text})} />
+                <AreaInput
+                    value={description}
+                    label="Description"
+                    placeholder="EX - This is a yummy pizza"
+                    onChangeText={text => this.props.changeDealInfor({ prop: 'description', value: text})} />
                 <Button
                     buttonStyle={addDeal__button}
                     value="Create Deal"

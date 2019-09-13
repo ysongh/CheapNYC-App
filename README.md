@@ -10,6 +10,7 @@ Using React Native
 - setState is asynchronous
 - use react-native-image-picker to upload an image
 - use Picker for select element
+- multiline and numberOfLines allow text input to have multiple lines
 
 ### What I Did?
 
