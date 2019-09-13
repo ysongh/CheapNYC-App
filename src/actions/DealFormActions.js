@@ -1,6 +1,7 @@
 import { Actions } from 'react-native-router-flux';
 import {
-    CHANGE_DEALINFO
+    CHANGE_DEALINFO,
+    DEALFORM_ERROR
 } from './types';
 
 export const changeDealInfor = ({ prop, value }) => {
@@ -38,7 +39,10 @@ export const createNewDeal = (dealData, token) => {
                 Actions.main()({userId: userIdProfile});
             }
             else{
-                console.log(data);
+                dispatch({
+                    type: DEALFORM_ERROR,
+                    payload: data
+                })
             }
             
         })

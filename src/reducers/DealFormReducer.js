@@ -1,5 +1,6 @@
 import {
-    CHANGE_DEALINFO
+    CHANGE_DEALINFO,
+    DEALFORM_ERROR
 } from '../actions/types';
 
 const initialState = {
@@ -10,7 +11,8 @@ const initialState = {
     city: "",
     description: "",
     company: "",
-    duration: ""
+    duration: "",
+    error: ""
 }
 
 export default (state = initialState, action) => {
@@ -19,7 +21,12 @@ export default (state = initialState, action) => {
             return{
                 ...state,
                 [action.payload.prop]: action.payload.value
-            }
+            };
+        case DEALFORM_ERROR:
+            return{
+                ...state,
+                error: action.payload
+            };
         default:
             return state;
     }

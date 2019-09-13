@@ -23,8 +23,8 @@ class AddDeal extends Component{
     };
 
     render(){
-        const { name, category, price, location, city, description, company, duration } = this.props;
-        const { addDeal__button, picker__container, picker__subContainer, picker__label } = styles;
+        const { name, category, price, location, city, description, company, duration, error } = this.props;
+        const { addDeal__button, picker__container, picker__subContainer, picker__label, errorMessage } = styles;
 
         return(
             <ScrollView>
@@ -33,17 +33,22 @@ class AddDeal extends Component{
                     label="Name"
                     placeholder="EX - Pizza"
                     onChangeText={text => this.props.changeDealInfor({ prop: 'name', value: text})} />
+                <Text style={errorMessage}>{error.name}</Text>
+
                 <Input
                     value={price}
                     label="Price"
                     placeholder="EX - 1.99"
                     keyboardType="numeric"
                     onChangeText={text => this.props.changeDealInfor({ prop: 'price', value: text})} />
+                <Text style={errorMessage}>{error.price}</Text>
+
                 <Input
                     value={location}
                     label="Location"
                     placeholder="EX - 123 Pizza St"
                     onChangeText={text => this.props.changeDealInfor({ prop: 'location', value: text})} />
+                <Text style={errorMessage}>{error.location}</Text>
                 
                 <View style={picker__container}>
                     <View style={picker__subContainer}>
@@ -67,6 +72,7 @@ class AddDeal extends Component{
                             <Picker.Item label="Social" value="Social" />
                             <Picker.Item label="Others" value="Others" />
                         </Picker>
+                        <Text style={errorMessage}>{error.category}</Text>
                     </View>
                     <View style={picker__subContainer}>
                         <Text style={picker__label}>City</Text>
@@ -81,6 +87,7 @@ class AddDeal extends Component{
                             <Picker.Item label="Brooklyn" value="Brooklyn" />
                             <Picker.Item label="Staten Island" value="Staten Island" />
                         </Picker>
+                        <Text style={errorMessage}>{error.city}</Text>
                     </View>
                 </View>
 
@@ -89,17 +96,22 @@ class AddDeal extends Component{
                     label="Company"
                     placeholder="EX - Pizza Store"
                     onChangeText={text => this.props.changeDealInfor({ prop: 'company', value: text})} />
+                <Text style={errorMessage}>{error.company}</Text>
+
+                <AreaInput
+                    value={description}
+                    label="Description"
+                    placeholder="EX - This is a yummy pizza"
+                    onChangeText={text => this.props.changeDealInfor({ prop: 'description', value: text})} />
+                <Text style={errorMessage}>{error.description}</Text>
+
                 <Input
                     value={duration}
                     label="Duration"
                     placeholder="EX - 30"
                     keyboardType="numeric"
                     onChangeText={text => this.props.changeDealInfor({ prop: 'duration', value: text})} />
-                <AreaInput
-                    value={description}
-                    label="Description"
-                    placeholder="EX - This is a yummy pizza"
-                    onChangeText={text => this.props.changeDealInfor({ prop: 'description', value: text})} />
+                
                 <Button
                     buttonStyle={addDeal__button}
                     value="Create Deal"
@@ -109,20 +121,6 @@ class AddDeal extends Component{
     };
 };
 
-const mapStateToProps = state => {
-    return{
-        name: state.dealForm.name,
-        category: state.dealForm.category,
-        price: state.dealForm.price,
-        location: state.dealForm.location,
-        city: state.dealForm.city,
-        description: state.dealForm.description,
-        company: state.dealForm.company,
-        duration: state.dealForm.duration,
-        token: state.auth.token,
-    }
-}
-
 const styles = StyleSheet.create({
     addDeal__button:{
         justifyContent: "center",
@@ -130,7 +128,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         paddingVertical: 15,
         marginTop: 20,
-        marginHorizontal: 5
+        marginHorizontal: 5,
+        marginBottom: 50
     },
     picker__label:{
         fontSize: 18,
@@ -144,7 +143,27 @@ const styles = StyleSheet.create({
     },
     picker__subContainer:{
         width: "50%"
+    },
+    errorMessage:{
+        marginLeft: 5,
+        fontSize: 15,
+        color: 'red'
+    },
+});
+
+const mapStateToProps = state => {
+    return{
+        name: state.dealForm.name,
+        category: state.dealForm.category,
+        price: state.dealForm.price,
+        location: state.dealForm.location,
+        city: state.dealForm.city,
+        description: state.dealForm.description,
+        company: state.dealForm.company,
+        duration: state.dealForm.duration,
+        token: state.auth.token,
+        error: state.dealForm.error
     }
-})
+}
 
 export default connect(mapStateToProps, { changeDealInfor, createNewDeal })(AddDeal);
