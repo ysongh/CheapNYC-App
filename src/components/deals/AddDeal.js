@@ -5,9 +5,13 @@ import { connect } from 'react-redux';
 import Input from '../common/Input';
 import AreaInput from '../common/AreaInput';
 import Button from '../common/Button';
-import { changeDealInfor, createNewDeal } from '../../actions/DealFormActions';
+import { changeDealInfor, createNewDeal, clearDealFormInputs } from '../../actions/DealFormActions';
 
 class AddDeal extends Component{
+    componentDidMount(){
+        this.props.clearDealFormInputs();
+    }
+
     addDeal(name, category, price, location, city, description, company, duration){
         const dealData = {
             name: name,
@@ -166,4 +170,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { changeDealInfor, createNewDeal })(AddDeal);
+export default connect(mapStateToProps, { changeDealInfor, createNewDeal, clearDealFormInputs })(AddDeal);

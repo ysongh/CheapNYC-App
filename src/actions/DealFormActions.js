@@ -1,7 +1,8 @@
 import { Actions } from 'react-native-router-flux';
 import {
     CHANGE_DEALINFO,
-    DEALFORM_ERROR
+    DEALFORM_ERROR,
+    CLEAR_DEALFORM_INPUTS
 } from './types';
 
 export const changeDealInfor = ({ prop, value }) => {
@@ -51,3 +52,9 @@ export const createNewDeal = (dealData, token) => {
         });
     };
 };
+
+export const clearDealFormInputs = () => {
+    return{
+        type: CLEAR_DEALFORM_INPUTS
+    }
+}

@@ -1,6 +1,7 @@
 import {
     CHANGE_DEALINFO,
-    DEALFORM_ERROR
+    DEALFORM_ERROR,
+    CLEAR_DEALFORM_INPUTS
 } from '../actions/types';
 
 const initialState = {
@@ -27,6 +28,19 @@ export default (state = initialState, action) => {
                 ...state,
                 error: action.payload
             };
+        case CLEAR_DEALFORM_INPUTS:
+            return{
+                ...state,
+                name: "",
+                category: "",
+                price: "",
+                location: "",
+                city: "",
+                description: "",
+                company: "",
+                duration: "",
+                error: ""
+            }
         default:
             return state;
     }
