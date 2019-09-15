@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, Picker, StyleSheet } from 'react-native';
+import ImagePicker from 'react-native-image-picker';
+import { ScrollView, View, Text, Picker, Image, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import Input from '../common/Input';
@@ -7,7 +8,17 @@ import AreaInput from '../common/AreaInput';
 import Button from '../common/Button';
 import { changeDealInfor, createNewDeal, clearDealFormInputs } from '../../actions/DealFormActions';
 
+const options = {
+    title: 'Upload an Image',
+    chooseFromLibraryButtonTitle: 'Choose image from your phone',
+    takePhotoButtonTitle: "Take a photo with your phone"
+};
+
 class AddDeal extends Component{
+    state = {
+        imageSource: "",
+        imageData: "",
+    }
     componentDidMount(){
         this.props.clearDealFormInputs();
     }
@@ -26,9 +37,28 @@ class AddDeal extends Component{
         this.props.createNewDeal(dealData, this.props.token);
     };
 
+    selectImage(){
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+          
+            if (response.didCancel) {
+              console.log('User cancelled image picker');
+            } else if (response.error) {
+              console.log('ImagePicker Error: ', response.error);
+            } else {
+              const source = { uri: response.uri };
+          
+              this.setState({
+                imageSource: source,
+                imageData: response.data
+              });
+            }
+          });
+    }
+
     render(){
         const { name, category, price, location, city, description, company, duration, error } = this.props;
-        const { addDeal__button, picker__container, picker__subContainer, picker__label, errorMessage } = styles;
+        const { addDeal__button, picker__container, picker__subContainer, picker__label, errorMessage, user__image, uploadImage__button } = styles;
 
         return(
             <ScrollView>
@@ -109,6 +139,12 @@ class AddDeal extends Component{
                     onChangeText={text => this.props.changeDealInfor({ prop: 'description', value: text})} />
                 <Text style={errorMessage}>{error.description}</Text>
 
+                <Button
+                    buttonStyle={uploadImage__button}
+                    value="Select Image"
+                    onPress={() => this.selectImage()} />
+                { this.state.imageSource ? <Image source={this.state.imageSource} style={user__image}/> : null }
+
                 <Input
                     value={duration}
                     label="Duration"
@@ -152,6 +188,22 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         fontSize: 15,
         color: 'red'
+    },
+    user__image:{
+        width: 250,
+        height: 200,
+        alignSelf: "center",
+        marginBottom: 5,
+        borderRadius: 20
+    },
+    uploadImage__button:{
+        backgroundColor: "#c7c5c1",
+        width: 100,
+        borderRadius: 5,
+        paddingVertical: 15,
+        marginTop: 20,
+        marginLeft: 5,
+        marginBottom: 20
     },
 });
 
