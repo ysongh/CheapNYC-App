@@ -34,7 +34,7 @@ class AddDeal extends Component{
             company: company,
             duration: duration
         }
-        this.props.createNewDeal(dealData, this.props.token);
+        this.props.createNewDeal(dealData, this.props.token, this.state.imageData);
     };
 
     selectImage(){

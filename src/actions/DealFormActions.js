@@ -1,4 +1,6 @@
+import RNFetchBlob from 'react-native-fetch-blob';
 import { Actions } from 'react-native-router-flux';
+
 import {
     CHANGE_DEALINFO,
     DEALFORM_ERROR,
@@ -12,32 +14,31 @@ export const changeDealInfor = ({ prop, value }) => {
     };
 };
 
-export const createNewDeal = (dealData, token) => {
+export const createNewDeal = (dealData, token, imageData) => {
     return dispatch => {
         const url = "https://cnycserver.herokuapp.com/items";
-        fetch(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                name: dealData.name,
-                category: dealData.category,
-                price: dealData.price,
-                location: dealData.location,
-                city: dealData.city,
-                description: dealData.description,
-                company: dealData.company,
-                duration: dealData.duration
-            }),
-            headers: {
-              'Authorization': token,
-              'Content-Type': 'application/json'
-            }
-        })
+        
+        RNFetchBlob.fetch('POST', url, {
+            "Authorization": token,
+            otherHeader : "foo",
+            "Content-Type" : "multipart/form-data",
+        }, [
+            { name: "image", filename: "image.png", type:"image/png", data: imageData },
+            { name: "name", data: dealData.name },
+            { name: "category", data: dealData.category },
+            { name: "price", data: dealData.price },
+            { name: "location", data: dealData.location },
+            { name: "city", data: dealData.city },
+            { name: "description", data: dealData.description },
+            { name: "company", data: dealData.company },
+            { name: "duration", data: dealData.duration }
+        ])
         .then(res => {
             return res.json();
         })
         .then(data => {
             if(data.msg){
-                Actions.main()({userId: userIdProfile});
+                Actions.main();
             }
             else{
                 dispatch({
