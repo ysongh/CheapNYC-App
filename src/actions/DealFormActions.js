@@ -17,13 +17,7 @@ export const changeDealInfor = ({ prop, value }) => {
 export const createNewDeal = (dealData, token, imageData) => {
     return dispatch => {
         const url = "https://cnycserver.herokuapp.com/items";
-        
-        RNFetchBlob.fetch('POST', url, {
-            "Authorization": token,
-            otherHeader : "foo",
-            "Content-Type" : "multipart/form-data",
-        }, [
-            { name: "image", filename: "image.png", type:"image/png", data: imageData },
+        const dataList = [
             { name: "name", data: dealData.name },
             { name: "category", data: dealData.category },
             { name: "price", data: dealData.price },
@@ -32,7 +26,17 @@ export const createNewDeal = (dealData, token, imageData) => {
             { name: "description", data: dealData.description },
             { name: "company", data: dealData.company },
             { name: "duration", data: dealData.duration }
-        ])
+        ];
+
+        if(imageData){
+            dataList.push({ name: "image", filename: "image.png", type:"image/png", data: imageData });
+        };
+        
+        RNFetchBlob.fetch('POST', url, {
+            "Authorization": token,
+            otherHeader : "foo",
+            "Content-Type" : "multipart/form-data",
+        }, dataList)
         .then(res => {
             return res.json();
         })
