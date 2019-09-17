@@ -4,7 +4,8 @@ import { Actions } from 'react-native-router-flux';
 import {
     CHANGE_DEALINFO,
     DEALFORM_ERROR,
-    CLEAR_DEALFORM_INPUTS
+    CLEAR_DEALFORM_INPUTS,
+    SET_DEALFORM_LOADING
 } from './types';
 
 export const changeDealInfor = ({ prop, value }) => {
@@ -16,6 +17,8 @@ export const changeDealInfor = ({ prop, value }) => {
 
 export const createNewDeal = (dealData, token, imageData) => {
     return dispatch => {
+        dispatch(setDealFormLoading());
+
         const url = "https://cnycserver.herokuapp.com/items";
         const dataList = [
             { name: "name", data: dealData.name },
@@ -50,10 +53,12 @@ export const createNewDeal = (dealData, token, imageData) => {
                     payload: data
                 })
             }
-            
         })
         .catch(err => {
-            console.log(err);
+            dispatch({
+                type: DEALFORM_ERROR,
+                payload: {"error": "Something went wrong"}
+            })
         });
     };
 };
@@ -61,5 +66,11 @@ export const createNewDeal = (dealData, token, imageData) => {
 export const clearDealFormInputs = () => {
     return{
         type: CLEAR_DEALFORM_INPUTS
+    }
+}
+
+const setDealFormLoading = () => {
+    return{
+        type: SET_DEALFORM_LOADING
     }
 }

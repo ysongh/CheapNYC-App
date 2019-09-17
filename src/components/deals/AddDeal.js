@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import Input from '../common/Input';
 import AreaInput from '../common/AreaInput';
 import Button from '../common/Button';
+import Spinner from '../common/Spinner';
 import { changeDealInfor, createNewDeal, clearDealFormInputs } from '../../actions/DealFormActions';
 
 const options = {
@@ -57,7 +58,7 @@ class AddDeal extends Component{
     }
 
     render(){
-        const { name, category, price, location, city, description, company, duration, error } = this.props;
+        const { name, category, price, location, city, description, company, duration, error, loading } = this.props;
         const { addDeal__button, picker__container, picker__subContainer, picker__label, errorMessage, user__image, uploadImage__button } = styles;
 
         return(
@@ -152,10 +153,12 @@ class AddDeal extends Component{
                     keyboardType="numeric"
                     onChangeText={text => this.props.changeDealInfor({ prop: 'duration', value: text})} />
                 
-                <Button
-                    buttonStyle={addDeal__button}
-                    value="Create Deal"
-                    onPress={() => this.addDeal(name, category, price, location, city, description, company, duration)} />
+                { loading ? <Spinner /> : 
+                    <Button
+                        buttonStyle={addDeal__button}
+                        value="Create Deal"
+                        onPress={() => this.addDeal(name, category, price, location, city, description, company, duration)} />
+                }
             </ScrollView>
         );
     };
@@ -218,7 +221,8 @@ const mapStateToProps = state => {
         company: state.dealForm.company,
         duration: state.dealForm.duration,
         token: state.auth.token,
-        error: state.dealForm.error
+        error: state.dealForm.error,
+        loading: state.dealForm.loading
     }
 }
 

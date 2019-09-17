@@ -1,7 +1,8 @@
 import {
     CHANGE_DEALINFO,
     DEALFORM_ERROR,
-    CLEAR_DEALFORM_INPUTS
+    CLEAR_DEALFORM_INPUTS,
+    SET_DEALFORM_LOADING
 } from '../actions/types';
 
 const initialState = {
@@ -13,7 +14,8 @@ const initialState = {
     description: "",
     company: "",
     duration: "",
-    error: ""
+    error: "",
+    loading: false
 }
 
 export default (state = initialState, action) => {
@@ -26,7 +28,8 @@ export default (state = initialState, action) => {
         case DEALFORM_ERROR:
             return{
                 ...state,
-                error: action.payload
+                error: action.payload,
+                loading: false
             };
         case CLEAR_DEALFORM_INPUTS:
             return{
@@ -39,7 +42,13 @@ export default (state = initialState, action) => {
                 description: "",
                 company: "",
                 duration: "",
-                error: ""
+                error: "",
+                loading: false
+            }
+        case SET_DEALFORM_LOADING:
+            return{
+                ...state,
+                loading: true
             }
         default:
             return state;
