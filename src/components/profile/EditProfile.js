@@ -26,7 +26,8 @@ class EditProfile extends Component{
                     ],
         imageSource: "",
         imageData: "",
-        navbarType: "UserInformation"
+        navbarType: "UserInformation",
+        selectImageLoading: false
     }
     componentDidMount(){
         let userInterest = this.props.userInterest.split(", ");
@@ -72,22 +73,27 @@ class EditProfile extends Component{
     }
 
     selectImage(){
+        this.setState({
+            selectImageLoading: true
+        });
+
         ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response = ', response);
-          
             if (response.didCancel) {
-              console.log('User cancelled image picker');
+                console.log('User cancelled image picker');
             } else if (response.error) {
-              console.log('ImagePicker Error: ', response.error);
+                console.log('ImagePicker Error: ', response.error);
             } else {
-              const source = { uri: response.uri };
+                const source = { uri: response.uri };
           
-              this.setState({
-                imageSource: source,
-                imageData: response.data
-              });
+                this.setState({
+                    imageSource: source,
+                    imageData: response.data
+                });
             }
-          });
+            this.setState({
+                selectImageLoading: false
+            });
+        });
     }
 
     changeImage(){
@@ -147,7 +153,9 @@ class EditProfile extends Component{
 
         const userImagePart = (
             <View>
-                <Image source={this.state.imageSource ? this.state.imageSource : defaultUserImage} style={user__image}/>
+                { this.state.selectImageLoading ? <Spinner /> : 
+                    <Image source={this.state.imageSource ? this.state.imageSource : defaultUserImage} style={user__image}/>
+                }
                 { this.props.imageLoading ? <Spinner /> : imageButtons }
             </View>
         );

@@ -19,6 +19,7 @@ class AddDeal extends Component{
     state = {
         imageSource: "",
         imageData: "",
+        selectImageLoading: false
     }
     componentDidMount(){
         this.props.clearDealFormInputs();
@@ -39,22 +40,27 @@ class AddDeal extends Component{
     };
 
     selectImage(){
+        this.setState({
+            selectImageLoading: true
+        });
+
         ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response = ', response);
-          
             if (response.didCancel) {
-              console.log('User cancelled image picker');
+                console.log('User cancelled image picker');
             } else if (response.error) {
-              console.log('ImagePicker Error: ', response.error);
+                console.log('ImagePicker Error: ', response.error);
             } else {
-              const source = { uri: response.uri };
+                const source = { uri: response.uri };
           
-              this.setState({
-                imageSource: source,
-                imageData: response.data
-              });
+                this.setState({
+                    imageSource: source,
+                    imageData: response.data
+                });
             }
-          });
+            this.setState({
+                selectImageLoading: false
+            });
+        });
     }
 
     render(){
@@ -144,7 +150,9 @@ class AddDeal extends Component{
                     buttonStyle={uploadImage__button}
                     value="Select Image"
                     onPress={() => this.selectImage()} />
+                { this.state.selectImageLoading ? <Spinner /> : null }
                 { this.state.imageSource ? <Image source={this.state.imageSource} style={user__image}/> : null }
+                
 
                 <Input
                     value={duration}
@@ -153,6 +161,7 @@ class AddDeal extends Component{
                     keyboardType="numeric"
                     onChangeText={text => this.props.changeDealInfor({ prop: 'duration', value: text})} />
                 
+                <Text style={errorMessage}>{error.error}</Text>
                 { loading ? <Spinner /> : 
                     <Button
                         buttonStyle={addDeal__button}
