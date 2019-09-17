@@ -30,18 +30,20 @@ class EditProfile extends Component{
         selectImageLoading: false
     }
     componentDidMount(){
-        let userInterest = this.props.userInterest.split(", ");
-        let newOptions = this.state.interestOptions;
+        if(this.props.userInterest){
+            let userInterest = this.props.userInterest.split(", ");
+            let newOptions = this.state.interestOptions;
 
-        for(let interestName of userInterest){
-            newOptions.forEach(interest => {
-                if(interest.name === interestName){
-                    interest.isCheck = true;
-                }
-            })
-        };
-        
-        this.setState({ interestOptions: newOptions });
+            for(let interestName of userInterest){
+                newOptions.forEach(interest => {
+                    if(interest.name === interestName){
+                        interest.isCheck = true;
+                    }
+                })
+            };
+            
+            this.setState({ interestOptions: newOptions });
+        }
     }
 
     changeName(text){
