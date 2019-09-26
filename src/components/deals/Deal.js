@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MapView from 'react-native-maps';
 import { Text, View, Image, ScrollView, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -39,7 +40,7 @@ class Deal extends Component{
       this.props.closeAddReviewModal();
     }
   render() {
-    const {deal, deal__title, deal__image, deal__name, deal__button} = styles;
+    const {deal, deal__title, deal__image, deal__name, deal__button, map} = styles;
     const dealImage = this.props.deal.image;
 
     const dealContent = (
@@ -51,6 +52,15 @@ class Deal extends Component{
         <Text style={deal__name}><Bold>Catergory:</Bold> {this.props.deal.category}</Text>
         <Text style={deal__name}><Bold>Price:</Bold> ${this.props.deal.price !== 0 ? this.props.deal.price : "Free"}</Text>
         <Text style={deal__name}><Bold>Description:</Bold> {this.props.deal.description}</Text>
+        <MapView
+          style={map}
+          initialRegion={{
+            latitude: 40.7478,
+            longitude: -73.9560,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
       </View>
     );
 
@@ -120,6 +130,9 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: 'space-around',
     marginLeft: 5
+  },
+  map:{
+    height: 200
   }
 });
 
