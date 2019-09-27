@@ -12,15 +12,6 @@ import Spinner from '../common/Spinner';
 import { getDealById } from '../../actions/DealActions';
 import { openAddReviewModal, closeAddReviewModal } from '../../actions/ReviewActions';
 
-var markers = [
-  {
-    latitude: 40.7478,
-    longitude: -73.9560,
-    title: 'Foo Place',
-    subtitle: '1234 Foo Drive'
-  }
-];
-
 class Deal extends Component{
     componentDidMount() {
         this.props.getDealById(this.props.dealID);
@@ -49,34 +40,34 @@ class Deal extends Component{
       this.props.closeAddReviewModal();
     }
   render() {
-    const {deal, deal__title, deal__image, deal__name, deal__button, map} = styles;
-    const dealImage = this.props.deal.image;
+    const { deal, deal__title, deal__image, deal__name, deal__button, map } = styles;
+    const { name, company, location, category, price, description, latitude, longitude, image } = this.props.deal;
 
     const dealContent = (
       <View style={deal}>
-        <Text style={deal__title}>{this.props.deal.name}</Text>
-        <Image source={dealImage ? {uri: dealImage} : noImage} style={deal__image}/>
-        <Text style={deal__name}><Bold>Company Name:</Bold> {this.props.deal.company}</Text>
-        <Text style={deal__name}><Bold>Location:</Bold> {this.props.deal.location}</Text>
-        <Text style={deal__name}><Bold>Catergory:</Bold> {this.props.deal.category}</Text>
-        <Text style={deal__name}><Bold>Price:</Bold> ${this.props.deal.price !== 0 ? this.props.deal.price : "Free"}</Text>
-        <Text style={deal__name}><Bold>Description:</Bold> {this.props.deal.description}</Text>
+        <Text style={deal__title}>{name}</Text>
+        <Image source={image ? {uri: image} : noImage} style={deal__image}/>
+        <Text style={deal__name}><Bold>Company Name:</Bold> {company}</Text>
+        <Text style={deal__name}><Bold>Location:</Bold> {location}</Text>
+        <Text style={deal__name}><Bold>Catergory:</Bold> {category}</Text>
+        <Text style={deal__name}><Bold>Price:</Bold> ${price !== 0 ? price : "Free"}</Text>
+        <Text style={deal__name}><Bold>Description:</Bold> {description}</Text>
         <MapView
           style={map}
           initialRegion={{
-            latitude: this.props.deal.latitude || 40.7478,
-            longitude: this.props.deal.longitude || -73.9560,
+            latitude: latitude || 40.7478,
+            longitude: longitude || -73.9560,
             latitudeDelta: 0.0052,
             longitudeDelta: 0.0042,
           }}
         >
           <MapView.Marker
             coordinate={{
-              latitude: this.props.deal.latitude || 40.7478,
-              longitude: this.props.deal.longitude || -73.9560,
+              latitude: latitude || 40.7478,
+              longitude: longitude || -73.9560,
             }}
-            title={ this.props.deal.company }
-            description={ this.props.deal.location }
+            title={ company }
+            description={ location }
          />
         </MapView>
       </View>
@@ -150,7 +141,7 @@ const styles = StyleSheet.create({
     marginLeft: 5
   },
   map:{
-    height: 200
+    height: 280
   }
 });
 
