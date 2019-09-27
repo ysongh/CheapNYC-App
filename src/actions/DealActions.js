@@ -2,7 +2,8 @@ import {
     GET_DEALS,
     GET_DEAL_BY_ID,
     GET_MORE_DEALS,
-    CHANGE_FILTER_TYPE
+    CHANGE_FILTER_TYPE,
+    SET_DEAL_LOADING
 } from './types';
 
 export const getDeals = filterType => {
@@ -28,6 +29,8 @@ export const getDeals = filterType => {
 
 export const getDealById = dealID => {
     return dispatch => {
+        dispatch(setDealLoading());
+
         const url = "https://cnycserver.herokuapp.com/items/" + dealID;
         fetch(url)
             .then(res => {
@@ -93,5 +96,11 @@ const changeFilterType = filterType => {
     return{
         type: CHANGE_FILTER_TYPE,
         payload: filterType
+    }
+}
+
+const setDealLoading = () => {
+    return{
+        type: SET_DEAL_LOADING
     }
 }

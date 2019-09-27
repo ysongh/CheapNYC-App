@@ -1,7 +1,8 @@
 import {
     GET_DEAL_BY_ID,
     OPEN_ADDREVIEW_MODAL,
-    CLOSE_ADDREVIEW_MODAL
+    CLOSE_ADDREVIEW_MODAL,
+    SET_DEAL_LOADING
 } from '../actions/types';
 
 const initialState = {
@@ -27,6 +28,11 @@ export default (state = initialState, action) => {
             return{
                 ...state,
                 showAddReviewModal: false
+            }
+        case SET_DEAL_LOADING:
+            return{
+                ...state,
+                loading: true
             }
         default:
             return state;
