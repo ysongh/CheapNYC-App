@@ -8,6 +8,8 @@ Using React Native
 - run "react-native link react-native-maps" to use Apple Maps
 
 ### What I Learned?
-- add map
+- use MapView component API to display the map
+- use Marker component API to add a pin on the map
 
 ### What I Did?
+- add a map for each deal

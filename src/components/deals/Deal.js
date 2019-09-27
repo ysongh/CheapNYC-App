@@ -12,6 +12,15 @@ import Spinner from '../common/Spinner';
 import { getDealById } from '../../actions/DealActions';
 import { openAddReviewModal, closeAddReviewModal } from '../../actions/ReviewActions';
 
+var markers = [
+  {
+    latitude: 40.7478,
+    longitude: -73.9560,
+    title: 'Foo Place',
+    subtitle: '1234 Foo Drive'
+  }
+];
+
 class Deal extends Component{
     componentDidMount() {
         this.props.getDealById(this.props.dealID);
@@ -55,12 +64,21 @@ class Deal extends Component{
         <MapView
           style={map}
           initialRegion={{
-            latitude: 40.7478,
-            longitude: -73.9560,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
+            latitude: this.props.deal.latitude || 40.7478,
+            longitude: this.props.deal.longitude || -73.9560,
+            latitudeDelta: 0.0052,
+            longitudeDelta: 0.0042,
           }}
-        />
+        >
+          <MapView.Marker
+            coordinate={{
+              latitude: this.props.deal.latitude || 40.7478,
+              longitude: this.props.deal.longitude || -73.9560,
+            }}
+            title={ this.props.deal.company }
+            description={ this.props.deal.location }
+         />
+        </MapView>
       </View>
     );
 
