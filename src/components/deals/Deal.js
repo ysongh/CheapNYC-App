@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import MapView from 'react-native-maps';
 import { Text, View, Image, ScrollView, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
 import AddReview from '../AddReview';
 import noImage from '../../img/blue.jpeg';
+import Map from '../common/Map';
 import Bold from '../common/Bold';
 import Hyperlink from '../common/Hyperlink';
 import Spinner from '../common/Spinner';
@@ -52,24 +52,11 @@ class Deal extends Component{
         <Text style={deal__name}><Bold>Catergory:</Bold> {category}</Text>
         <Text style={deal__name}><Bold>Price:</Bold> ${price !== 0 ? price : "Free"}</Text>
         <Text style={deal__name}><Bold>Description:</Bold> {description}</Text>
-        <MapView
-          style={map}
-          initialRegion={{
-            latitude: latitude || 40.7478,
-            longitude: longitude || -73.9560,
-            latitudeDelta: 0.0052,
-            longitudeDelta: 0.0042,
-          }}
-        >
-          <MapView.Marker
-            coordinate={{
-              latitude: latitude || 40.7478,
-              longitude: longitude || -73.9560,
-            }}
-            title={ company }
-            description={ location }
-         />
-        </MapView>
+        <Map 
+          latitude={latitude}
+          longitude={longitude}
+          company={company}
+          location={location}/>
       </View>
     );
 
@@ -140,9 +127,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginLeft: 5
   },
-  map:{
-    height: 280
-  }
 });
 
 const mapStateToProps = state => {
