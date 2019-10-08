@@ -3,7 +3,7 @@ import { Text, View, Image, ScrollView, TouchableOpacity, FlatList, StyleSheet }
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
-import AddReview from '../AddReview';
+import AddReview from './AddReview';
 import noImage from '../../img/blue.jpeg';
 import Map from '../common/Map';
 import Bold from '../common/Bold';

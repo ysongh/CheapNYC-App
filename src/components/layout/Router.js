@@ -2,7 +2,7 @@ import React from 'react';
 import { Scene, Router } from 'react-native-router-flux';
 
 import Deals from '../deals/Deals';
-import Deal from '../deals/Deal';
+import Deal from '../deal/Deal';
 import Login from '../auth/Login';
 import Register from '../auth/Register';
 import UserProfile from '../profile/UserProfile';
