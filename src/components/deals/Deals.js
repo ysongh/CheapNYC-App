@@ -6,6 +6,7 @@ import SearchBar from '../common/SearchBar';
 import Spinner from '../common/Spinner';
 import Button from '../common/Button';
 import Dealslist from './DealsList';
+import DealsMap from './DealsMap';
 import { getDeals, getMoreDeals, getDealsByName } from '../../actions/DealActions';
 
 class Deals extends Component{
@@ -31,6 +32,10 @@ class Deals extends Component{
     const dealsList = (
         <Dealslist deals={this.props.deals}/>
     );
+
+    const dealsMap = (
+        <DealsMap deals={this.props.deals} />
+    )
     
     const loadButton = (
         <Button
@@ -47,7 +52,9 @@ class Deals extends Component{
             value={this.state.dealName}
             onChangeText = {dealName => this.setState({ dealName })}
             onEndEditing = {() => this.searchDealsByName()} />
+
           {this.props.deals.length !== 0 ? null : <Text style={deals__message}>No Deals Found</Text>}
+          {this.props.loading ? <Spinner /> : dealsMap}
           {this.props.loading ? <Spinner /> : dealsList}
           {this.props.currentPage - 1 >= this.props.totalDeals ? null : loadButton}    
       </ScrollView>
