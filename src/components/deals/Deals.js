@@ -1,17 +1,20 @@
 import React, {Component} from 'react';
-import { Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import SearchBar from '../common/SearchBar';
 import Spinner from '../common/Spinner';
 import Button from '../common/Button';
+import CheckBox from '../common/CheckBox';
 import Dealslist from './DealsList';
 import DealsMap from './DealsMap';
 import { getDeals, getMoreDeals, getDealsByName } from '../../actions/DealActions';
 
 class Deals extends Component{
     state = {
-        dealName: ''
+        dealName: '',
+        showList: true,
+        showMap: false
     };
 
     componentDidMount() {
@@ -25,17 +28,20 @@ class Deals extends Component{
     searchDealsByName(){
         this.props.getDealsByName(this.state.dealName, "byName");
     }
+
+    switchView(){
+        this.setState({
+            showList: !this.state.showList,
+            showMap: !this.state.showMap
+        });
+    }
     
   render() {
-    const { deals__loadMoreButton, deals__message } = styles;
+    const { deals__loadMoreButton, deals__message, deals__options } = styles;
 
-    const dealsList = (
-        <Dealslist deals={this.props.deals}/>
-    );
+    const dealsList = this.props.loading ? <Spinner /> : <Dealslist deals={this.props.deals} />;
 
-    const dealsMap = (
-        <DealsMap deals={this.props.deals} />
-    )
+    const dealsMap = this.props.loading ? <Spinner /> : <DealsMap deals={this.props.deals} />;
     
     const loadButton = (
         <Button
@@ -52,10 +58,19 @@ class Deals extends Component{
             value={this.state.dealName}
             onChangeText = {dealName => this.setState({ dealName })}
             onEndEditing = {() => this.searchDealsByName()} />
+          <View style={deals__options}>
+            <CheckBox
+                value="List"
+                isCheck={this.state.showList}
+                onPress={() => this.switchView()}/>
+            <CheckBox
+                value="Map"
+                isCheck={this.state.showMap}
+                onPress={() => this.switchView()}/>
+          </View>
 
           {this.props.deals.length !== 0 ? null : <Text style={deals__message}>No Deals Found</Text>}
-          {this.props.loading ? <Spinner /> : dealsMap}
-          {this.props.loading ? <Spinner /> : dealsList}
+          {this.state.showList ? dealsList : dealsMap}
           {this.props.currentPage - 1 >= this.props.totalDeals ? null : loadButton}    
       </ScrollView>
     );
@@ -75,6 +90,11 @@ const styles = StyleSheet.create({
         fontSize: 26,
         marginVertical: 20,
         color: '#db4670'
+    },
+    deals__options:{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center'
     }
 });
 

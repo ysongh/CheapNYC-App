@@ -5,6 +5,7 @@ const DealsMap = ({ deals }) => {
     const markers = deals.map(deal => {
         return (
             <MapView.Marker
+                key={deal._id}
                 coordinate={{
                     latitude: deal.latitude,
                     longitude: deal.longitude
