@@ -3,8 +3,15 @@ import { View, StyleSheet } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
-import Button from '../common/Button';
+import ButtonWithIcon from '../common/ButtonWithIcon';
 import { logoutUser } from '../../actions/AuthActions';
+
+import footerIcon1 from '../../img/footerIcon1.png';
+import footerIcon2 from '../../img/footerIcon2.png';
+import footerIcon3 from '../../img/footerIcon3.png';
+import footerIcon4 from '../../img/footerIcon4.png';
+import footerIcon5 from '../../img/footerIcon5.png';
+import footerIcon6 from '../../img/footerIcon6.png';
 
 class Footer extends Component{
     pressLogout(){
@@ -12,11 +19,10 @@ class Footer extends Component{
     }
 
     render(){
-        const {footer, footer__button} = styles;
-
+        const { footer } = styles;
         const DealsButton = (
-            <Button
-                buttonStyle={footer__button}
+            <ButtonWithIcon
+                icon={footerIcon1}
                 value="Deals"
                 onPress={() => Actions.main()} />
         );
@@ -24,12 +30,12 @@ class Footer extends Component{
         const guestButtons = (
             <View style={footer}>
                 {DealsButton}
-                <Button
-                    buttonStyle={footer__button}
+                <ButtonWithIcon
+                    icon={footerIcon2}
                     value="Register"
                     onPress={() => Actions.register()} />
-                <Button
-                    buttonStyle={footer__button}
+                <ButtonWithIcon
+                    icon={footerIcon3}
                     value="Login"
                     onPress={() => Actions.login()} />
             </View>
@@ -38,16 +44,16 @@ class Footer extends Component{
         const userButtons = (
             <View style={footer}>
                 {DealsButton}
-                <Button
-                    buttonStyle={footer__button}
+                <ButtonWithIcon
+                    icon={footerIcon4}
                     value="Profile"
                     onPress={() => Actions.yourProfile({userId: this.props.user.id})} />
-                <Button
-                    buttonStyle={footer__button}
+                <ButtonWithIcon
+                    icon={footerIcon5}
                     value="Add Deal"
                     onPress={() => Actions.addDeal()} />
-                <Button
-                    buttonStyle={footer__button}
+                <ButtonWithIcon
+                    icon={footerIcon6}
                     value="Logout"
                     onPress={() => this.pressLogout()} />
             </View>
@@ -65,12 +71,7 @@ const styles = StyleSheet.create({
     footer:{
         flexDirection: "row",
         justifyContent: 'space-around',
-    },
-    footer__button:{
-        backgroundColor: "#f0f2f5",
-        paddingHorizontal: 15,
-        paddingVertical: 20
-    }   
+    }
 });
 
 const mapStateToProps = state => {
