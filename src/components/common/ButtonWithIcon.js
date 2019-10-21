@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
     button__group:{
         display: "flex",
         alignItems: "center",
-        paddingVertical: 12,
     },
     button__label:{
         fontSize: 15
