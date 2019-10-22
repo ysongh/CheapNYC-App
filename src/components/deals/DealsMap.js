@@ -12,12 +12,12 @@ class DealsMap extends Component{
     };
 
     showDeal(deal){
-        this.setState({ dealData: deal})
-    }
+        this.setState({ dealData: deal});
+    };
 
     render(){
         const deals = this.props.deals;
-        const {deals__name, deals__rightSide, deals__container, deals__price, deals__button} = styles;
+        const {deals__name, deals__rightSide, deals__container, deals__price, deals__button, deals__text} = styles;
 
         const markers = deals.map(deal => {
             return (
@@ -31,6 +31,23 @@ class DealsMap extends Component{
             );
         });
 
+        const selectedDeal = (
+            <View style={deals__container}>
+                <View>
+                    <Image source={this.state.dealData.image ? {uri: this.state.dealData.image} : noImage} style={{width: 100, height: 100}}/>
+                </View>
+                <View style={deals__rightSide}>
+                    <Text style={deals__name}>{this.state.dealData.name}</Text>
+                    <Text style={deals__price}>${this.state.dealData.price === 0 ? "Free" : this.state.dealData.price}</Text>
+                    <Button
+                        buttonStyle={deals__button}
+                        textStyle={deals__name}
+                        value="See More"
+                        onPress={() => Actions.deal({dealID: this.state.dealData._id})} />
+                </View>
+            </View>
+        );
+
         return (
             <View>
                 <MapView
@@ -43,20 +60,8 @@ class DealsMap extends Component{
                     }} >
                         { markers }
                 </MapView>
-                <View style={deals__container}>
-                    <View>
-                        <Image source={this.state.dealData.image ? {uri: this.state.dealData.image} : noImage} style={{width: 100, height: 100}}/>
-                    </View>
-                    <View style={deals__rightSide}>
-                        <Text style={deals__name}>{this.state.dealData.name}</Text>
-                        <Text style={deals__price}>${this.state.dealData.price === 0 ? "Free" : this.state.dealData.price}</Text>
-                        <Button
-                            buttonStyle={deals__button}
-                            textStyle={deals__name}
-                            value="See More"
-                            onPress={() => Actions.deal({dealID: this.state.dealData._id})} />
-                    </View>
-                </View>
+                {this.state.dealData ? selectedDeal : 
+                    <Text style={deals__text}>Tap on the markers to find out the deal</Text>}
             </View>
         );
     };
@@ -85,6 +90,11 @@ const styles = StyleSheet.create({
     },
     deals__price:{
         fontSize: 20
+    },
+    deals__text:{
+        fontSize: 20,
+        textAlign: "center",
+        marginVertical: 30
     }
 });
 
