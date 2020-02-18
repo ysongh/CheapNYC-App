@@ -1,6 +1,5 @@
 # CheapNYC-App
-
-Using React Native
+A platform that helps people find accessible prices such as foods, events, and classes in NYC.
 
 ### Note
 - run "react-native link react-native-image-picker" to make the image picker work
@@ -13,3 +12,6 @@ Using React Native
 
 ### What I Did?
 - add a map for each deal
+
+### Preview
+![deals](https://res.cloudinary.com/ysongit/video/upload/c_scale,w_356/v1582003016/project/cheapapp_rubqfo.gif "Deals")
